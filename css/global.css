@@ -1,7 +1,11 @@
 :root {
-  --primary-color: #212529;
-  --secondary-color: #6c757d;
-  --text-color: #ffffff;
+  /* Custom color scheme */
+  --primary-bg: #1a1a1a; /* Dark background */
+  --secondary-bg: #2d2d2d; /* Slightly lighter background for cards */
+  --accent-color: #d275fd; /* Blue accent */
+  --text-color: #ffffff; /* White text */
+  --text-muted: #b3b3b3; /* Muted text */
+  --border-color: #404040; /* Border color */
 }
 
 * {
@@ -11,10 +15,38 @@
 }
 
 body {
-  background: var(--primary-color);
+  background: var(--primary-bg);
   font-family: Arial, sans-serif;
   color: var(--text-color);
-  padding-top: 60px; /* Account for fixed navbar */
+  padding-top: 60px;
+}
+
+/* Override Bootstrap colors */
+.navbar {
+  background-color: var(--secondary-bg) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-dark .navbar-brand,
+.navbar-dark .nav-link {
+  color: var(--text-color) !important;
+}
+
+.navbar-dark .nav-link:hover,
+.navbar-dark .nav-link.active {
+  color: var(--accent-color) !important;
+}
+
+.bg-dark {
+  background-color: var(--secondary-bg) !important;
+}
+
+.bg-secondary {
+  background-color: var(--secondary-bg) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
 }
 
 /* Hero Section */
@@ -22,6 +54,40 @@ body {
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
   padding: 100px 0;
   margin-bottom: 50px;
+  position: relative;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--accent-color);
+  opacity: 0.5;
+}
+
+/* Card Styling */
+.card {
+  background-color: var(--secondary-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-outline-light {
+  color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+}
+
+.btn-outline-light:hover {
+  color: var(--text-color) !important;
+  background-color: var(--accent-color) !important;
 }
 
 /* Section Styling */
@@ -43,10 +109,19 @@ h2::after {
   left: 0;
   width: 50px;
   height: 3px;
-  background: var(--secondary-color);
+  background: var(--accent-color);
 }
 
-/* Preserve existing animations */
+/* Content Sections */
+.content-section {
+  background-color: var(--secondary-bg);
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 30px;
+  border: 1px solid var(--border-color);
+}
+
+/* Animations */
 .fade-in-left {
   animation: fadeInLeft 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
@@ -92,15 +167,6 @@ h2::after {
   }
 }
 
-/* Navbar customization */
-.navbar {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-brand {
-  font-weight: bold;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .hero-section {
@@ -110,4 +176,42 @@ h2::after {
   h1 {
     font-size: 2.5rem !important;
   }
+}
+
+/* Education Section Styling */
+.education-entry {
+  background-color: var(--secondary-bg);
+  border-color: var(--accent-color) !important;
+}
+
+.custom-badge {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.accent-color {
+  color: var(--accent-color);
+}
+
+.skill-card {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-color: var(--accent-color);
+}
+
+.skill-card i {
+  color: var(--accent-color);
+}
+
+/* Override Bootstrap's text-muted in education section */
+.education-entry .text-muted {
+  color: var(--text-muted) !important;
 }
