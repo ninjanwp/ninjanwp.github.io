@@ -19,6 +19,8 @@ body {
   font-family: Arial, sans-serif;
   color: var(--text-color);
   padding-top: 60px;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* Override Bootstrap colors */
@@ -51,10 +53,12 @@ body {
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(100, 50, 100, 0.7));
   padding: 100px 0;
   margin-bottom: 50px;
   position: relative;
+
+  animation: dropIn 1s ease;
 }
 
 .hero-section::after {
@@ -73,6 +77,10 @@ body {
   background-color: var(--secondary-bg) !important;
   border: 1px solid var(--border-color) !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card.float-in {
+  opacity: 0;
 }
 
 .card:hover {
@@ -123,7 +131,7 @@ h2::after {
 
 /* Animations */
 .fade-in-left {
-  animation: fadeInLeft 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  animation: fadeInLeft 1s ease;
 }
 
 .fade-in-right {
@@ -131,7 +139,7 @@ h2::after {
 }
 
 .float-in {
-  animation: floatIn 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  animation: floatIn 1s ease forwards;
 }
 
 @keyframes fadeInLeft {
@@ -159,11 +167,33 @@ h2::after {
 @keyframes floatIn {
   from {
     opacity: 0;
-    transform: translateY(50%);
+    transform: translateY(25%);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes dropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes expand {
+  from {
+    opacity: 0;
+    transform: scale3d(0.5, 0.5, 0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
   }
 }
 
@@ -199,6 +229,11 @@ h2::after {
   background-color: var(--secondary-bg) !important;
   border: 1px solid var(--border-color);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.expand {
+  opacity: 0;
+  animation: expand 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 .education-entry .skill-card:hover {
