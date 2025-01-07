@@ -180,38 +180,37 @@ h2::after {
 
 /* Education Section Styling */
 .education-entry {
-  background-color: var(--secondary-bg);
+  background-color: var(--secondary-bg) !important;
   border-color: var(--accent-color) !important;
 }
 
-.custom-badge {
-  background-color: var(--accent-color);
-  color: var(--text-color);
+.education-entry .custom-badge {
+  background-color: var(--accent-color) !important;
+  color: var(--text-color) !important;
   padding: 0.5rem 1rem;
   border-radius: 4px;
 }
 
-.accent-color {
-  color: var(--accent-color);
+.education-entry .accent-color {
+  color: var(--accent-color) !important;
 }
 
-.skill-card {
-  background-color: var(--secondary-bg);
+.education-entry .skill-card {
+  background-color: var(--secondary-bg) !important;
   border: 1px solid var(--border-color);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.skill-card:hover {
+.education-entry .skill-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-color: var(--accent-color);
 }
 
-.skill-card i {
-  color: var(--accent-color);
+.education-entry .skill-card i {
+  color: var(--accent-color) !important;
 }
 
-/* Override Bootstrap's text-muted in education section */
 .education-entry .text-muted {
   color: var(--text-muted) !important;
 }
