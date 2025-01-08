@@ -58,7 +58,7 @@ body {
   margin-bottom: 50px;
   position: relative;
 
-  animation: dropIn 1s ease;
+  animation: dropIn 0.5s cubic-bezier(1,-0.09,.78,.54);
 }
 
 .hero-section::after {
