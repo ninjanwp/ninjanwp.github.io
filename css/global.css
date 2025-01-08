@@ -2,7 +2,7 @@
   /* Custom color scheme */
   --primary-bg: #1a1a1a; /* Dark background */
   --secondary-bg: #2d2d2d; /* Slightly lighter background for cards */
-  --accent-color: #d275fd; /* Blue accent */
+  --accent-color: #CEB888; /* Blue accent */
   --text-color: #ffffff; /* White text */
   --text-muted: #b3b3b3; /* Muted text */
   --border-color: #404040; /* Border color */
@@ -53,12 +53,12 @@ body {
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(100, 50, 100, 0.7));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(206, 184, 136, 0.5)); /* Adjusted opacity for gold color */
   padding: 100px 0;
   margin-bottom: 50px;
   position: relative;
 
-  animation: dropIn 0.5s cubic-bezier(1,-0.09,.78,.54);
+  animation: dropIn 0.5s ease-out;
 }
 
 .hero-section::after {
@@ -76,16 +76,16 @@ body {
 .card {
   background-color: var(--secondary-bg) !important;
   border: 1px solid var(--border-color) !important;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.card.float-in {
+.float-in {
   opacity: 0;
 }
 
 .card:hover {
-  transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  translate: 0 -5px;
 }
 
 .btn-outline-light {
@@ -167,7 +167,7 @@ h2::after {
 @keyframes floatIn {
   from {
     opacity: 0;
-    transform: translateY(25%);
+    transform: translateY(50%);
   }
   to {
     opacity: 1;
@@ -177,11 +177,9 @@ h2::after {
 
 @keyframes dropIn {
   from {
-    opacity: 0;
     transform: translateY(-100%);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
   }
 }
@@ -190,10 +188,12 @@ h2::after {
   from {
     opacity: 0;
     transform: scale3d(0.5, 0.5, 0.5);
+    filter: brightness(5) grayscale(100%) blur(10px);
   }
   to {
     opacity: 1;
     transform: scale3d(1, 1, 1);
+    filter: none;
   }
 }
 
@@ -212,6 +212,12 @@ h2::after {
 .education-entry {
   background-color: var(--secondary-bg) !important;
   border-color: var(--accent-color) !important;
+  background: none !important;
+  position: relative;
+}
+
+.content-section.fsu-bg {
+  background-color:  !important;
 }
 
 .education-entry .custom-badge {
@@ -222,7 +228,7 @@ h2::after {
 }
 
 .education-entry .accent-color {
-  color: var(--accent-color) !important;
+  color: #CEB888 !important;
 }
 
 .education-entry .skill-card {
@@ -233,7 +239,22 @@ h2::after {
 
 .expand {
   opacity: 0;
-  animation: expand 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: expand 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.education-entry::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background-image: url("/img/61fa8d11eec4c40004bacd4b.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top right;
+  opacity: 1;
+  /* filter: grayscale(10%); */
 }
 
 .education-entry .skill-card:hover {
@@ -242,7 +263,7 @@ h2::after {
   border-color: var(--accent-color);
 }
 
-.education-entry .skill-card i {
+.education-entry .skill-card i, .card-title i {
   color: var(--accent-color) !important;
 }
 
