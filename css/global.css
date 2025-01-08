@@ -270,3 +270,15 @@ h2::after {
 .education-entry .text-muted {
   color: var(--text-muted) !important;
 }
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-title {
+  color: var(--accent-color) !important;
+}
+
+.card-text {
+  color: var(--text-muted) !important;
+}
