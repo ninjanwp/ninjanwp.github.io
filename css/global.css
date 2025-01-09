@@ -2,7 +2,7 @@
   /* Custom color scheme */
   --primary-bg: #1a1a1a; /* Dark background */
   --secondary-bg: #2d2d2d; /* Slightly lighter background for cards */
-  --accent-color: #CEB888; /* Blue accent */
+  --accent-color: #ceb888; /* Blue accent */
   --text-color: #ffffff; /* White text */
   --text-muted: #b3b3b3; /* Muted text */
   --border-color: #404040; /* Border color */
@@ -53,7 +53,11 @@ body {
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(206, 184, 136, 0.5)); /* Adjusted opacity for gold color */
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.7),
+    rgba(206, 184, 136, 0.5)
+  ); /* Adjusted opacity for gold color */
   padding: 100px 0;
   margin-bottom: 50px;
   position: relative;
@@ -83,14 +87,15 @@ body {
   opacity: 0;
 }
 
-.card:hover {
+.btn-outline-light:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  translate: 0 -5px;
+  translate: 0 -3px;
 }
 
 .btn-outline-light {
   color: var(--accent-color) !important;
   border-color: var(--accent-color) !important;
+  transition: all 0.3s ease;
 }
 
 .btn-outline-light:hover {
@@ -197,6 +202,18 @@ h2::after {
   }
 }
 
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .hero-section {
@@ -217,7 +234,7 @@ h2::after {
 }
 
 .content-section.fsu-bg {
-  background-color:  !important;
+  background-color: !important;
 }
 
 .education-entry .custom-badge {
@@ -228,7 +245,7 @@ h2::after {
 }
 
 .education-entry .accent-color {
-  color: #CEB888 !important;
+  color: #ceb888 !important;
 }
 
 .education-entry .skill-card {
@@ -263,7 +280,8 @@ h2::after {
   border-color: var(--accent-color);
 }
 
-.education-entry .skill-card i, .card-title i {
+.education-entry .skill-card i,
+.card-title i {
   color: var(--accent-color) !important;
 }
 
@@ -281,4 +299,257 @@ h2::after {
 
 .card-text {
   color: var(--text-muted) !important;
+}
+
+/* Project Image Card Styling */
+.project-image-card {
+  overflow: hidden;
+}
+
+.project-image-card .carousel-item img {
+  object-fit: cover;
+  height: 400px;
+  width: 100%;
+}
+
+.project-image-card .carousel {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 10px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.tech-grid-container {
+  display: flex;
+  align-items: flex-start;
+  min-height: 200px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  background: var(--bg-color);
+}
+
+.tech-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  background: var(--bg-color);
+  padding: 0;
+}
+
+.tech-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--secondary-bg);
+  border-radius: 8px;
+  border: 1px solid var(--accent-color);
+  width: 120px;
+  height: 120px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: none;
+  overflow: hidden;
+}
+
+.tech-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--accent-color);
+  z-index: 3;
+  opacity: 1;
+  transition: opacity 0.2s ease-out;
+}
+
+.tech-item > * {
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
+}
+
+.tech-item.animate {
+  opacity: 1;
+  transform: scale(1);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tech-item.animate::before {
+  opacity: 0;
+}
+
+.tech-item.animate > * {
+  opacity: 1;
+}
+
+.tech-logo {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.tech-name {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .tech-grid-container {
+    min-height: 200px;
+  }
+
+  .tech-row {
+    padding: 1rem;
+  }
+}
+
+.project-container {
+  position: relative;
+  min-height: 300px;
+}
+
+.connection-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.tech-item {
+  position: relative;
+  z-index: 2;
+  background: var(--secondary-bg);
+}
+
+.project-card {
+  position: relative;
+  z-index: 2;
+  background: var(--secondary-bg);
+}
+
+@keyframes drawLine {
+  0% {
+    stroke-dashoffset: var(--path-length);
+    opacity: 0;
+  }
+  1% {
+    opacity: 0.5;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.5;
+  }
+}
+
+.connection-lines path {
+  stroke-dasharray: var(--path-length);
+  stroke-dashoffset: var(--path-length);
+  opacity: 0;
+  animation: drawLine 0.6s ease-out forwards;
+}
+
+@media (max-width: 768px) {
+  .tech-grid-container {
+    min-height: 350px;
+  }
+
+  .tech-row {
+    padding: 0 1rem;
+  }
+
+  .tech-item:nth-child(1) {
+    transform: translateY(80px);
+  }
+  .tech-item:nth-child(2) {
+    transform: translateY(40px);
+  }
+  .tech-item:nth-child(3) {
+    transform: translateY(0px);
+  }
+  .tech-item:nth-child(4) {
+    transform: translateY(-40px);
+  }
+  .tech-item:nth-child(5) {
+    transform: translateY(-80px);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.tech-item {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: none;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes revealContent {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.tech-item.animate {
+  animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.tech-item.animate::before {
+  animation: fadeOutOverlay 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.tech-item.animate > * {
+  animation: revealContent 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
