@@ -38,51 +38,34 @@ function drawConnections() {
         startY,
         endX,
         endY,
-        controlX1,
-        controlY1,
-        controlX2,
-        controlY2;
+        midX,
+        midY;
 
       if (isMobile) {
         // Mobile: Connect from top of project card
         startX =
-          cardRect.left -
-          projectRect.left +
-          cardRect.width * (0.3 + sortedIndex * 0.1);
+          cardRect.left - projectRect.left + cardRect.width * (0.3 + sortedIndex * 0.1);
         startY = cardRect.top - projectRect.top;
         endX = itemRect.left - projectRect.left + itemRect.width / 2;
         endY = itemRect.bottom - projectRect.top;
 
-        const verticalOffset = 20 + sortedIndex * 15;
-        const horizontalSpread = 40 + sortedIndex * 20;
-
-        controlX1 = startX;
-        controlY1 = startY - horizontalSpread;
-        controlX2 = endX;
-        controlY2 = endY + verticalOffset;
+        midX = startX;
+        midY = endY;
       } else {
         // Desktop: Connect from bottom half of project card
         startX = cardRect.left - projectRect.left;
         startY =
-          cardRect.top -
-          projectRect.top +
-          cardRect.height * (0.5 + sortedIndex * 0.08);
+          cardRect.top - projectRect.top + cardRect.height * (0.5 + sortedIndex * 0.08);
         endX = itemRect.left - projectRect.left + itemRect.width / 2;
         endY = itemRect.bottom - projectRect.top;
 
-        const verticalOffset = 20 + sortedIndex * 15;
-        const horizontalSpread = 80 + sortedIndex * 40;
-
-        controlX1 = startX - horizontalSpread;
-        controlY1 = startY;
-        controlX2 = endX;
-        controlY2 = endY + verticalOffset;
+        midX = endX;
+        midY = startY;
       }
 
       const path = `M ${startX} ${startY} 
-                    C ${controlX1} ${controlY1},
-                      ${controlX2} ${controlY2},
-                      ${endX} ${endY}`;
+                    L ${midX} ${midY}
+                    L ${endX} ${endY}`;
 
       line.setAttribute("d", path);
       line.setAttribute("stroke", "#ceb888");

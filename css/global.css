@@ -39,10 +39,7 @@ body {
   color: var(--accent-color) !important;
 }
 
-.bg-dark {
-  background-color: var(--secondary-bg) !important;
-}
-
+.bg-dark,
 .bg-secondary {
   background-color: var(--secondary-bg) !important;
 }
@@ -61,7 +58,6 @@ body {
   padding: 100px 0;
   margin-bottom: 50px;
   position: relative;
-
   animation: dropIn 0.5s ease-out;
 }
 
@@ -83,15 +79,6 @@ body {
   transition: all 0.3s ease;
 }
 
-.float-in {
-  opacity: 0;
-}
-
-.btn-outline-light:hover {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  translate: 0 -3px;
-}
-
 .btn-outline-light {
   color: var(--accent-color) !important;
   border-color: var(--accent-color) !important;
@@ -101,29 +88,9 @@ body {
 .btn-outline-light:hover {
   color: var(--text-color) !important;
   background-color: var(--accent-color) !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  translate: 0 -3px;
 }
-
-/* Section Styling */
-section {
-  padding: 40px 0;
-}
-
-/* h2 {
-  color: var(--text-color);
-  margin-bottom: 30px;
-  position: relative;
-  padding-bottom: 10px;
-}
-
-h2::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 50px;
-  height: 3px;
-  background: var(--accent-color);
-} */
 
 /* Content Sections */
 .content-section {
@@ -135,18 +102,6 @@ h2::after {
 }
 
 /* Animations */
-.fade-in-left {
-  animation: fadeInLeft 1s ease;
-}
-
-.fade-in-right {
-  animation: fadeInRight 1s ease;
-}
-
-.float-in {
-  animation: floatIn 1s ease forwards;
-}
-
 @keyframes fadeInLeft {
   from {
     opacity: 0;
@@ -233,8 +188,18 @@ h2::after {
   position: relative;
 }
 
-.content-section.fsu-bg {
-  background-color: !important;
+.education-entry::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background-image: url("/img/61fa8d11eec4c40004bacd4b.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top right;
+  opacity: 1;
 }
 
 .education-entry .custom-badge {
@@ -252,26 +217,8 @@ h2::after {
   background-color: var(--secondary-bg) !important;
   border: 1px solid var(--border-color);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.expand {
   opacity: 0;
   animation: expand 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-.education-entry::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100px;
-  height: 100px;
-  background-image: url("/img/61fa8d11eec4c40004bacd4b.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: top right;
-  opacity: 1;
-  /* filter: grayscale(10%); */
 }
 
 .education-entry .skill-card:hover {
@@ -299,46 +246,6 @@ h2::after {
 
 .card-text {
   color: var(--text-muted) !important;
-}
-
-/* Project Image Card Styling */
-.project-image-card {
-  overflow: hidden;
-}
-
-.project-image-card .carousel-item img {
-  object-fit: cover;
-  height: 400px;
-  width: 100%;
-}
-
-.project-image-card .carousel {
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0 10px;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  width: 20px;
-  height: 20px;
-}
-
-.tech-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 1.5rem;
-  padding: 1rem;
 }
 
 .tech-grid-container {
@@ -449,18 +356,6 @@ h2::after {
   overflow: visible;
 }
 
-.tech-item {
-  position: relative;
-  z-index: 2;
-  background: var(--secondary-bg);
-}
-
-.project-card {
-  position: relative;
-  z-index: 2;
-  background: var(--secondary-bg);
-}
-
 @keyframes drawLine {
   0% {
     stroke-dashoffset: var(--path-length);
@@ -519,26 +414,6 @@ h2::after {
   100% {
     opacity: 1;
     transform: scale(1);
-  }
-}
-
-.tech-item {
-  opacity: 0;
-  transform: scale(0.8);
-  transition: none;
-  position: relative;
-  overflow: hidden;
-}
-
-@keyframes revealContent {
-  0% {
-    opacity: 0;
-  }
-  30% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
 
