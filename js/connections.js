@@ -1,9 +1,15 @@
+// Constants for controlling the animation and gaps
+const ANIMATION_DURATION = 0.6; // Duration of the animation
+const BASE_DELAY = 0.2; // Base delay before starting the animation
+const ITEM_DELAY = 0.3; // Delay between each item animation
+const MOBILE_GAP = 0.1; // Gap between connection origins on mobile
+const DESKTOP_GAP = 0.08; // Gap between connection origins on desktop
+const START_X_OFFSET = 0.3; // Offset for the starting X position on mobile
+const START_Y_OFFSET = 0.6; // Offset for the starting Y position on desktop (grouped around the bottom)
+
 function drawConnections() {
   const projects = document.querySelectorAll(".project-container");
   const isMobile = window.innerWidth <= 768;
-  const ANIMATION_DURATION = 0.6; // Reduced from 1.0
-  const BASE_DELAY = 0.2; // Reduced from 0.4
-  const ITEM_DELAY = 0.3; // Reduced from 0.6
 
   projects.forEach((project) => {
     const svg = project.querySelector(".connection-lines");
@@ -44,7 +50,7 @@ function drawConnections() {
       if (isMobile) {
         // Mobile: Connect from top of project card
         startX =
-          cardRect.left - projectRect.left + cardRect.width * (0.3 + sortedIndex * 0.1);
+          cardRect.left - projectRect.left + cardRect.width * (START_X_OFFSET + sortedIndex * MOBILE_GAP);
         startY = cardRect.top - projectRect.top;
         endX = itemRect.left - projectRect.left + itemRect.width / 2;
         endY = itemRect.bottom - projectRect.top;
@@ -55,7 +61,7 @@ function drawConnections() {
         // Desktop: Connect from bottom half of project card
         startX = cardRect.left - projectRect.left;
         startY =
-          cardRect.top - projectRect.top + cardRect.height * (0.5 + sortedIndex * 0.08);
+          cardRect.top - projectRect.top + cardRect.height * (START_Y_OFFSET + sortedIndex * DESKTOP_GAP);
         endX = itemRect.left - projectRect.left + itemRect.width / 2;
         endY = itemRect.bottom - projectRect.top;
 
