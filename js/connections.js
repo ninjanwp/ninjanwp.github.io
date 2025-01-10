@@ -1,10 +1,10 @@
 // Constants for controlling the animation and gaps
-const ANIMATION_DURATION = 0.6; // Duration of the animation
-const BASE_DELAY = 0.2; // Base delay before starting the animation
+const ANIMATION_DURATION = 0.3; // Duration of the animation
+const BASE_DELAY = 0.5; // Base delay before starting the animation
 const ITEM_DELAY = 0.3; // Delay between each item animation
-const MOBILE_GAP = 0.1; // Gap between connection origins on mobile
+const MOBILE_GAP = 0; // Gap between connection origins on mobile
 const DESKTOP_GAP = 0.08; // Gap between connection origins on desktop
-const START_X_OFFSET = 0.3; // Offset for the starting X position on mobile
+const START_X_OFFSET = 0.5; // Offset for the starting X position on mobile
 const START_Y_OFFSET = 0.6; // Offset for the starting Y position on desktop (grouped around the bottom)
 
 function drawConnections() {
@@ -53,10 +53,10 @@ function drawConnections() {
           cardRect.left - projectRect.left + cardRect.width * (START_X_OFFSET + sortedIndex * MOBILE_GAP);
         startY = cardRect.top - projectRect.top;
         endX = itemRect.left - projectRect.left + itemRect.width / 2;
-        endY = itemRect.bottom - projectRect.top;
+        endY = itemRect.top - projectRect.top + itemRect.height / 2;
 
         midX = startX;
-        midY = endY;
+        midY = endY + 200;
       } else {
         // Desktop: Connect from bottom half of project card
         startX = cardRect.left - projectRect.left;
