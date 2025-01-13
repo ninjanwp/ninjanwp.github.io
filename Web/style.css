@@ -135,6 +135,7 @@ section.photo::before {
     display: flex;
     flex-direction: row;
     align-items: center;
+    opacity: 0;
     font-size: 5rem;
     animation: pulse 2s infinite ease-out;
     animation-delay: 3s;
