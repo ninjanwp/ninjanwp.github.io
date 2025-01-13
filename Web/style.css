@@ -132,22 +132,18 @@ section.photo::before {
 .section-scroll-indicator {
     position: absolute;
     bottom: 1rem;
-    display: flex;
-    flex-direction: column;
+    display: none;
+    flex-direction: row;
     align-items: center;
-    background-image: url('svg/chevrons-down.svg'); /* Assuming you have a white version of the SVG */
-    background-size: cover;
-    width: 100px;
-    height: 100px;
+    font-size: 5rem;
     opacity: 0;
-    animation: pulse 1s infinite ease;
-    rotate: 180deg;
+    animation: pulse 2s infinite ease-out;
     animation-delay: 3s;
 }
 
 @keyframes pulse {
     0% {
-        transform: translateY(-10px);
+        transform: translateY(20px);
         opacity: 0.5;
     }
     100% {
