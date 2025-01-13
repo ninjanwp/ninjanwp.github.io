@@ -131,19 +131,18 @@ section.photo::before {
 
 .section-scroll-indicator {
     position: absolute;
-    bottom: 1rem;
-    display: none;
+    bottom: 2rem;
+    display: flex;
     flex-direction: row;
     align-items: center;
     font-size: 5rem;
-    opacity: 0;
     animation: pulse 2s infinite ease-out;
     animation-delay: 3s;
 }
 
 @keyframes pulse {
     0% {
-        transform: translateY(20px);
+        transform: translateY(40px);
         opacity: 0.5;
     }
     100% {
