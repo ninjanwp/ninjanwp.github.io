@@ -1,0 +1,243 @@
+:root {
+    --primary-color: #ff0000;
+    --accent-color: #ceb888;
+    --bg-color: #363636;
+    --card-color: #4b4b4b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg-color);
+    color: #ffffff;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 100vw;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    position: fixed;
+    z-index: 1000;
+    background: var(--bg-color);
+
+    border-bottom: 1px solid var(--accent-color);
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 1rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+section {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    min-height: 100vh;
+    position: relative;
+    padding: 0 10dvw;
+    overflow-x: hidden;
+}
+
+.split-section hr {
+    left: 0.5rem;
+}
+
+.split-section hr.show {
+    width: 20%;
+}
+
+section hr {
+    width: 0%;
+    border: 1px solid var(--accent-color);
+    position: relative;
+}
+
+section hr.show {
+    width: 10%;
+}
+
+.split-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    section {
+        padding: 0;
+    }
+
+    .split-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+.section-card {
+    width: 100%;
+    height: 500px;
+    background: var(--card-color);
+    background: none;
+}
+
+.section-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+}
+
+section.photo {
+    height: 100vh;
+    width: 100vw;
+    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.5);
+}
+
+section.photo::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url(img/IMG_9747.jpg);
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    opacity: 0.33;
+    filter: grayscale(100%);
+}
+
+.section-scroll-indicator {
+    position: absolute;
+    bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('svg/chevrons-down.svg'); /* Assuming you have a white version of the SVG */
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+    animation: pulse 1s infinite ease;
+    rotate: 180deg;
+    animation-delay: 3s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: translateY(-10px);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+}
+
+.section-content {
+    text-align: left;
+    width: 100%;
+    padding: 0.5rem;
+}
+
+h2 .bi {
+    margin-right: 0.5rem;
+    color: var(--accent-color);
+}
+
+.hidden {
+    opacity: 0;
+    filter: blur(5px);
+    filter: grayscale(100%);
+    transition: all 1s;
+}
+
+.show {
+    opacity: 1;
+    filter: blur(0);
+    filter: grayscale(0);
+    transform: translateY(0);
+}
+
+.float-up {
+    transform: translateY(100px);
+    transition: transform 1s ease;
+}
+
+.show.float-up {
+    transform: translateY(0);
+}
+
+/* Animation Types */
+.from-left {
+    transform: translateX(-100%);
+    transition: transform 1s ease;
+}
+
+.show.from-left {
+    transform: translateX(0);
+}
+
+.from-right {
+    transform: translateX(100%);
+    transition: transform 1s ease;
+}
+
+.show.from-right {
+    transform: translateX(0);
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.show .fade-in {
+    opacity: 1;
+}
+
+h1 {
+    font-size: calc(2.5rem + 2vw);
+}
+
+h2 {
+    font-size: calc(2rem + 1.5vw);
+}
+
+h3 {
+    font-size: calc(0.5rem + 1vw);
+}
+
+p {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: calc(1rem + 0.5vw);
+    padding: 0.5rem;
+}
+
+p.muted {
+    opacity: 0.5;
+    font-style: italic;
+}
