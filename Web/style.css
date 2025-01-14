@@ -1,8 +1,8 @@
 :root {
     --primary-color: #ff0000;
     --accent-color: #ceb888;
-    --bg-color: #363636;
-    --card-color: #4b4b4b;
+    --bg-color: #2e2e2e;
+    --card-color: #3d3d3d;
 }
 
 * {
@@ -14,7 +14,7 @@
 body {
     background: var(--bg-color);
     color: #ffffff;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: roboto, sans-serif;
     width: 100vw;
 }
 
@@ -53,6 +53,12 @@ nav ul li a {
     transition: color 0.3s;
 }
 
+.text-scroller {
+    overflow: hidden;
+    position: relative;
+}
+
+
 section {
     display: grid;
     place-items: center;
@@ -63,22 +69,45 @@ section {
     overflow-x: hidden;
 }
 
-.split-section hr {
-    left: 0.5rem;
+.section-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    background: var(--accent-color);
+    transform-origin: left;
 }
 
-.split-section hr.show {
-    width: 20%;
+section.section-header {
+    min-height: auto;
+    place-items: start;
+    padding: 2rem;
+    background: var(--bg-color);
+    margin-top: 2rem;
+    position: sticky;
+    z-index: 10;
+    top: 2rem;
+    box-shadow: 0 -20px 20px 10px var(--bg-color);
 }
 
-section hr {
+.section-header.show::after {
+    transition: transform 1s ease-in;
+    transform: scaleX(1);
+
+}
+
+
+hr {
     width: 0%;
     border: 1px solid var(--accent-color);
     position: relative;
+    margin-bottom: 1rem;
 }
 
-section hr.show {
-    width: 10%;
+hr.show {
+    width: 25%;
 }
 
 .split-section {
@@ -162,23 +191,27 @@ section.photo::before {
     margin-bottom: 1rem;
 }
 
-h2 .bi {
-    margin-right: 1rem;
+.bi {
     color: var(--accent-color);
+    display: inline-block;
+    transform: rotate(0deg) scale(0);
+    margin-left: 1rem;
 }
 
 .hidden {
     opacity: 0;
     filter: blur(5px);
-    filter: grayscale(100%);
+    /* filter: grayscale(100%); */
     transition: all 1s;
 }
 
 .show {
     opacity: 1;
     filter: blur(0);
-    filter: grayscale(0);
-    transform: translateY(0);
+}
+
+.bi.show {
+    transform: rotate(360deg) scale(1);
 }
 
 .float-up {
@@ -220,6 +253,7 @@ h2 .bi {
 
 h1 {
     font-size: calc(2.5rem + 2vw);
+    margin-bottom: 1rem;
 }
 
 h2 {
@@ -231,12 +265,11 @@ h3 {
 }
 
 p {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: serif;
     font-size: calc(1rem + 0.5vw);
-    padding: 0.5rem;
+    /* line-height: 1.5; */
 }
 
 p.muted {
     opacity: 0.5;
-    font-style: italic;
 }
