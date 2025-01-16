@@ -30,17 +30,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Add scroll margin to account for sticky header */
-section[id] {
-  scroll-margin-top: 100px;
-}
-
-@media (max-width: 768px) {
-  section[id] {
-    scroll-margin-top: 80px;
-  }
-}
-
 nav {
   width: 100%;
   display: flex;
@@ -109,7 +98,10 @@ section {
   align-content: center;
   min-height: 100vh;
   position: relative;
-  padding: 0;
+    width: min(90%, 1400px);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
   overflow-x: hidden;
 }
 
@@ -237,29 +229,6 @@ section.photo::before {
   filter: grayscale(100%);
 }
 
-.section-scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  opacity: 0;
-  font-size: 5rem;
-  animation: pulse 2s infinite ease-out;
-  animation-delay: 3s;
-}
-
-@keyframes pulse {
-  0% {
-    transform: translateY(40px);
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-}
-
 .section-content {
   text-align: left;
   width: 100%;
@@ -339,6 +308,10 @@ h2 {
   display: inline-block;
 }
 
+h3.material-icons {
+  font-size: 2rem;
+}
+
 h2 .material-icons {
   color: var(--accent-color);
   font-size: calc(2rem + 1.5vw);
@@ -356,6 +329,11 @@ h2 .material-icons.show {
 h3 {
   font-size: calc(1rem + 0.5vw);
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 0.5rem;
+  user-select: none;
 }
 
 p {
@@ -487,16 +465,6 @@ p.muted {
   }
 }
 
-/* Skill icon styling */
-.skill-item .material-icons {
-  font-size: 2.5rem;
-  color: var(--accent-color);
-  line-height: 1;
-  display: block;
-  margin-bottom: 0.5rem;
-  height: 2.5rem;
-}
-
 /* Project Section Styling */
 .project-container {
   min-height: 33vh;
@@ -542,8 +510,8 @@ p.muted {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  max-width: 100%;
-  min-height: 300px;
+  width: 100%;
+  min-height: 200px;
   position: relative;
   z-index: 2;
   background: none;
@@ -566,27 +534,42 @@ p.muted {
 .tech-row {
   display: flex;
   flex-wrap: nowrap;
-  gap: 2rem;
-  justify-content: center;
-  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: top;
   width: 100%;
+  height: 100%;
 }
 
 .tech-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   background: var(--bg-color);
-  border-radius: 12px;
   width: clamp(100px, 8vw, 150px);
   height: clamp(100px, 8vw, 150px);
-  padding: 0.75rem;
+  /* padding: 0.75rem; */
   position: relative;
   z-index: 2;
   opacity: 0;
   transform: scale(0.8) translateY(20px);
   transition: none;
+  overflow: hidden;
+}
+
+.tech-item:hover {
+  cursor: pointer;
+}
+
+.tech-item:hover > .tech-name {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.tech-item > * {
+  transition: all 0.3s ease;
 }
 
 .tech-item.animate {
@@ -604,9 +587,19 @@ p.muted {
 }
 
 .tech-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  /* transform: translateY(200%); */
   font-size: clamp(0.8rem, 1.2vw, 1.1rem);
   opacity: 0.9;
   font-weight: 500;
+  color: var(--bg-color);
+  padding: 5px 8px;
+  border-radius: 8px;
+  background: var(--accent-color);
+  border-radius: 8px;
 }
 
 .project-links {
@@ -667,8 +660,15 @@ p.muted {
   stroke-dasharray: var(--path-length);
   stroke-dashoffset: var(--path-length);
   animation: none;
-  stroke: var(--text-color);
-  stroke-width: 1;
+  stroke: url(#gradient);
+  stroke-width: 2;
+}
+
+/* Add gradient definition to all project containers */
+.connection-lines defs linearGradient {
+  --gradient-angle: 45deg;
+  --gradient-start: #9d4edd;
+  --gradient-end: #4361ee;
 }
 
 .project-container.show .connection-lines path {
@@ -785,5 +785,9 @@ p.muted {
 
   .skill-item h3 {
     font-size: 0.9rem;
+  }
+
+  .tech-name {
+    margin: 0.25rem 0;
   }
 }
