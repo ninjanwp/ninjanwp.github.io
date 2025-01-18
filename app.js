@@ -1,3 +1,8 @@
+document.querySelectorAll('.section-header').forEach(header => {
+    const text = header.textContent.trim();
+    header.style.setProperty('--char-count', text.length);
+});
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
@@ -10,12 +15,10 @@ const observer = new IntersectionObserver((entries) => {
           const handleTransitionEnd = (e) => {
             // Only proceed if it's the transform property that finished
             if (e.propertyName === "transform") {
+              // Draw connections immediately after button animation
               drawConnectionsForProject(entry.target);
               // Remove the listener to avoid multiple calls
-              projectInfo.removeEventListener(
-                "transitionend",
-                handleTransitionEnd
-              );
+              projectInfo.removeEventListener("transitionend", handleTransitionEnd);
             }
           };
           projectInfo.addEventListener("transitionend", handleTransitionEnd);
@@ -154,3 +157,5 @@ window.addEventListener("resize", () => {
     });
   }, 250);
 });
+
+document.getElementById("year").textContent = new Date().getFullYear();
