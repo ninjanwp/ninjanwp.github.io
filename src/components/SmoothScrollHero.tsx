@@ -1,7 +1,6 @@
 import { useScroll, useTransform, motion } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 import { HeaderTitle, HeaderLinks, HeaderSubtitle } from "./Header";
-import Flicker from "./Flicker";
 import { DiApple } from "react-icons/di";
 import { useRef } from 'react';
 
@@ -83,11 +82,11 @@ const BackgroundImage = () => {
   const [mouseRotate, setMouseRotate] = useState({ x: 0, y: 0 });
 
   const videoSources = [
-    "src/assets/glitch.mp4",
-    "src/assets/terminal.mp4",
-    "src/assets/glitch2.mp4",
+    "public/videos/glitch.mp4",
+    "public/videos/terminal.mp4",
+    "public/videos/glitch2.mp4",
     // "src/assets/glitch3.mp4",
-    "src/assets/terminal2.mp4",
+    "public/videos/terminal2.mp4",
     // "src/assets/glitch4.mp4",
   ];
   const [currentVideo, setCurrentVideo] = useState(videoSources[0]);
@@ -184,7 +183,6 @@ const AnimatedHeader = () => {
   const titleScale = useTransform(scrollY, [0, 300], [1, 0.9]);
   const subtitleScale = useTransform(scrollY, [0, 300], [1, 0.9]);
   const subtitleY = useTransform(scrollY, [0, 300], [0, -50]);
-  const linksY = useTransform(scrollY, [0, 300], [0, 30]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (

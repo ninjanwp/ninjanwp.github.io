@@ -1,8 +1,7 @@
-import { delay, hover, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { SiBitbucket, SiGithub, SiLinkedin } from "react-icons/si";
 import ZoopText from "./ZoopText";
 import { FiCode } from "react-icons/fi";
-import Flicker from "./Flicker";
 
 export const HeaderTitle = () => (
   <motion.div
