@@ -2,7 +2,7 @@ import { useScroll, useTransform, motion } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 import { HeaderTitle, HeaderLinks, HeaderSubtitle } from "./Header";
 import { DiApple } from "react-icons/di";
-import { useRef } from 'react';
+import { useRef } from "react";
 
 const BackgroundContainer = () => {
   const { scrollY } = useScroll();
@@ -28,7 +28,7 @@ const TopBar = () => {
     hour: "numeric",
     minute: "numeric",
   });
-  
+
   const dateString = new Date()
     .toLocaleDateString(undefined, {
       weekday: "short",
@@ -57,9 +57,7 @@ const TopBar = () => {
 
         {/* Mobile view - time only */}
         <div className="md:hidden flex justify-end items-center h-full px-3">
-          <div className="text-white font-semibold text-sm">
-            {timeString}
-          </div>
+          <div className="text-white font-semibold text-sm">{timeString}</div>
         </div>
       </div>
 
@@ -77,7 +75,7 @@ const BackgroundImage = () => {
   const scale = useTransform(scrollY, [0, 500], [0.5, 0.75]);
   const opacity = useTransform(scrollY, [0, 2250], [1, 1]);
   const scrollRotateX = useTransform(scrollY, [0, 2250], [15, 0]);
-  
+
   // Separate state for mouse-based transforms
   const [mouseRotate, setMouseRotate] = useState({ x: 0, y: 0 });
 
@@ -105,17 +103,18 @@ const BackgroundImage = () => {
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
-    
+
     const { clientX, clientY } = event;
-    const { left, top, width, height } = containerRef.current.getBoundingClientRect();
-    
+    const { left, top, width, height } =
+      containerRef.current.getBoundingClientRect();
+
     const x = (clientX - left) / width;
     const y = (clientY - top) / height;
-    
+
     // Smoother mouse-based rotation
     const tiltX = -(y - 0.5) * 20;
     const tiltY = (x - 0.5) * 20;
-    
+
     setMouseRotate({ x: tiltX, y: tiltY });
   };
 
