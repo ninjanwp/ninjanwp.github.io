@@ -1,0 +1,34 @@
+@font-face {
+  font-family: 'MrRobot';
+  src: url('src/assets/mrrobot-font/Mrrobot-g123.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'LeagueSpartan';
+  src: url('src/assets/LeagueSpartan-2.220/variable/TTF/LeagueSpartan-VF.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Malven';
+  src: url('src/assets/malven-font/MalvenRegular-51MRB.otf') format('truetype');
+}
+
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.font-mrrobot {
+  font-family: 'MrRobot';
+}
+
+.font-leaguespartan {
+  font-family: 'LeagueSpartan';
+}
+
+.font-malven {
+  font-family: 'Malven';
+}
