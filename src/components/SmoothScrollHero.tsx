@@ -80,10 +80,10 @@ const BackgroundImage = () => {
   const [mouseRotate, setMouseRotate] = useState({ x: 0, y: 0 });
 
   const videoSources = [
-    "public/videos/compressed_glitch.webm",
-    "public/videos/compressed_terminal.webm",
-    "public/videos/compressed_glitch2.webm",
-    "public/videos/compressed_terminal2.webm",
+    "videos/compressed_glitch.webm",
+    "videos/compressed_terminal.webm",
+    "videos/compressed_glitch2.webm",
+    "videos/compressed_terminal2.webm",
   ];
   const [currentVideo, setCurrentVideo] = useState(videoSources[0]);
 
