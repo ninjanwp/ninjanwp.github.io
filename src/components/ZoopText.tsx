@@ -12,8 +12,8 @@ const DELAY_MULTIPLIER = 0.03;
 const TYPE = "";
 const DAMPING = 15;
 
-const TEXT_COLOR = "text-stone-50";
-const HOVER_TEXT_COLOR = "text-orange-500";
+const TEXT_COLOR = "text-stone-500";
+const HOVER_TEXT_COLOR = "text-stone-50";
 const TEXT_SIZE = "text-2xl";
 
 const ZoopText: React.FC<ZoopTextProps> = ({ children, IconComponent }) => {
@@ -27,9 +27,9 @@ const ZoopText: React.FC<ZoopTextProps> = ({ children, IconComponent }) => {
       animate="rest"
       className="relative inline-flex items-center whitespace-nowrap hoverable cursor-none"
     >
-      <div className={`${TEXT_COLOR} ${TEXT_SIZE}`}>{IconComponent}</div>
+      <div className={`${HOVER_TEXT_COLOR} ${TEXT_SIZE}`}>{IconComponent}</div>
 
-      <motion.p className="overflow-hidden leading-tight invisible md:visible px-2 whitespace-nowrap w-0 md:w-auto">
+      <motion.p className="overflow-hidden leading-tight px-2 whitespace-nowrap">
         {characters.map((char, index) => (
           <span
             key={index}

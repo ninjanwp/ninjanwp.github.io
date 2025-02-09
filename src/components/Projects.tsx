@@ -69,7 +69,7 @@ const ProjectItem = ({
 
   return (
     <motion.div
-      className="py-3 relative rounded-lg w-full h-full backdrop-blur-sm flex-col justify-between"
+      className="py-3 relative rounded-lg w-full h-full flex-col justify-between"
       initial={{ y: "100%", opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ ease: "easeInOut", damping: 16, type: "spring" }}
@@ -173,7 +173,7 @@ export const Projects = () => {
         initial={{ y: 48, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ ease: "easeInOut", duration: 0.75 }}
-        className="text-[10vw] px-8 md:px-16 font-black py-32 h-[50vh] uppercase leading-none tracking-tight"
+        className="text-[8vw] px-8 md:px-16 font-black py-24 h-[40vh] uppercase leading-none tracking-tight"
       >
         Projects
       </motion.h1>

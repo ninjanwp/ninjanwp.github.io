@@ -3,13 +3,14 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const CIRCLE_SIZE = 15; // Default shape size
 const HOVER_PADDING = 10; // Extra size on hover
-const glowColors = ["#ff4400", "#ff6b35", "#ff2200", "#ff3300"];
+const glowColors = ["#e7e5e4", "#d6d3d1", "#a8a29e", "#78716c"];
 
 export const GlowCursor: React.FC = () => {
   const [lastKnownMousePosition, setLastKnownMousePosition] = useState({
     x: 0,
     y: 0,
   });
+  const [isVisible, setIsVisible] = useState(false);
 
   // Motion values for cursor X/Y
   const mouseX = useMotionValue(0);
@@ -22,10 +23,26 @@ export const GlowCursor: React.FC = () => {
   const springWidth = useSpring(CIRCLE_SIZE, springConfig);
   const springHeight = useSpring(CIRCLE_SIZE, springConfig);
 
+  // Add new useEffect for initialization
   useEffect(() => {
-    const updateMousePosition = (e: MouseEvent) => {
-      setLastKnownMousePosition({ x: e.clientX, y: e.clientY });
+    if (typeof window !== 'undefined') {
+      const centerX = window.innerWidth / 2;
+      mouseX.set(centerX);
+      mouseY.set(0);
+      setLastKnownMousePosition({ x: centerX, y: 0 });
+    }
+  }, []); // Run once on mount
 
+  useEffect(() => {
+    let isFirstMove = true;
+
+    const updateMousePosition = (e: MouseEvent) => {
+      if (isFirstMove) {
+        isFirstMove = false;
+        setIsVisible(true);
+      }
+
+      setLastKnownMousePosition({ x: e.clientX, y: e.clientY });
       const element = document.elementFromPoint(e.clientX, e.clientY);
       updateCursorPosition(e.clientX, e.clientY, element);
     };
@@ -64,8 +81,6 @@ export const GlowCursor: React.FC = () => {
       }
     };
 
-    document.body.style.cursor = "none";
-
     window.addEventListener("mousemove", updateMousePosition, {
       passive: true,
     });
@@ -74,7 +89,6 @@ export const GlowCursor: React.FC = () => {
     return () => {
       window.removeEventListener("mousemove", updateMousePosition);
       window.removeEventListener("scroll", handleScroll);
-      document.body.style.cursor = "default";
     };
   }, [mouseX, mouseY, springWidth, springHeight, lastKnownMousePosition]);
 
@@ -92,7 +106,7 @@ export const GlowCursor: React.FC = () => {
     translateX: "-50%",
     translateY: "-50%",
 
-    opacity: 1,
+    opacity: isVisible ? 1 : 0,
     padding: `${HOVER_PADDING}px`, // Extra padding on hover
     backgroundColor: `${glowColors[0]}10`,
     border: `1px solid ${glowColors[0]}`,
@@ -107,23 +121,14 @@ export const GlowCursor: React.FC = () => {
       inset 0 0 5px ${glowColors[2]}
     `,
 
-    zIndex: 999999, // Increased z-index
     transition: "background-color 0.3s ease",
     pointerEvents: useMotionValue("none"),
   });
 
   return (
     <div
-      className="fixed inset-0 pointer-events-none"
-      style={{
-        zIndex: 999999,
-        isolation: "isolate",
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-      }}
+      className="fixed inset-0 pointer-events-none hidden sm:block"
+      style={{ opacity: isVisible ? 1 : 0, zIndex: 100 }}
     >
       {/* The custom glow cursor shape */}
       <motion.div className="pointer-events-none" style={getShapeStyle()} />

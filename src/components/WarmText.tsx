@@ -18,12 +18,12 @@ export const WarmText: React.FC<WarmTextProps> = ({
         shake: 'microShake'
       },
       medium: {
-        glowStrength: '2px',
+        glowStrength: '1.5px',
         brightness: 1.1,
         shake: 'shake'
       },
       high: {
-        glowStrength: '3px',
+        glowStrength: '2px',
         brightness: 1.15,
         shake: 'shakeAlt'
       }
@@ -36,11 +36,11 @@ export const WarmText: React.FC<WarmTextProps> = ({
       verticalAlign: 'baseline',
       fontFamily: 'monospace',
       fontWeight: 'bold',
-      color: '#ff4400',
+      color: '#e7e5e4',
       textShadow: `
-        0 0 ${glowStrength} #ff4400,
-        0 0 ${parseInt(glowStrength) * 1.5}px #ff2200,
-        0 0 ${parseInt(glowStrength) * 2}px #ff1100
+        0 0 ${glowStrength} #e7e5e4,
+        0 0 ${parseInt(glowStrength) * 1.5}px #a8a29e,
+        0 0 ${parseInt(glowStrength) * 2}px #78716c
       `,
       filter: `brightness(${brightness})`,
       animation: `${shake} ${200 + Math.random() * 100}ms ease-in-out infinite, glow 600ms ease-in-out infinite`,
