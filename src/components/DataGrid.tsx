@@ -58,6 +58,31 @@ const variants = {
       },
     },
   },
+  gradient: {
+    initial: {
+      pathLength: 0,
+      opacity: 1,
+    },
+    animate: {
+      pathLength: 1,
+      opacity: 1,
+      transition: {
+        pathLength: { duration: TIMING.ANIMATION, ease: "easeInOut" },
+      },
+    },
+    exit: {
+      pathLength: 0,
+      opacity: 1,
+      transition: {
+        pathLength: { duration: TIMING.ANIMATION, ease: "easeInOut" },
+      },
+    },
+  },
+  gradientRect: {
+    initial: { opacity: 0 },
+    animate: { opacity: 0.2 },
+    exit: { opacity: 0 },
+  },
 } as const;
 
 // Visual style constants
@@ -83,6 +108,20 @@ const STYLE = {
     ),
   },
 } as const;
+
+const GraphLabel = ({ type }: { type: VisualType }) => (
+  <motion.div
+    initial={{ x: "-50%", opacity: 0 }}
+    animate={{ x: 0, opacity: 1 }}
+    exit={{ x: "50%", opacity: 0 }}
+    transition={{ duration: 0.5, ease: "easeInOut" }}
+    className="absolute top-0 left-6 flex justify-center"
+  >
+    <span className="text-stone-400 uppercase tracking-widest text-sm">
+      // {type}
+    </span>
+  </motion.div>
+);
 
 export const DataGrid = () => {
   const [counter, setCounter] = useState(0);
@@ -111,9 +150,11 @@ export const DataGrid = () => {
     { x: 500, y: 80 },
   ];
 
+  const [gradientOpacity, setGradientOpacity] = useState(0);
+
   const renderGrid = (size: number) => {
     return (
-      <>
+      <motion.g filter="url(#glow)" opacity={1}>
         {/* Horizontal grid lines */}
         {Array.from({ length: GRAPH.GRID_STEPS + 1 }).map((_, i) => (
           <motion.line
@@ -157,7 +198,7 @@ export const DataGrid = () => {
             strokeWidth={STYLE.STROKE_WIDTH.GRID}
           />
         ))}
-      </>
+      </motion.g>
     );
   };
 
@@ -172,33 +213,71 @@ export const DataGrid = () => {
 
     const sharedSvgProps = {
       className:
-        "w-[400px] h-[400px] mt-12 md:mt-0 md:w-[500px] md:h-[500px] overflow-visible",
+        "w-[300px] h-[300px] mt-12 md:mt-0 md:w-[500px] md:h-[500px] overflow-visible",
       viewBox: `0 0 ${size} ${size}`,
     };
 
     const visualComponents = {
       line: (
         <svg {...sharedSvgProps}>
-          <defs>{STYLE.GLOW.filter}</defs>
+          <defs>
+            {STYLE.GLOW.filter}
+            <linearGradient id="lineGradient" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor="white" stopOpacity="1" />
+              <stop offset="100%" stopColor="white" stopOpacity="0" />
+            </linearGradient>
+            <mask id="lineMask">
+              <motion.path
+                variants={variants.line}
+                d={`M ${data
+                  .map(normalizePoint)
+                  .map((p) => `${p.x} ${p.y}`)
+                  .join(" L ")} V ${size} H 0 Z`}
+                fill="white"
+                onUpdate={({ pathLength = 0 }) => {
+                  setGradientOpacity(pathLength === 1 ? 0.2 : 0);
+                }}
+              />
+            </mask>
+          </defs>
           {renderGrid(size)}
-          <motion.path
-            variants={variants.line}
-            d={`M ${data
-              .map(normalizePoint)
-              .map((p) => `${p.x} ${p.y}`)
-              .join(" L ")}`}
-            fill="none"
-            stroke={STYLE.STROKE_COLOR}
-            strokeWidth={STYLE.STROKE_WIDTH.LINE}
-            strokeDasharray="0,1"
-            filter="url(#glow)"
-            transition={{ type: "spring", duration: TIMING.ANIMATION }}
-          />
+          <motion.g filter="url(#glow)">
+            {/* Main line */}
+            <motion.path
+              variants={variants.line}
+              d={`M ${data
+                .map(normalizePoint)
+                .map((p) => `${p.x} ${p.y}`)
+                .join(" L ")}`}
+              fill="none"
+              stroke={STYLE.STROKE_COLOR}
+              strokeWidth={STYLE.STROKE_WIDTH.LINE}
+              strokeDasharray="0,1"
+            />
+            <motion.rect
+              initial={{ opacity: 0 }}
+              animate={{ opacity: gradientOpacity}}
+              exit={{ opacity: 0}}
+              transition={{ duration: 0.5 }}
+              x="0"
+              y="0"
+              width={size}
+              height={size}
+              fill="url(#lineGradient)"
+              mask="url(#lineMask)"
+            />
+          </motion.g>
         </svg>
       ),
       bar: (
         <svg {...sharedSvgProps}>
-          <defs>{STYLE.GLOW.filter}</defs>
+          <defs>
+            {STYLE.GLOW.filter}
+            <linearGradient id="barGradient" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor="white" stopOpacity="1" />
+              <stop offset="100%" stopColor="white" stopOpacity="0" />
+            </linearGradient>
+          </defs>
           {renderGrid(size)}
           <motion.g filter="url(#glow)">
             {data.map((d, i) => {
@@ -217,7 +296,7 @@ export const DataGrid = () => {
                   }}
                   x={point.x - STYLE.BAR_WIDTH / 2}
                   width={STYLE.BAR_WIDTH}
-                  fill={STYLE.STROKE_COLOR}
+                  fill="url(#barGradient)"
                 />
               );
             })}
@@ -259,7 +338,7 @@ export const DataGrid = () => {
 
   return (
     <motion.div
-      className="p-2 md:p-4 overflow-visible"
+      className="p-2 md:p-4 overflow-visible relative"
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
     >
@@ -275,9 +354,10 @@ export const DataGrid = () => {
               cycleToNext();
             }
           }}
-          className="p-3 md:p-6"
+          className="p-3 md:p-6 relative"
         >
           {renderVisual()}
+          <GraphLabel type={visualType} />
         </motion.div>
       </AnimatePresence>
     </motion.div>

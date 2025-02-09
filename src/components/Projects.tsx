@@ -14,7 +14,7 @@ import {
 import { useState, useEffect } from "react";
 import { SiR, SiGithub } from "react-icons/si";
 import ZoopText from "./ZoopText"; // Adjust the path as necessary
-import { WarmText } from "./WarmText"; // Adjust the path as necessary
+import { useState as useHoverState } from "react"; // rename to avoid conflict
 
 type ProjectItemProps = {
   title: string;
@@ -49,11 +49,67 @@ const GlyphCycler = ({
         animate={{ opacity: 1, scale: 1, translateY: "0%" }}
         exit={{ opacity: 0, scale: 0, translateY: "-100%" }}
         transition={{ duration: 0.5, type: "spring" }}
-        className="text-6xl"
+        className="text-4xl"
       >
         {glyphs[currentGlyph]}
       </motion.span>
     </AnimatePresence>
+  );
+};
+
+const GridBackground = ({ isHovered }: { isHovered: boolean }) => {
+  const GRID_STEPS = 10; // Match DataGrid steps
+  const SIZE = 100;
+
+  return (
+    <svg
+      className="absolute inset-0 w-full h-full -z-10"
+      viewBox={`0 0 ${SIZE} ${SIZE}`}
+      preserveAspectRatio="none"
+    >
+      <defs>
+        <filter id="projectGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="0.5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
+      <motion.g filter="url(#projectGlow)">
+        {Array.from({ length: GRID_STEPS + 1 }).map((_, i) => (
+          <motion.line
+            key={`h-${i}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isHovered ? 0.05 : 0 }}
+            transition={{ duration: 0.5, type: "spring", damping: 15 }}
+            x1="0"
+            y1={SIZE * (i / GRID_STEPS)}
+            x2={SIZE}
+            y2={SIZE * (i / GRID_STEPS)}
+            stroke="#fff"
+            strokeWidth="1"
+            vectorEffect="non-scaling-stroke"
+          />
+        ))}
+        {Array.from({ length: GRID_STEPS + 1 }).map((_, i) => (
+          <motion.line
+            key={`v-${i}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isHovered ? 0.05 : 0 }}
+            transition={{ duration: 0.5, type: "spring", damping: 15 }}
+            x1={SIZE * (i / GRID_STEPS)}
+            y1="0"
+            x2={SIZE * (i / GRID_STEPS)}
+            y2={SIZE}
+            stroke="#fff"
+            strokeWidth="1"
+            vectorEffect="non-scaling-stroke"
+          />
+        ))}
+      </motion.g>
+    </svg>
   );
 };
 
@@ -65,53 +121,45 @@ const ProjectItem = ({
   link,
   index,
 }: ProjectItemProps) => {
-  const formattedIndex = String(index + 1).padStart(2, "#");
+  const [isHovered, setIsHovered] = useState(false);
+  const formattedIndex = String(index + 1).padStart(2, "0");
 
   return (
     <motion.div
-      className="py-3 relative rounded-lg w-full h-full flex-col justify-between"
-      initial={{ y: "100%", opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      transition={{ ease: "easeInOut", damping: 16, type: "spring" }}
+      className="relative w-full"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, type: "spring", damping: 15 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
     >
-      <div className="flex-col items-center justify-between mx-5 px-3 py-5">
-        <div className="flex flex-col items-start">
-          <div className="mb-1 overflow-hidden text-6xl px-3 font-mono text-zinc-200 flex justify-between items-center w-full">
-            <motion.span
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-            >
-              <WarmText intensity="low">{formattedIndex}</WarmText>
-            </motion.span>
-            <WarmText intensity="low">
-              <GlyphCycler glyphs={glyphs} index={index} />
-            </WarmText>
-          </div>
-          <motion.div
-            initial={{ opacity: 0, scaleX: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            whileInView={{ opacity: 1, scaleX: 1 }}
-            className="w-full mb-6 h-px bg-stone-400"
-          />
-          <p className="mb-1.5 text-xl text-zinc-50 transition-all duration-300 ease-in-out group-hover:text-zinc-200">
-            {title}
+      <div className="relative flex flex-col justify-between gap-4 h-full p-8 bg-stone-950/30 border border-stone-800/50 overflow-hidden">
+        <GridBackground isHovered={isHovered} />
+        <div className="flex justify-between items-start">
+          <span className="font-mono text-stone-500 text-lg">
+            {formattedIndex}
+          </span>
+          <GlyphCycler glyphs={glyphs} index={index} />
+        </div>
+
+        <div className="space-y-3 h-full">
+          <h3 className="text-2xl font-bold text-stone-200">{title}</h3>
+          <p className="text-sm text-stone-400 leading-relaxed">
+            {description}
           </p>
-          <p className="text-sm uppercase text-zinc-400">{description}</p>
         </div>
-        <div className="flex justify-start items-center w-full mt-6">
-          <motion.a
-            className="cursor-none"
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ opacity: 0, scale: 0 }}
-            transition={{ delay: 1 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-          >
-            <ZoopText IconComponent={<SiGithub />}>GITHUB/{slug}</ZoopText>
-          </motion.a>
-        </div>
+
+        <motion.a
+          className="cursor-none mt-4 inline-flex"
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <ZoopText IconComponent={<SiGithub />}>{slug}</ZoopText>
+        </motion.a>
       </div>
     </motion.div>
   );
@@ -168,16 +216,25 @@ export const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="relative text-white pb-32 z-0">
-      <motion.h1
-        initial={{ y: 48, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ ease: "easeInOut", duration: 0.75 }}
-        className="text-[8vw] px-8 md:px-16 font-black py-24 h-[40vh] uppercase leading-none tracking-tight"
+    <section
+      id="projects"
+      className="relative w-full max-w-7xl mx-auto px-8 py-32"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="space-y-4 mb-24"
       >
-        Projects
-      </motion.h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-8">
+        <p className="text-sm uppercase tracking-widest text-stone-400">
+          Showcase
+        </p>
+        <h2 className="text-4xl md:text-6xl font-bold text-stone-200">
+          Projects
+        </h2>
+      </motion.div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {projects.map((project, index) => (
           <ProjectItem key={index} {...project} index={index} />
         ))}

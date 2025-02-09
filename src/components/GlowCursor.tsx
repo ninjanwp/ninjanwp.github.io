@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
-const CIRCLE_SIZE = 15; // Default shape size
-const HOVER_PADDING = 10; // Extra size on hover
+const CIRCLE_SIZE = 1; // Default shape size
+const HOVER_PADDING = 5; // Extra size on hover
 const glowColors = ["#e7e5e4", "#d6d3d1", "#a8a29e", "#78716c"];
 
 export const GlowCursor: React.FC = () => {
@@ -17,7 +17,7 @@ export const GlowCursor: React.FC = () => {
   const mouseY = useMotionValue(0);
 
   // Springs for smooth interpolation
-  const springConfig = { damping: 25, stiffness: 150 };
+  const springConfig = { damping: 30, stiffness: 300 };
   const springX = useSpring(mouseX, springConfig);
   const springY = useSpring(mouseY, springConfig);
   const springWidth = useSpring(CIRCLE_SIZE, springConfig);
