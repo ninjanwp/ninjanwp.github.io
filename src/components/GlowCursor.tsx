@@ -80,7 +80,7 @@ export const GlowCursor: React.FC = () => {
 
   // Central styling logic for the glow shape
   const getShapeStyle = () => ({
-    position: "fixed",
+    position: useMotionValue("fixed"),
     top: 0,
     left: 0,
     width: springWidth, // spring-driven width
@@ -109,7 +109,7 @@ export const GlowCursor: React.FC = () => {
 
     zIndex: 999999, // Increased z-index
     transition: "background-color 0.3s ease",
-    pointerEvents: "none",
+    pointerEvents: useMotionValue("none"),
   });
 
   return (

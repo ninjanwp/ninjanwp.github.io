@@ -6,9 +6,8 @@ import {
 } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 import { HeaderLinks } from "./Header";
-import { GlowCursor } from "./GlowCursor";
 import { useState } from "react";
-import { HiAcademicCap, HiDocument, HiLocationMarker } from "react-icons/hi"; // Add this import
+import { HiAcademicCap, HiLocationMarker } from "react-icons/hi"; // Add this import
 
 import { WarmText } from "./WarmText";
 

@@ -8,7 +8,7 @@ interface WarmTextProps {
 
 export const WarmText: React.FC<WarmTextProps> = ({
   children,
-  intensity = 'medium'
+  intensity,
 }) => {
   const getIntensityStyles = () => {
     const intensityMap = {
@@ -29,7 +29,7 @@ export const WarmText: React.FC<WarmTextProps> = ({
       }
     };
 
-    // const { glowStrength, brightness, shake } = intensityMap[intensity];
+    const { glowStrength, brightness, shake } = intensityMap[intensity || 'medium'];
 
     return {
       display: 'inline-block',
@@ -37,13 +37,13 @@ export const WarmText: React.FC<WarmTextProps> = ({
       fontFamily: 'monospace',
       fontWeight: 'bold',
       color: '#ff4400',
-    //   textShadow: `
-    //     0 0 ${glowStrength} #ff4400,
-    //     0 0 ${parseInt(glowStrength) * 1.5}px #ff2200,
-    //     0 0 ${parseInt(glowStrength) * 2}px #ff1100
-    //   `,
-    //   filter: `brightness(${brightness})`,
-    //   animation: `${shake} ${200 + Math.random() * 100}ms ease-in-out infinite, glow 600ms ease-in-out infinite`,
+      textShadow: `
+        0 0 ${glowStrength} #ff4400,
+        0 0 ${parseInt(glowStrength) * 1.5}px #ff2200,
+        0 0 ${parseInt(glowStrength) * 2}px #ff1100
+      `,
+      filter: `brightness(${brightness})`,
+      animation: `${shake} ${200 + Math.random() * 100}ms ease-in-out infinite, glow 600ms ease-in-out infinite`,
     
     };
   };

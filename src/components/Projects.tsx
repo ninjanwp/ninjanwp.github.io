@@ -14,8 +14,7 @@ import {
 import { useState, useEffect } from "react";
 import { SiR, SiGithub } from "react-icons/si";
 import ZoopText from "./ZoopText"; // Adjust the path as necessary
-import { FontSwitch } from "./FontSwitch";
-import { WarmText } from "./WarmText";
+import { WarmText } from "./WarmText"; // Adjust the path as necessary
 
 type ProjectItemProps = {
   title: string;
