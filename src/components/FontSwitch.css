@@ -1,0 +1,23 @@
+/* @keyframes shake {
+  0%, 100% { transform: translate(0, 0) rotate(0) scale(1); }
+  25% { transform: translate(-0.5px, 0.5px) rotate(-0.25deg) scale(1); }
+  50% { transform: translate(0.5px, -0.5px) rotate(0.25deg) scale(0.995); }
+  75% { transform: translate(-0.5px, -0.5px) rotate(-0.25deg) scale(1); }
+}
+
+@keyframes shakeAlt {
+  0%, 100% { transform: translate(0, 0) skew(0deg) scale(1); }
+  25% { transform: translate(0.5px, 0.25px) skew(0.5deg) scale(1); }
+  50% { transform: translate(-0.5px, -0.25px) skew(-0.5deg) scale(0.995); }
+  75% { transform: translate(0.5px, -0.25px) skew(0.5deg) scale(1); }
+}
+
+@keyframes microShake {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(0.25px, -0.25px) scale(1); }
+} */
+
+@keyframes glow {
+  0%, 100% { filter: brightness(1.1) blur(0px); }
+  50% { filter: brightness(1.2) blur(0.25px); }
+}

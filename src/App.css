@@ -3,12 +3,28 @@
   src: url('/fonts/LeagueSpartan-VF.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Malven';
+  src: url('fonts/MalvenRegular-51MRB.otf') format('truetype');
+}
+
+* {
+  user-select: none !important;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 #root {
   width: 100%;
   margin: 0;
   padding: 0;
   position: relative;
   z-index: 2;
+  font-family: 'system-ui', sans-serif;
+  overflow: hidden;
+  cursor: none;
+  user-select: none;
 }
 
 .font-leaguespartan {

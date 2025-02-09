@@ -1,211 +1,137 @@
-import { useScroll, useTransform, motion } from "framer-motion";
+import {
+  useScroll,
+  useTransform,
+  motion,
+  useMotionValueEvent,
+} from "framer-motion";
 import { ReactLenis } from "lenis/react";
-import { HeaderTitle, HeaderLinks, HeaderSubtitle } from "./Header";
-import { DiApple } from "react-icons/di";
-import { useRef } from "react";
+import { HeaderLinks } from "./Header";
+import { GlowCursor } from "./GlowCursor";
+import { useState } from "react";
+import { HiAcademicCap, HiDocument, HiLocationMarker } from "react-icons/hi"; // Add this import
 
-const BackgroundContainer = () => {
+import { WarmText } from "./WarmText";
+
+const ImageBlob = () => (
+  <motion.div
+    initial={{ opacity: 0, x: 20, scale: 0 }}
+    whileInView={{ opacity: 1, x: 0, scale: 1 }}
+    className="relative w-full md:w-1/2 h-[300px] md:h-auto flex items-center justify-center">
+    <svg
+      viewBox="0 0 200 200"
+      className="hoverable w-[300px] h-[300px] md:w-[400px] md:h-[400px]"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <clipPath id="blob">
+          <path
+            fill="#ff4400"
+            d="M45,-54.3C58.2,-42.5,68.9,-28.3,74.1,-11.2C79.2,5.8,79,25.6,69.9,39.5C60.9,53.3,43,61.2,24.6,68C6.3,74.9,-12.6,80.7,-29.3,76.4C-46,72.1,-60.5,57.7,-64.1,41.7C-67.7,25.7,-60.5,8.2,-57.1,-9.9C-53.8,-28.1,-54.3,-46.8,-45.5,-59.4C-36.6,-71.9,-18.3,-78.4,-1.2,-77C15.9,-75.5,31.7,-66.1,45,-54.3Z"
+            transform="translate(100 100)"
+          />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#blob)">
+        <rect width="200" height="200" fill="#ff4400" />
+      </g>
+    </svg>
+  </motion.div>
+);
+
+const BrutalistHeader = () => {
   const { scrollY } = useScroll();
-  const backgroundColor = useTransform(
-    scrollY,
-    [0, 200],
-    ["#09090b", "#ff3333"],
-    { clamp: false }
-  );
+  const [isSticky, setIsSticky] = useState(false);
+  const greetingX = useTransform(scrollY, [0, 300], [0, -100]);
+  const nameX = useTransform(scrollY, [0, 300], [0, 100]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-  return (
-    <motion.div
-      className="fixed inset-0 w-full h-full -z-10 transition-colors duration-300"
-      style={{ backgroundColor }}
-    />
-  );
-};
-
-import { useEffect, useState } from "react";
-
-const TopBar = () => {
-  const timeString = new Date().toLocaleTimeString(undefined, {
-    hour: "numeric",
-    minute: "numeric",
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsSticky(latest > window.innerHeight * 0.7);
   });
 
-  const dateString = new Date()
-    .toLocaleDateString(undefined, {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-    })
-    .replace(",", "");
-
   return (
-    <div className="absolute z-20 w-full h-10 top-0">
-      {/* Backdrop blur - desktop only */}
-      <div className="absolute inset-0 bg-zinc-950/20 backdrop-blur-md hidden md:block" />
+    <div className="relative flex min-h-screen w-full">
+      <div className="relative z-10 flex flex-col md:flex-row justify-center items-center w-full min-h-screen">
+        <div className="w-full md:w-1/2 px-4 md:px-16">
+          <motion.h2
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            style={{ x: greetingX, opacity }}
+            className="text-[8vw] md:text-[6vw] leading-none tracking-tight text-stone-400"
+          >
+            <WarmText intensity="low">Hey, I'm</WarmText>
+          </motion.h2>
 
-      {/* Content container - above backdrop */}
-      <div className="relative z-30 h-full">
-        {/* Desktop view */}
-        <div className="hidden md:flex justify-between items-center h-full px-3">
-          <div className="text-white text-xl font-bold flex items-center">
-            <DiApple className="me-3" />
-            Portfolio
-          </div>
-          <div className="text-white font-semibold text-md">
-            {dateString} {timeString}
-          </div>
-        </div>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            style={{ x: nameX, opacity }}
+            className="text-[24vw] md:text-[20vw] font-black uppercase leading-none tracking-tight"
+          >
+            Nick
+          </motion.h1>
 
-        {/* Mobile view - time only */}
-        <div className="md:hidden flex justify-end items-center h-full px-3">
-          <div className="text-white font-semibold text-sm">{timeString}</div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 mt-6 md:mt-9 text-lg md:text-xl"
+          >
+            <span className="flex items-center gap-2 text-stone-400">
+              <WarmText intensity="low">
+                <HiLocationMarker className="text-2xl" />
+              </WarmText>
+              Tallahassee
+            </span>
+            <span className="flex items-center gap-2 text-stone-400">
+              <WarmText intensity="low">
+                <HiAcademicCap className="text-2xl" />
+              </WarmText>
+              Information Technology
+            </span>
+          </motion.div>
         </div>
+        <ImageBlob />
       </div>
 
-      {/* Notch */}
-      <div className="absolute left-1/2 -translate-x-1/2 top-0 w-48 z-40">
-        <div className="h-9 bg-zinc-950 rounded-b-2xl" />
-      </div>
+      <motion.div
+        className="fixed left-0 right-0 z-[999] backdrop-blur-sm px-4 md:px-0"
+        style={{
+          position: isSticky ? "fixed" : "absolute",
+          top: isSticky ? 0 : "auto",
+          bottom: isSticky ? "auto" : "2.5rem",
+          transform: isSticky ? "translateY(0)" : "none",
+        }}
+        animate={
+          isSticky
+            ? {
+                padding: "1rem",
+              }
+            : {
+                padding: "1rem",
+                borderRadius: "0.5rem",
+              }
+        }
+      >
+        <motion.div
+          layout
+          className={`${isSticky ? "max-w-5xl mx-auto" : "px-6 py-4"}`}
+        >
+          <HeaderLinks />
+        </motion.div>
+      </motion.div>
     </div>
   );
 };
 
-const BackgroundImage = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollY } = useScroll();
-  const scale = useTransform(scrollY, [0, 500], [0.5, 0.75]);
-  const opacity = useTransform(scrollY, [0, 2250], [1, 1]);
-  const scrollRotateX = useTransform(scrollY, [0, 2250], [15, 0]);
-
-  // Separate state for mouse-based transforms
-  const [mouseRotate, setMouseRotate] = useState({ x: 0, y: 0 });
-
-  const videoSources = [
-    "videos/compressed_glitch.webm",
-    "videos/compressed_terminal.webm",
-    "videos/compressed_glitch2.webm",
-    "videos/compressed_terminal2.webm",
-  ];
-  const [currentVideo, setCurrentVideo] = useState(videoSources[0]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentVideo((prev) => {
-        const currentIndex = videoSources.indexOf(prev);
-        const nextIndex = (currentIndex + 1) % videoSources.length;
-        return videoSources[nextIndex];
-      });
-    }, 1000); // Change video every 5 seconds
-
-    return () => clearInterval(interval);
-  }, [videoSources]);
-
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-
-    const { clientX, clientY } = event;
-    const { left, top, width, height } =
-      containerRef.current.getBoundingClientRect();
-
-    const x = (clientX - left) / width;
-    const y = (clientY - top) / height;
-
-    // Smoother mouse-based rotation
-    const tiltX = -(y - 0.5) * 20;
-    const tiltY = (x - 0.5) * 20;
-
-    setMouseRotate({ x: tiltX, y: tiltY });
-  };
-
-  const handleMouseLeave = () => {
-    setMouseRotate({ x: 0, y: 0 });
-  };
-
-  return (
-    <motion.div
-      className="fixed inset-0 w-screen h-screen z-10 flex items-center justify-center"
-      style={{
-        scale,
-        opacity,
-        perspective: 1000,
-      }}
-      initial={{ opacity: 0, scale: 0.5, rotateX: 90, translateY: "50%" }}
-      animate={{
-        opacity: 1,
-        scale: 0.5,
-        rotateX: 0,
-        translateY: "0%",
-        filter: "drop-shadow(0px 0px 0px rgba(255, 51, 51, 0))",
-      }}
-      whileHover={{
-        filter: "drop-shadow(0px 0px 20px rgba(255, 51, 51, 0.5))",
-        rotateX: 0,
-      }}
-      transition={{ type: "spring", damping: 10 }}
-    >
-      <motion.div
-        ref={containerRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className="w-screen h-screen relative border-zinc-950 border-[10px] rounded-[30px] overflow-hidden flex flex-col justify-between items-center"
-        style={{
-          transformStyle: "preserve-3d",
-          transform: `
-            rotateX(${scrollRotateX.get() + mouseRotate.x}deg)
-            rotateY(${mouseRotate.y}deg)
-          `,
-          transition: "transform 0.1s ease-out",
-        }}
-      >
-        <TopBar />
-        <video
-          src={currentVideo}
-          autoPlay
-          loop
-          muted
-          className="absolute inset-0 w-full h-full object-cover grayscale rounded-[20px] pointer-events-none bg-zinc-500"
-        />
-        <div className="absolute bottom-1 z-20 h-auto w-full flex justify-center items-center">
-          <div className="bg-zinc-950/20 h-auto w-auto rounded-3xl p-6 backdrop-blur-md">
-            <HeaderLinks />
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-};
-
-const AnimatedHeader = () => {
-  const { scrollY } = useScroll();
-  const titleY = useTransform(scrollY, [0, 300], [0, -50]);
-  const titleScale = useTransform(scrollY, [0, 300], [1, 0.9]);
-  const subtitleScale = useTransform(scrollY, [0, 300], [1, 0.9]);
-  const subtitleY = useTransform(scrollY, [0, 300], [0, -50]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-
-  return (
-    <motion.div style={{ opacity }} className="relative z-10">
-      <motion.div style={{ y: titleY, scale: titleScale }}>
-        <HeaderTitle />
-      </motion.div>
-      <motion.div style={{ y: subtitleY, scale: subtitleScale }}>
-        <HeaderSubtitle />
-      </motion.div>
-    </motion.div>
-  );
-};
-
-const SmoothScrollHero = () => {
-  return (
-    <ReactLenis root options={{ lerp: 0.1 }}>
-      <div className="sticky top-0 w-full h-[300vh] pt-9 overflow-hidden">
-        <BackgroundContainer />
-        <BackgroundImage />
-        <div className="relative h-screen">
-          <AnimatedHeader />
-        </div>
-      </div>
-    </ReactLenis>
-  );
-};
+const SmoothScrollHero = () => (
+  <ReactLenis root>
+    <div className="w-full flex items-center justify-center">
+      <BrutalistHeader />
+    </div>
+  </ReactLenis>
+);
 
 export { SmoothScrollHero };

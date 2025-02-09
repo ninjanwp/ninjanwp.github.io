@@ -14,6 +14,8 @@ import {
 import { useState, useEffect } from "react";
 import { SiR, SiGithub } from "react-icons/si";
 import ZoopText from "./ZoopText"; // Adjust the path as necessary
+import { FontSwitch } from "./FontSwitch";
+import { WarmText } from "./WarmText";
 
 type ProjectItemProps = {
   title: string;
@@ -48,7 +50,7 @@ const GlyphCycler = ({
         animate={{ opacity: 1, scale: 1, translateY: "0%" }}
         exit={{ opacity: 0, scale: 0, translateY: "-100%" }}
         transition={{ duration: 0.5, type: "spring" }}
-        className="text-5xl"
+        className="text-6xl"
       >
         {glyphs[currentGlyph]}
       </motion.span>
@@ -64,40 +66,43 @@ const ProjectItem = ({
   link,
   index,
 }: ProjectItemProps) => {
-  const formattedIndex = String(index + 1).padStart(3, "00");
+  const formattedIndex = String(index + 1).padStart(2, "#");
 
   return (
     <motion.div
-      className="py-3 relative rounded-lg w-full h-full bg-zinc-950 flex-col justify-between"
+      className="py-3 relative rounded-lg w-full h-full backdrop-blur-sm flex-col justify-between"
       initial={{ y: "100%", opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ ease: "easeInOut", damping: 16, type: "spring" }}
     >
       <div className="flex-col items-center justify-between mx-5 px-3 py-5">
         <div className="flex flex-col items-start">
-          <div className="mb-1 overflow-hidden font-mono text-custom-red-400 flex justify-between items-center w-full">
+          <div className="mb-1 overflow-hidden text-6xl px-3 font-mono text-zinc-200 flex justify-between items-center w-full">
             <motion.span
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              {formattedIndex}
+              <WarmText intensity="low">{formattedIndex}</WarmText>
             </motion.span>
-            <GlyphCycler glyphs={glyphs} index={index} />
+            <WarmText intensity="low">
+              <GlyphCycler glyphs={glyphs} index={index} />
+            </WarmText>
           </div>
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
             transition={{ delay: 0.1, duration: 0.5 }}
             whileInView={{ opacity: 1, scaleX: 1 }}
-            className="w-full mb-6 h-px bg-zinc-400"
+            className="w-full mb-6 h-px bg-stone-400"
           />
-          <p className="mb-1.5 text-xl text-zinc-50 transition-all duration-300 ease-in-out group-hover:text-custom-red-400">
+          <p className="mb-1.5 text-xl text-zinc-50 transition-all duration-300 ease-in-out group-hover:text-zinc-200">
             {title}
           </p>
           <p className="text-sm uppercase text-zinc-400">{description}</p>
         </div>
         <div className="flex justify-start items-center w-full mt-6">
           <motion.a
+            className="cursor-none"
             href={link}
             target="_blank"
             rel="noopener noreferrer"
@@ -105,13 +110,7 @@ const ProjectItem = ({
             transition={{ delay: 1 }}
             whileInView={{ opacity: 1, scale: 1 }}
           >
-            <ZoopText
-              IconComponent={
-                <SiGithub/>
-              }
-            >
-              GITHUB/{slug}
-            </ZoopText>
+            <ZoopText IconComponent={<SiGithub />}>GITHUB/{slug}</ZoopText>
           </motion.a>
         </div>
       </div>
@@ -170,17 +169,16 @@ export const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="text-white bg-zinc-950 relative pb-32">
+    <section id="projects" className="relative text-white pb-32 z-0">
       <motion.h1
         initial={{ y: 48, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ ease: "easeInOut", duration: 0.75 }}
-        className="px-8 text-[8vw] font-black font-leaguespartan uppercase text-zinc-50 py-9 bg-zinc-950"
+        className="text-[10vw] px-8 md:px-16 font-black py-32 h-[50vh] uppercase leading-none tracking-tight"
       >
         Projects
-        <span className="text-custom-red-400 font-mono">[6]</span>
       </motion.h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-8">
         {projects.map((project, index) => (
           <ProjectItem key={index} {...project} index={index} />
         ))}
