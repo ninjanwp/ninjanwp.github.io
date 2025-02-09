@@ -115,7 +115,7 @@ const GraphLabel = ({ type }: { type: VisualType }) => (
     animate={{ x: 0, opacity: 1 }}
     exit={{ x: "50%", opacity: 0 }}
     transition={{ duration: 0.5, ease: "easeInOut" }}
-    className="absolute top-0 left-6 flex justify-center"
+    className="absolute sm:top-0 top-9 sm:left-6 left-3 flex justify-center"
   >
     <span className="text-stone-400 uppercase tracking-widest text-sm">
       // {type}

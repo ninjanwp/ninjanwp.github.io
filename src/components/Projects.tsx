@@ -14,7 +14,6 @@ import {
 import { useState, useEffect } from "react";
 import { SiR, SiGithub } from "react-icons/si";
 import ZoopText from "./ZoopText"; // Adjust the path as necessary
-import { useState as useHoverState } from "react"; // rename to avoid conflict
 
 type ProjectItemProps = {
   title: string;
@@ -227,7 +226,7 @@ export const Projects = () => {
         className="space-y-4 mb-24"
       >
         <p className="text-sm uppercase tracking-widest text-stone-400">
-          Showcase
+          // Showcase
         </p>
         <h2 className="text-4xl md:text-6xl font-bold text-stone-200">
           Projects

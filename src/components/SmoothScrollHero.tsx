@@ -24,7 +24,7 @@ const BrutalistHeader = () => {
                 transition={{ duration: 0.5 }}
                 className="text-sm uppercase tracking-widest text-stone-400"
               >
-                Software Engineer
+                // Software Engineer
               </motion.p>
 
               <motion.h1
