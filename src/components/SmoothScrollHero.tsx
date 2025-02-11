@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 import { HiAcademicCap, HiLocationMarker } from "react-icons/hi";
-import { Navigation } from "./Header";
 import { DataGrid } from "./DataGrid";
+import { FiArrowDownCircle } from "react-icons/fi";
 
 // Removed CircuitGrid component
 
@@ -24,7 +24,7 @@ const BrutalistHeader = () => {
                 transition={{ duration: 0.5 }}
                 className="text-sm uppercase tracking-widest text-stone-400"
               >
-                // Software Engineer
+                // Full-stack Developer
               </motion.p>
 
               <motion.h1
@@ -43,10 +43,29 @@ const BrutalistHeader = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="space-y-8"
             >
-              <p className="text-xl md:text-2xl leading-relaxed text-stone-300">
-                Full-stack developer with a focus on modern web technologies and
-                data manipulation.
-              </p>
+              <div className="flex gap-4">
+                <motion.a
+                  href="#about"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  className="flex items-center gap-2 px-4 py-3 bg-gradient-to-r text-xl from-purple-200 to-purple-300 text-stone-900 font-medium rounded hover:bg-stone-300 transition-colors cursor-pointer no-underline"
+                >
+                  About Me
+                  <FiArrowDownCircle />
+                </motion.a>
+
+                <motion.a
+                  href="#projects"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  className="flex items-center gap-2 px-4 py-3 border text-xl border-stone-200 text-stone-200 font-medium rounded hover:bg-stone-200/10 transition-colors cursor-pointer no-underline"
+                >
+                  Showcase
+                  <FiArrowDownCircle />
+                </motion.a>
+              </div>
 
               <div className="space-y-6">
                 <motion.div
@@ -84,14 +103,13 @@ const BrutalistHeader = () => {
         </div>
         <DataGrid />
       </div>
-      <Navigation />
     </div>
   );
 };
 
 const SmoothScrollHero = () => (
-  <ReactLenis root>
-    <div className="w-full flex items-center justify-center">
+  <ReactLenis root className="w-screen h-screen">
+    <div className="w-full">
       <BrutalistHeader />
     </div>
   </ReactLenis>

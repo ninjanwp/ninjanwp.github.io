@@ -1,99 +1,122 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { FiArrowRight } from "react-icons/fi";
+import { motion, useInView } from "framer-motion";
+import { FiLink2 } from "react-icons/fi";
+
+export enum ZoopVariant {
+  ON_HOVER = "onHover",
+  WHEN_VISIBLE = "whenVisible",
+}
 
 interface ZoopTextProps {
   children: React.ReactNode;
-  IconComponent: React.ReactNode;
+  variant?: ZoopVariant;
 }
 
-const DURATION = 0.1;
-const DELAY_MULTIPLIER = 0.03;
+const DURATION = 0.2;
+const DELAY_MULTIPLIER = 0.05;
 const TYPE = "";
 const DAMPING = 15;
 
-const TEXT_COLOR = "text-stone-500";
-const HOVER_TEXT_COLOR = "text-stone-50";
-const TEXT_SIZE = "text-2xl";
+const TEXT_COLOR = "";
+const HOVER_TEXT_COLOR = "";
+const TEXT_SIZE = "";
 
-const ZoopText: React.FC<ZoopTextProps> = ({ children, IconComponent }) => {
+const ZoopText: React.FC<ZoopTextProps> = ({
+  children,
+  variant = ZoopVariant.ON_HOVER,
+}) => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref);
   const text = React.Children.toArray(children).join("");
-  const characters = [...text.split("")]; // Add arrow as last character
+  const characters = [...text.split("")];
+
+  const getVariants = (
+    index: number
+  ): Record<string, { y: string; transition: typeof transition }> => {
+    const transition = {
+      duration: DURATION,
+      delay: index * DELAY_MULTIPLIER,
+      type: TYPE,
+      damping: DAMPING,
+    };
+
+    if (variant === ZoopVariant.WHEN_VISIBLE) {
+      return {
+        hidden: { y: "100%", transition },
+        visible: { y: "0%", transition },
+      };
+    }
+
+    return {
+      rest: { y: "0%", transition },
+      hover: { y: "-100%", transition },
+    };
+  };
+
+  const getHiddenVariants = (index: number) => {
+    const transition = {
+      duration: DURATION,
+      delay: index * DELAY_MULTIPLIER,
+      type: TYPE,
+      damping: DAMPING,
+    };
+
+    return {
+      rest: { y: "100%", transition },
+      hover: { y: "0%", transition },
+    };
+  };
 
   return (
     <motion.div
-      initial="rest"
-      whileHover="hover"
-      animate="rest"
-      className="relative inline-flex items-center whitespace-nowrap hoverable cursor-none"
+      ref={ref}
+      className="relative inline-flex items-center whitespace-nowrap"
+      {...(variant === ZoopVariant.ON_HOVER
+        ? {
+            initial: "rest",
+            whileHover: "hover",
+            animate: "rest",
+          }
+        : {
+            initial: "hidden",
+            animate: isInView ? "visible" : "hidden",
+          })}
     >
-      <div className={`${HOVER_TEXT_COLOR} ${TEXT_SIZE}`}>{IconComponent}</div>
-
-      <motion.p className="overflow-hidden leading-tight px-2 whitespace-nowrap">
+      <motion.p
+        className={`overflow-hidden whitespace-nowrap ${
+          variant === ZoopVariant.ON_HOVER
+            ? "leading-[1] uppercase"
+            : "leading-tight"
+        }`}
+      >
         {characters.map((char, index) => (
-          <span
-            key={index}
-            className={`inline-block relative font-mono ${TEXT_SIZE}`}
-          >
+          <span key={index} className={`inline-block relative ${TEXT_SIZE}`}>
+            {variant === ZoopVariant.ON_HOVER && (
+              <motion.span
+                className={`block ${TEXT_COLOR}`}
+                variants={getVariants(index)}
+              >
+                {char}
+              </motion.span>
+            )}
             <motion.span
-              className={`block ${TEXT_COLOR} uppercase`}
-              variants={{
-                rest: {
-                  y: 0,
-                  transition: {
-                    duration: DURATION,
-                    delay: index * DELAY_MULTIPLIER,
-                    type: TYPE,
-                    damping: DAMPING,
-                  },
-                },
-                hover: {
-                  y: "-100%",
-                  transition: {
-                    duration: DURATION,
-                    delay: index * DELAY_MULTIPLIER,
-                    type: TYPE,
-                    damping: DAMPING,
-                  },
-                },
-              }}
+              className={`${
+                variant === ZoopVariant.ON_HOVER ? "absolute bottom-0" : ""
+              } block ${HOVER_TEXT_COLOR}`}
+              variants={
+                variant === ZoopVariant.ON_HOVER
+                  ? getHiddenVariants(index)
+                  : getVariants(index)
+              }
             >
-              {char === "→" ? "\u00A0" : char}
-            </motion.span>
-            <motion.span
-              className={`block absolute bottom-0 ${HOVER_TEXT_COLOR} uppercase ${
-                char === "→" ? "flex items-center" : ""
-              }`}
-              variants={{
-                rest: {
-                  y: "100%",
-                  transition: {
-                    duration: DURATION,
-                    delay: index * DELAY_MULTIPLIER,
-                    type: TYPE,
-                    damping: DAMPING,
-                  },
-                },
-                hover: {
-                  y: 0,
-                  transition: {
-                    duration: DURATION,
-                    delay: index * DELAY_MULTIPLIER,
-                    type: TYPE,
-                    damping: DAMPING,
-                  },
-                },
-              }}
-            >
-              {char === "→" ? (
-                <FiArrowRight className="relative -top-[0.1em]" />
-              ) : (
-                char
-              )}
+              {char}
             </motion.span>
           </span>
         ))}
       </motion.p>
+      {variant === ZoopVariant.ON_HOVER && (
+        <FiLink2 className="ml-[0.5ch]" />
+      )}
     </motion.div>
   );
 };

@@ -122,16 +122,16 @@ export const GlowCursor: React.FC = () => {
     `,
 
     transition: "background-color 0.3s ease",
-    pointerEvents: useMotionValue("none"),
+    
   });
 
   return (
     <div
-      className="fixed inset-0 pointer-events-none hidden sm:block"
+      className="fixed inset-0 hidden sm:block"
       style={{ opacity: isVisible ? 1 : 0, zIndex: 100 }}
     >
       {/* The custom glow cursor shape */}
-      <motion.div className="pointer-events-none" style={getShapeStyle()} />
+      <motion.div style={getShapeStyle()} />
     </div>
   );
 };

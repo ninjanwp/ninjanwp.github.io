@@ -223,8 +223,8 @@ export const DataGrid = () => {
           <defs>
             {STYLE.GLOW.filter}
             <linearGradient id="lineGradient" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="white" stopOpacity="1" />
-              <stop offset="100%" stopColor="white" stopOpacity="0" />
+              <stop offset="0%" stopColor="#d8b4fe" stopOpacity="1" />
+              <stop offset="100%" stopColor="#e9d5ff" stopOpacity="0" />
             </linearGradient>
             <mask id="lineMask">
               <motion.path
@@ -250,14 +250,14 @@ export const DataGrid = () => {
                 .map((p) => `${p.x} ${p.y}`)
                 .join(" L ")}`}
               fill="none"
-              stroke={STYLE.STROKE_COLOR}
+              stroke="#d8b4fe"
               strokeWidth={STYLE.STROKE_WIDTH.LINE}
               strokeDasharray="0,1"
             />
             <motion.rect
               initial={{ opacity: 0 }}
-              animate={{ opacity: gradientOpacity}}
-              exit={{ opacity: 0}}
+              animate={{ opacity: gradientOpacity }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
               x="0"
               y="0"
@@ -274,8 +274,8 @@ export const DataGrid = () => {
           <defs>
             {STYLE.GLOW.filter}
             <linearGradient id="barGradient" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="white" stopOpacity="1" />
-              <stop offset="100%" stopColor="white" stopOpacity="0" />
+              <stop offset="0%" stopColor="#d8b4fe" stopOpacity="1" />
+              <stop offset="100%" stopColor="#e9d5ff" stopOpacity="0" />
             </linearGradient>
           </defs>
           {renderGrid(size)}
@@ -324,7 +324,7 @@ export const DataGrid = () => {
                   cx={point.x}
                   cy={point.y}
                   r={STYLE.SCATTER_RADIUS}
-                  fill={STYLE.STROKE_COLOR}
+                  fill="#d8b4fe"
                 />
               );
             })}
