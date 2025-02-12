@@ -15,8 +15,6 @@ export const DatabaseVisual = () => {
   });
 
   const bottomTable = getTableMidpoint(tables[2]);
-  const leftTopTable = getTableMidpoint(tables[0]);
-  const rightTopTable = getTableMidpoint(tables[1]);
 
   // Updated connection paths to meet tables at their middle height
   const connections = [
