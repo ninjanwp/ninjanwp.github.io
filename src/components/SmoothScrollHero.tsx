@@ -1,17 +1,17 @@
 import { motion } from "framer-motion";
-import { ReactLenis } from "lenis/react";
+// import { ReactLenis } from "lenis/react";
 import { HiAcademicCap, HiLocationMarker } from "react-icons/hi";
-import { DataGrid } from "./DataGrid";
+// import { DataGrid } from "./DataGrid";
 import { FiArrowDownCircle } from "react-icons/fi";
 
 // Removed CircuitGrid component
 
 const BrutalistHeader = () => {
   return (
-    <div className="relative flex min-h-screen w-full">
-      <div className="relative z-10 flex flex-col md:flex-row justify-center items-center w-full min-h-screen max-w-7xl mx-auto">
-        <div className="w-full md:w-1/2 px-8 md:px-16 flex flex-col gap-12">
-          <div className="space-y-6">
+    <div className="relative flex h-full w-full">
+      <div className="relative z-10 flex flex-col justify-center items-center w-full h-full">
+        <div className="w-full px-6 flex flex-col gap-8">
+          <div className="space-y-4">
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -31,7 +31,7 @@ const BrutalistHeader = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-5xl md:text-7xl font-bold text-stone-200 leading-none"
+                className="text-4xl sm:text-5xl font-bold text-stone-200 leading-tight"
               >
                 Nicholas Pfeffer
               </motion.h1>
@@ -101,18 +101,15 @@ const BrutalistHeader = () => {
             </motion.div>
           </div>
         </div>
-        <DataGrid />
       </div>
     </div>
   );
 };
 
 const SmoothScrollHero = () => (
-  <ReactLenis root className="w-screen h-screen">
-    <div className="w-full">
-      <BrutalistHeader />
-    </div>
-  </ReactLenis>
+  <div className="w-full h-full overflow-hidden">
+    <BrutalistHeader />
+  </div>
 );
 
 export { SmoothScrollHero };

@@ -37,3 +37,66 @@ button, a, .button {
   display: inline-block; /* Ensure elements are inline-block */
   position: relative; /* Ensure elements have a position context */
 }
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes gradient-slide-1 {
+  0% {
+    background-position: 200% 200%;
+  }
+  100% {
+    background-position: -200% -200%;
+  }
+}
+
+@keyframes gradient-slide-2 {
+  0% {
+    background-position: -200% 200%;
+  }
+  100% {
+    background-position: 200% -200%;
+  }
+}
+
+@keyframes moveLight1 {
+  0% {
+    background-position: -100% -100%;
+  }
+  100% {
+    background-position: 200% 200%;
+  }
+}
+
+@keyframes moveLight2 {
+  0% {
+    background-position: 200% -100%;
+  }
+  100% {
+    background-position: -100% 200%;
+  }
+}
+
+@keyframes moveHorizontal {
+  0% {
+    transform: translateX(-100vw);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
+
+@keyframes moveVertical {
+  0% {
+    transform: translateY(-100vh);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}

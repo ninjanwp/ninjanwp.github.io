@@ -213,7 +213,7 @@ export const DataGrid = () => {
 
     const sharedSvgProps = {
       className:
-        "w-[300px] h-[300px] mt-12 md:mt-0 md:w-[500px] md:h-[500px] overflow-visible",
+        "mt-12 md:mt-0 overflow-visible",
       viewBox: `0 0 ${size} ${size}`,
     };
 

@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   DiReact,
   DiPython,
@@ -11,105 +11,47 @@ import {
   DiAndroid,
   DiMsqlServer,
 } from "react-icons/di";
-import { useState, useEffect } from "react";
-import { SiR } from "react-icons/si";
-import ZoopText, { ZoopVariant } from "./ZoopText";
 
-type ProjectItemProps = {
-  title: string;
-  slug: string;
-  glyphs: JSX.Element[];
-  description: string;
-  link: string;
-  index: number;
+import { SiR, SiTailwindcss, SiTypescript } from "react-icons/si";
+import ZoopText from "./ZoopText";
+import { DataGridVisual } from "./ProjectVisuals/DataGridVisual";
+import { PhoneVisual } from "./ProjectVisuals/PhoneVisual";
+import { DatabaseVisual } from "./ProjectVisuals/DatabaseVisual";
+import { StorefrontVisual } from "./ProjectVisuals/StorefrontVisual";
+import { PortfolioVisual } from "./ProjectVisuals/PortfolioVisual";
+
+import { Project, ProjectVisualType } from "../types/project";
+import { WebDesignVisual } from "./ProjectVisuals/WebDesignVisual";
+import { FiTool } from "react-icons/fi";
+import SectionHeader from "./SectionHeader";
+import SubheadingDivider from "./SubheadingDivider";
+import { useState, useRef } from "react";
+
+// Remove GlyphCycler component as it's no longer needed
+
+const ProjectVisual = ({ type }: { type: ProjectVisualType }) => {
+  switch (type) {
+    case "portfolio":
+      return <PortfolioVisual />;
+    case "storefront":
+      return <StorefrontVisual />;
+    case "dataGrid":
+      return <DataGridVisual />;
+    case "webDesign":
+      return <WebDesignVisual />;
+    case "phone":
+      return <PhoneVisual />;
+    case "database":
+      return <DatabaseVisual />;
+    default:
+      return null;
+  }
 };
 
-const GlyphCycler = ({
-  glyphs,
-  index,
-}: {
-  glyphs: JSX.Element[];
-  index: number;
-}) => {
-  const [currentGlyph, setCurrentGlyph] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentGlyph((prev) => (prev + 1) % glyphs.length);
-    }, 3000 + index * 50); // Change glyph every 2 seconds
-    return () => clearInterval(interval);
-  }, [glyphs.length]);
-
-  return (
-    <AnimatePresence mode="wait">
-      <motion.span
-        key={currentGlyph}
-        initial={{ opacity: 0, scale: 0, translateY: "100%" }}
-        animate={{ opacity: 1, scale: 1, translateY: "0%" }}
-        exit={{ opacity: 0, scale: 0, translateY: "-100%" }}
-        transition={{ duration: 0.5, type: "spring" }}
-        className="text-4xl"
-      >
-        {glyphs[currentGlyph]}
-      </motion.span>
-    </AnimatePresence>
-  );
-};
-
-const GridBackground = ({ isHovered }: { isHovered: boolean }) => {
-  const GRID_STEPS = 10; // Match DataGrid steps
-  const SIZE = 100;
-
-  return (
-    <svg
-      className="absolute inset-0 w-full h-full -z-10"
-      viewBox={`0 0 ${SIZE} ${SIZE}`}
-      preserveAspectRatio="none"
-    >
-      <defs>
-        <filter id="projectGlow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="0.5" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-
-      <motion.g filter="url(#projectGlow)">
-        {Array.from({ length: GRID_STEPS + 1 }).map((_, i) => (
-          <motion.line
-            key={`h-${i}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 0.05 : 0 }}
-            transition={{ duration: 0.5, type: "spring", damping: 15 }}
-            x1="0"
-            y1={SIZE * (i / GRID_STEPS)}
-            x2={SIZE}
-            y2={SIZE * (i / GRID_STEPS)}
-            stroke="#fff"
-            strokeWidth="1"
-            vectorEffect="non-scaling-stroke"
-          />
-        ))}
-        {Array.from({ length: GRID_STEPS + 1 }).map((_, i) => (
-          <motion.line
-            key={`v-${i}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 0.05 : 0 }}
-            transition={{ duration: 0.5, type: "spring", damping: 15 }}
-            x1={SIZE * (i / GRID_STEPS)}
-            y1="0"
-            x2={SIZE * (i / GRID_STEPS)}
-            y2={SIZE}
-            stroke="#fff"
-            strokeWidth="1"
-            vectorEffect="non-scaling-stroke"
-          />
-        ))}
-      </motion.g>
-    </svg>
-  );
+const getTechName = (Icon: JSX.Element) => {
+  const name = Icon.type.displayName || Icon.type.name;
+  // Remove common prefixes and format name
+  return name.replace(/^(Di|Si|Io)/, "");
 };
 
 const ProjectItem = ({
@@ -118,70 +60,161 @@ const ProjectItem = ({
   glyphs,
   description,
   link,
+  visualType,
   index,
-}: ProjectItemProps) => {
-  const [isHovered, setIsHovered] = useState(false);
+  inProgress,
+}: Project & { index: number }) => {
   const formattedIndex = String(index + 1).padStart(2, "0");
 
   return (
-    <motion.div
-      className="relative w-full select-none"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, type: "spring", damping: 15 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-    >
-      <div className="relative flex flex-col justify-between gap-4 h-full p-8 bg-stone-950/30 border border-stone-800/50 overflow-hidden hover:border-stone-700/50 transition-colors">
-        <GridBackground isHovered={isHovered} />
-        <div className="flex justify-between items-start">
-          <span className="font-mono text-stone-500 text-lg">
-            {formattedIndex}
-          </span>
-          <GlyphCycler glyphs={glyphs} index={index} />
+    <motion.div className="group relative w-full select-none">
+      <div className="relative flex flex-col h-[450px] rounded-lg bg-stone-900/50 border border-stone-800 transition-colors duration-300 group-hover:border-purple-500/50 group-hover:bg-purple-500/20">
+        {/* Visual Container */}
+        <div className="relative h-[300px] rounded-t-lg overflow-hidden">
+          <div className="w-full h-full bg-stone-950">
+            <ProjectVisual type={visualType} />
+          </div>
+
+          {/* Top overlay for index and status */}
+          <div className="absolute top-0 left-0 right-0 flex justify-between items-start p-1">
+            <span className="font-mono text-stone-300 text-sm bg-stone-950/50 px-2 py-1 rounded-full">
+              {formattedIndex}
+            </span>
+            {inProgress && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex items-center gap-1 text-xs bg-purple-500/20 text-purple-200 px-2 py-1 rounded-full border border-purple-500/20"
+              >
+                <FiTool /> In Progress
+              </motion.div>
+            )}
+          </div>
+
+          {/* Bottom overlay for technologies */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 flex flex-wrap gap-2">
+            {glyphs.map((Icon, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.1 }}
+                className="flex items-center gap-2 text-xs bg-stone-950/50 text-purple-200 px-2 py-1 rounded-full border border-purple-500/20"
+              >
+                <span className="text-lg">{Icon}</span>
+                <span className="font-medium">{getTechName(Icon)}</span>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
-        <div className="space-y-3 h-full">
-          <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-200 to-purple-300 text-transparent bg-clip-text">
-            {title}
-          </h3>
-          <p className="text-sm text-stone-400 leading-relaxed">
-            {description}
-          </p>
-        </div>
+        {/* Content Container */}
+        <div className="flex flex-col flex-1 p-5">
+          <div className="flex-1 space-y-2">
+            <h3 className="text-lg font-bold bg-gradient-to-r from-purple-200 to-purple-300 text-transparent bg-clip-text">
+              {title}
+            </h3>
+            <p className="text-sm text-stone-400 leading-relaxed">
+              {description}
+            </p>
+          </div>
 
-        <motion.a
-          className="select-none mt-4 inline-flex text-2xl"
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          <ZoopText>{slug}</ZoopText>
-        </motion.a>
+          <motion.a
+            className="select-none flex text-base text-stone-300 hover:text-purple-300 transition-colors pt-3"
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <ZoopText>{slug}</ZoopText>
+          </motion.a>
+        </div>
       </div>
     </motion.div>
   );
 };
 
+const ProjectCarousel = ({
+  projects,
+  title,
+}: {
+  projects: Project[];
+  title: string;
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    const container = scrollRef.current;
+    if (container) {
+      const scrollPosition = container.scrollLeft;
+      const itemWidth = container.offsetWidth;
+      const newIndex = Math.round(scrollPosition / itemWidth);
+      setCurrentIndex(newIndex);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <SubheadingDivider title={title} />
+      <div className="relative">
+        <div
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="grid grid-flow-col auto-cols-[100%] lg:auto-cols-[33.33%] overflow-x-auto snap-x snap-mandatory gap-3 pb-4 scrollbar-hide"
+        >
+          {projects.map((project, index) => (
+            <div key={index} className="snap-start">
+              <ProjectItem {...project} index={index} />
+            </div>
+          ))}
+        </div>
+
+        <div className="flex justify-center gap-2 mt-4">
+          {projects.map((_, index) => (
+            <div
+              key={index}
+              className={`w-12 h-2 rounded-full transition-colors duration-200 ${
+                index === currentIndex ? "bg-purple-300" : "bg-stone-700"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const Projects = () => {
-  const projects = [
+  const personalProjects: Project[] = [
+    {
+      title: "Personal Portfolio Website",
+      slug: "portfolio",
+      description:
+        "Modern, responsive portfolio website built with React, TypeScript, and Tailwind CSS",
+      link: "https://github.com/ninjanwp/portfolio",
+      glyphs: [<DiReact />, <SiTypescript />, <SiTailwindcss />],
+      visualType: "portfolio",
+    },
     {
       title: "CRUD Retail Application",
       slug: "webstore",
       description:
         "Full-stack webstore with CRUD support via Node.js RESTful API",
       link: "https://github.com/ninjanwp/webstore",
-      glyphs: [<DiReact />, <DiNodejs />, <DiJavascript1 />], // Multiple icons
+      glyphs: [<DiReact />, <DiNodejs />, <DiJavascript1 />],
+      visualType: "storefront",
     },
+  ];
+
+  const academicProjects: Project[] = [
     {
       title: "Advanced Web App Development",
       slug: "lis4368",
       description: "Full-stack web development focusing on best practices",
       link: "https://github.com/ninjanwp/lis4368",
       glyphs: [<DiJava />, <DiJavascript1 />, <DiBootstrap />], // Multiple icons
+      visualType: "webDesign",
+      inProgress: true,
     },
     {
       title: "Mobile Web App Development",
@@ -190,6 +223,7 @@ export const Projects = () => {
         "Cross-platform mobile development with responsive design principles",
       link: "https://github.com/ninjanwp/lis4381",
       glyphs: [<DiPhp />, <DiJava />], // Multiple icons
+      visualType: "phone",
     },
     {
       title: "Extensible Enterprise Solutions",
@@ -198,6 +232,7 @@ export const Projects = () => {
         "Data Science implementations using Python, R, and Business Intelligence tools",
       link: "https://github.com/ninjanwp/lis4369",
       glyphs: [<DiPython />, <SiR />], // Multiple icons
+      visualType: "dataGrid",
     },
     {
       title: "Advanced Mobile App Development",
@@ -206,6 +241,8 @@ export const Projects = () => {
         "Native mobile application development with advanced features",
       link: "https://github.com/ninjanwp/lis4331",
       glyphs: [<DiJava />, <DiAndroid />], // Multiple icons
+      visualType: "phone",
+      inProgress: true,
     },
     {
       title: "Advanced Database Management",
@@ -213,47 +250,26 @@ export const Projects = () => {
       description: "Complex database systems design and implementation",
       link: "https://github.com/ninjanwp/lis3781",
       glyphs: [<DiMysql />, <DiMsqlServer />], // Multiple icons
+      visualType: "database",
+      inProgress: true,
     },
   ];
 
   return (
-    <section
+    <motion.section
       id="projects"
-      className="relative w-full pt-12 max-w-7xl mx-auto px-8"
+      className="relative w-full py-24 max-w-7xl mx-auto px-4 md:px-8"
+      viewport={{ once: true }}
     >
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-        className="flex flex-col gap-2 mb-12"
-      >
-        <motion.p
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-md uppercase tracking-widest text-stone-400 -mb-3"
-        >
-          // Showcase
-        </motion.p>
-        <h2 className="text-5xl md:text-7xl font-bold text-stone-200 tracking-tight flex flex-col sm:flex-row sm:justify-center justify-start items-start gap-9">
-          <ZoopText variant={ZoopVariant.WHEN_VISIBLE}>Background</ZoopText>{" "}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.2, delay: 0.5 }}
-            viewport={{ once: true }}
-            className="w-full h-px bg-stone-200 origin-center"
-          />
-        </h2>
-      </motion.div>
+      <SectionHeader
+        title="Projects"
+        label="A showcase of personal and academic projects demonstrating my experience with various technologies and development practices."
+      />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-32">
-        {projects.map((project, index) => (
-          <ProjectItem key={index} {...project} index={index} />
-        ))}
+      <div className="space-y-20">
+        <ProjectCarousel title="Personal" projects={personalProjects} />
+        <ProjectCarousel title="Academic" projects={academicProjects} />
       </div>
-    </section>
+    </motion.section>
   );
 };
