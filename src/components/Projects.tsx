@@ -25,9 +25,30 @@ import { WebDesignVisual } from "./ProjectVisuals/WebDesignVisual";
 import { FiTool } from "react-icons/fi";
 import SectionHeader from "./SectionHeader";
 import SubheadingDivider from "./SubheadingDivider";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // Remove GlyphCycler component as it's no longer needed
+
+interface TechBadge {
+  icon: JSX.Element;
+  name: string;
+}
+
+const techStack: TechBadge[] = [
+  { icon: <DiReact />, name: "React" },
+  { icon: <DiPython />, name: "Python" },
+  { icon: <DiPhp />, name: "PHP" },
+  { icon: <DiJava />, name: "Java" },
+  { icon: <DiMysql />, name: "MySQL" },
+  { icon: <DiNodejs />, name: "Node.js" },
+  { icon: <DiJavascript1 />, name: "JavaScript" },
+  { icon: <DiBootstrap />, name: "Bootstrap" },
+  { icon: <DiAndroid />, name: "Android" },
+  { icon: <DiMsqlServer />, name: "MS SQL" },
+  { icon: <SiR />, name: "R" },
+  { icon: <SiTailwindcss />, name: "Tailwind" },
+  { icon: <SiTypescript />, name: "TypeScript" },
+];
 
 const ProjectVisual = ({ type }: { type: ProjectVisualType }) => {
   switch (type) {
@@ -48,15 +69,8 @@ const ProjectVisual = ({ type }: { type: ProjectVisualType }) => {
   }
 };
 
-const getTechName = (Icon: JSX.Element) => {
-  const name = Icon.type.displayName || Icon.type.name;
-  // Remove common prefixes and format name
-  return name.replace(/^(Di|Si|Io)/, "");
-};
-
 const ProjectItem = ({
   title,
-  slug,
   glyphs,
   description,
   link,
@@ -66,9 +80,17 @@ const ProjectItem = ({
 }: Project & { index: number }) => {
   const formattedIndex = String(index + 1).padStart(2, "0");
 
+  const getTechBadges = (icons: JSX.Element[]) => {
+    return icons
+      .map((icon) => techStack.find((tech) => tech.icon.type === icon.type))
+      .filter((tech): tech is TechBadge => tech !== undefined);
+  };
+
+  const techBadges = getTechBadges(glyphs);
+
   return (
     <motion.div className="group relative w-full select-none">
-      <div className="relative flex flex-col h-[450px] rounded-lg bg-stone-900/50 border border-stone-800 transition-colors duration-300 group-hover:border-purple-500/50 group-hover:bg-purple-500/20">
+      <div className="relative flex flex-col h-[450px] rounded-lg border border-stone-950/5 shadow-lg transition-colors duration-300 group-hover:shadow-sm transition-shadow">
         {/* Visual Container */}
         <div className="relative h-[300px] rounded-t-lg overflow-hidden">
           <div className="w-full h-full bg-stone-950">
@@ -84,7 +106,7 @@ const ProjectItem = ({
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="flex items-center gap-1 text-xs bg-purple-500/20 text-purple-200 px-2 py-1 rounded-full border border-purple-500/20"
+                className="flex items-center gap-1 text-xs bg-stone-500/20 text-stone-200 px-2 py-1 rounded-full border border-stone-500/20"
               >
                 <FiTool /> In Progress
               </motion.div>
@@ -93,16 +115,16 @@ const ProjectItem = ({
 
           {/* Bottom overlay for technologies */}
           <div className="absolute bottom-0 left-0 right-0 p-4 flex flex-wrap gap-2">
-            {glyphs.map((Icon, i) => (
+            {techBadges.map((tech, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.1 }}
-                className="flex items-center gap-2 text-xs bg-stone-950/50 text-purple-200 px-2 py-1 rounded-full border border-purple-500/20"
+                className="flex items-center gap-2 text-xs bg-stone-950/50 text-stone-200 px-2 py-1 rounded-full border border-stone-500/20"
               >
-                <span className="text-lg">{Icon}</span>
-                <span className="font-medium">{getTechName(Icon)}</span>
+                <span className="text-lg">{tech.icon}</span>
+                <span className="font-medium">{tech.name}</span>
               </motion.div>
             ))}
           </div>
@@ -111,21 +133,19 @@ const ProjectItem = ({
         {/* Content Container */}
         <div className="flex flex-col flex-1 p-5">
           <div className="flex-1 space-y-2">
-            <h3 className="text-lg font-bold bg-gradient-to-r from-purple-200 to-purple-300 text-transparent bg-clip-text">
-              {title}
-            </h3>
-            <p className="text-sm text-stone-400 leading-relaxed">
+            <h3 className="text-lg font-bold text-stone-950">{title}</h3>
+            <p className="text-sm text-stone-600 leading-relaxed">
               {description}
             </p>
           </div>
 
           <motion.a
-            className="select-none flex text-base text-stone-300 hover:text-purple-300 transition-colors pt-3"
+            className="select-none flex text-base text-stone-950 pt-3"
             href={link}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <ZoopText>{slug}</ZoopText>
+            <ZoopText>GITHUB</ZoopText>
           </motion.a>
         </div>
       </div>
@@ -153,6 +173,18 @@ const ProjectCarousel = ({
     }
   };
 
+  const scrollToIndex = (index: number) => {
+    const container = scrollRef.current;
+    if (container) {
+      const itemWidth = container.offsetWidth;
+      container.scrollTo({
+        left: itemWidth * index,
+        behavior: "smooth",
+      });
+      setCurrentIndex(index);
+    }
+  };
+
   return (
     <div className="space-y-4">
       <SubheadingDivider title={title} />
@@ -160,7 +192,7 @@ const ProjectCarousel = ({
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="grid grid-flow-col auto-cols-[100%] lg:auto-cols-[33.33%] overflow-x-auto snap-x snap-mandatory gap-3 pb-4 scrollbar-hide"
+          className="grid grid-flow-col auto-cols-[100%] lg:auto-cols-[33.33%] overflow-x-auto snap-x snap-mandatory gap-3 pb-6 scrollbar-hide"
         >
           {projects.map((project, index) => (
             <div key={index} className="snap-start">
@@ -171,11 +203,13 @@ const ProjectCarousel = ({
 
         <div className="flex justify-center gap-2 mt-4">
           {projects.map((_, index) => (
-            <div
+            <button
               key={index}
-              className={`w-12 h-2 rounded-full transition-colors duration-200 ${
-                index === currentIndex ? "bg-purple-300" : "bg-stone-700"
+              onClick={() => scrollToIndex(index)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                currentIndex === index ? "bg-stone-950 w-4" : "bg-stone-400"
               }`}
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
@@ -258,15 +292,14 @@ export const Projects = () => {
   return (
     <motion.section
       id="projects"
-      className="relative w-full py-24 max-w-7xl mx-auto px-4 md:px-8"
-      viewport={{ once: true }}
+      className="relative w-full h-full overflow-y-auto py-12 max-w-7xl mx-auto px-4 md:px-8"
     >
       <SectionHeader
         title="Projects"
-        label="A showcase of personal and academic projects demonstrating my experience with various technologies and development practices."
+        label="A showcase of personal and academic projects demonstrating my experience with various technologies."
       />
 
-      <div className="space-y-20">
+      <div className="space-y-12">
         <ProjectCarousel title="Personal" projects={personalProjects} />
         <ProjectCarousel title="Academic" projects={academicProjects} />
       </div>

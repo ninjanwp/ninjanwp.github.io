@@ -28,7 +28,7 @@ export const DataGridVisual = () => {
                   height={grid.cellSize}
                   rx="2"
                   fill="none"
-                  stroke="#d8b4fe"
+                  stroke="#e5e5e5"
                   strokeWidth="2"
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: [0.1, 0.3, 0.1], scale: [0, 1, 0] }}

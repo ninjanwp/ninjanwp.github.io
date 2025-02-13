@@ -10,14 +10,17 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "echo nickpfeffer.com > ./build/CNAME && gh-pages -d build"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@react-three/drei": "^9.121.4",
     "@react-three/fiber": "^8.17.14",
+    "@studio-freight/react-lenis": "^0.0.47",
     "@types/three": "^0.173.0",
     "framer-motion": "^12.0.11",
     "gh-pages": "^6.3.0",
+    "gsap": "^3.12.7",
     "lenis": "^1.1.20",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

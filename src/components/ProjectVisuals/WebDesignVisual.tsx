@@ -13,23 +13,23 @@ export const WebDesignVisual = () => {
             height="160"
             rx="8"
             fill="none"
-            stroke="#d8b4fe"
+            stroke="#e5e5e5"
             strokeWidth="2"
             opacity={0.3}
           />
 
           {/* Browser controls */}
           <motion.g opacity={0.3}>
-            <circle cx="40" cy="25" r="4" fill="#d8b4fe" />
-            <circle cx="55" cy="25" r="4" fill="#d8b4fe" />
-            <circle cx="70" cy="25" r="4" fill="#d8b4fe" />
+            <circle cx="40" cy="25" r="4" fill="#e5e5e5" />
+            <circle cx="55" cy="25" r="4" fill="#e5e5e5" />
+            <circle cx="70" cy="25" r="4" fill="#e5e5e5" />
             <rect
               x="85"
               y="21"
               width="140"
               height="8"
               rx="4"
-              fill="#d8b4fe"
+              fill="#e5e5e5"
               opacity={0.2}
             />
           </motion.g>
@@ -43,7 +43,7 @@ export const WebDesignVisual = () => {
               width="200"
               height="40"
               rx="4"
-              fill="#d8b4fe"
+              fill="#e5e5e5"
               opacity={0.15}
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
@@ -60,7 +60,7 @@ export const WebDesignVisual = () => {
                   width="35"
                   height="6"
                   rx="2"
-                  fill="#d8b4fe"
+                  fill="#e5e5e5"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: [0.2, 0.4, 0.2] }}
                   transition={{
@@ -82,7 +82,7 @@ export const WebDesignVisual = () => {
                     width="60"
                     height="70"
                     rx="4"
-                    fill="#d8b4fe"
+                    fill="#e5e5e5"
                     opacity={0.1}
                     initial={{ scaleY: 0 }}
                     animate={{ scaleY: 1 }}
@@ -96,7 +96,7 @@ export const WebDesignVisual = () => {
                       width="50"
                       height="6"
                       rx="2"
-                      fill="#d8b4fe"
+                      fill="#e5e5e5"
                       opacity={0.3}
                       initial={{ width: 0 }}
                       animate={{ width: 50 }}

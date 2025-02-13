@@ -29,18 +29,18 @@ const TechCard = ({
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.3 }}
-    className="flex flex-col p-4 rounded-lg bg-stone-900/50 border border-stone-800"
+    className="flex flex-col p-4 rounded-lg border border-stone-950/5 shadow-lg"
   >
     <div className="flex items-center gap-3 mb-2">
       <div
-        className="p-2 rounded-lg text-3xl"
-        style={{ backgroundColor: `${color}20`, color: color }}
+        className="p-2 rounded text-4xl"
+        style={{ backgroundColor: `${color}25`, color: color }}
       >
         <Icon />
       </div>
-      <h3 className="text-lg font-bold text-stone-200">{name}</h3>
+      <h3 className="text-lg font-bold text-stone-950">{name}</h3>
     </div>
-    <p className="text-sm text-stone-400 leading-relaxed">{description}</p>
+    <p className="text-sm text-stone-500 leading-relaxed">{description}</p>
   </motion.div>
 );
 
@@ -130,12 +130,11 @@ const Technology = () => {
   return (
     <motion.section
       id="tech"
-      className="relative w-full py-24 max-w-7xl mx-auto px-4 md:px-8"
-      viewport={{ once: true }}
+      className="relative w-full h-full py-24 max-w-7xl mx-auto px-4 md:px-8"
     >
       <SectionHeader
         title="Technology"
-        label="A comprehensive overview of the programming languages, frameworks, and tools I use to build full-stack web applications."
+        label="An overview of the programming languages, frameworks, and tools that I use."
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">

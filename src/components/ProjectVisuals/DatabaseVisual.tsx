@@ -35,8 +35,8 @@ export const DatabaseVisual = () => {
             <motion.path
               key={i}
               d={path}
-                  stroke="#d8b4fe"
-                  fill={"none"}
+              stroke="#e5e5e5"
+              fill={"none"}
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -61,7 +61,7 @@ export const DatabaseVisual = () => {
                 height={table.height}
                 rx="4"
                 fill="none"
-                stroke="#d8b4fe"
+                stroke="#e5e5e5"
                 strokeWidth="2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.3 }}
@@ -75,7 +75,7 @@ export const DatabaseVisual = () => {
                 width={table.width - 20}
                 height={8}
                 rx="2"
-                fill="#d8b4fe"
+                fill="#e5e5e5"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: [0.2, 0.4, 0.2] }}
                 transition={{
@@ -94,7 +94,7 @@ export const DatabaseVisual = () => {
                   width={(table.width - 20) * 0.8}
                   height={6}
                   rx="2"
-                  fill="#d8b4fe"
+                  fill="#e5e5e5"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 0.15 }}
                   transition={{ delay: i * 0.2 + j * 0.1 }}

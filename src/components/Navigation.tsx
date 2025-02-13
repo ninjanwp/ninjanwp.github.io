@@ -79,11 +79,11 @@ const Navigation = () => {
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        transition={{ type: "spring", delay: 0.5, stiffness: 500, damping: 30 }}
       >
-        <div className="relative bg-stone-900/20 backdrop-blur-md rounded-full flex items-center p-1">
+        <div className="relative bg-stone-950/50 backdrop-blur-md rounded-full flex items-center p-1 shadow-lg border border-stone-100/50 shadow-inner-lg">
           <motion.div
-            className="absolute bg-stone-100 rounded-full"
+            className="absolute bg-stone-200 rounded-full"
             initial={false}
             animate={{
               x: (buttonPositions[activeTab] || 0) - 4,
@@ -102,7 +102,7 @@ const Navigation = () => {
               key={index}
               ref={(el) => (buttonsRef.current[index] = el)}
               onClick={() => handleNavClick(index, section.href)}
-              className="relative z-10 px-4 py-2 rounded-full mix-blend-difference text-white transition-all duration-300"
+              className="relative z-10 px-4 py-2 rounded-full mix-blend-difference text-stone-200 transition-all duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

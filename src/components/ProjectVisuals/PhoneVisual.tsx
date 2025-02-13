@@ -27,7 +27,7 @@ export const PhoneVisual = () => {
               height="160"
               rx="20"
               fill="none"
-              stroke="#d8b4fe"
+              stroke="#e5e5e5"
               strokeWidth="2"
               opacity={0.3}
             />
@@ -39,7 +39,7 @@ export const PhoneVisual = () => {
               width="30"
               height="6"
               rx="3"
-              fill="#d8b4fe"
+              fill="#e5e5e5"
               opacity={0.3}
             />
 
@@ -52,7 +52,7 @@ export const PhoneVisual = () => {
                 width="70"
                 height="20"
                 rx="4"
-                fill="#d8b4fe"
+                fill="#e5e5e5"
                 opacity={0.2}
               />
             ))}

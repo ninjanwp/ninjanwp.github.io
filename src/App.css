@@ -1,11 +1,31 @@
 @font-face {
-  font-family: 'LeagueSpartan';
-  src: url('/fonts/LeagueSpartan-VF.ttf') format('truetype');
+  font-family: "LeagueSpartan";
+  src: url("/fonts/LeagueSpartan-VF.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Malven';
-  src: url('fonts/MalvenRegular-51MRB.otf') format('truetype');
+  font-family: "Malven";
+  src: url("fonts/MalvenRegular-51MRB.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Bonivar";
+  src: url("ninjanwp.github.io/fonts/Bonivar-MAEAn.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Mayonice";
+  src: url("ninjanwp.github.io/fonts/Mayonice-gwaq1.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Mostwanted";
+  src: url("/fonts/Mostwanted.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Akira";
+  src: url("/fonts/AkiraExpanded.otf") format("truetype");
 }
 
 * {
@@ -20,19 +40,37 @@
   padding: 0;
   position: relative;
   z-index: 2;
-  font-family: 'system-ui', sans-serif;
-  overflow: hidden;
+  font-family: "system-ui", sans-serif;
+  /* overflow: hidden; */
 }
 
 body {
-  font-family: 'LeagueSpartan';
+  font-family: "LeagueSpartan";
 }
 
 .font-leaguespartan {
-  font-family: 'LeagueSpartan';
+  font-family: "LeagueSpartan";
 }
 
-button, a, .button {
+.font-bonivar {
+  font-family: "Bonivar";
+}
+
+.font-mayonice {
+  font-family: "Mayonice";
+}
+
+.font-mostwanted {
+  font-family: "Mostwanted";
+}
+
+.font-akira {
+  font-family: "Akira";
+}
+
+button,
+a,
+.button {
   cursor: pointer !important;
   display: inline-block; /* Ensure elements are inline-block */
   position: relative; /* Ensure elements have a position context */
@@ -45,58 +83,4 @@ button, a, .button {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
-}
-
-@keyframes gradient-slide-1 {
-  0% {
-    background-position: 200% 200%;
-  }
-  100% {
-    background-position: -200% -200%;
-  }
-}
-
-@keyframes gradient-slide-2 {
-  0% {
-    background-position: -200% 200%;
-  }
-  100% {
-    background-position: 200% -200%;
-  }
-}
-
-@keyframes moveLight1 {
-  0% {
-    background-position: -100% -100%;
-  }
-  100% {
-    background-position: 200% 200%;
-  }
-}
-
-@keyframes moveLight2 {
-  0% {
-    background-position: 200% -100%;
-  }
-  100% {
-    background-position: -100% 200%;
-  }
-}
-
-@keyframes moveHorizontal {
-  0% {
-    transform: translateX(-100vw);
-  }
-  100% {
-    transform: translateX(100vw);
-  }
-}
-
-@keyframes moveVertical {
-  0% {
-    transform: translateY(-100vh);
-  }
-  100% {
-    transform: translateY(100vh);
-  }
 }

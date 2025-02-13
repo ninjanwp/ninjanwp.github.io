@@ -1,8 +1,0 @@
-@keyframes moveLight {
-  from {
-    stroke-dashoffset: 180;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}

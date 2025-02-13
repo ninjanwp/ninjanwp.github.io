@@ -12,11 +12,11 @@ const SubheadingDivider = ({ title }: SubheadingDividerProps) => {
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="text-2xl font-bold text-purple-300 text-nowrap"
+        className="text-lg font-bold uppercase text-stone-700 text-nowrap font-leaguespartan"
       >
         {title}
       </motion.h3>
-      <div className="w-full h-[2px] bg-gradient-to-l from-transparent to-purple-300" />
+      <div className="w-full h-[2px] bg-stone-700" />
     </div>
   );
 };

@@ -44,11 +44,22 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
     transform: translateY(-10px);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
 }
 
@@ -131,12 +142,11 @@
     border: 4px solid white;
   }
   .noise-filter {
-    filter: url('#noise');
+    filter: url("#noise");
   }
   .glow {
     filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
   }
-
 
   .animate-circuit-once {
     stroke-dasharray: var(--len), var(--len);
@@ -150,7 +160,8 @@
   }
 
   @keyframes pulseOpacity {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 0.15;
     }
     50% {
@@ -158,7 +169,11 @@
     }
   }
 
-    .animate-pulse-opacity {
-      animation: pulseOpacity 3s ease-in-out infinite;
-    }
+  .animate-pulse-opacity {
+    animation: pulseOpacity 3s ease-in-out infinite;
   }
+
+  .animate-blink {
+    animation: blink 1s step-end infinite;
+  }
+}

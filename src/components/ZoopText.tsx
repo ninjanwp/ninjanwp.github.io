@@ -90,7 +90,7 @@ const ZoopText: React.FC<ZoopTextProps> = ({
         }`}
       >
         {characters.map((char, index) => (
-          <span key={index} className={`inline-block relative ${TEXT_SIZE}`}>
+          <span key={index} className={`inline-block relative tracking-wide ${TEXT_SIZE}`}>
             {variant === ZoopVariant.ON_HOVER && (
               <motion.span
                 className={`block ${TEXT_COLOR}`}
