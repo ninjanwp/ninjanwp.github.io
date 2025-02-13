@@ -6,18 +6,12 @@ import Technology from "./components/Technology";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ReactLenis } from "@studio-freight/react-lenis";
-import { useScrollTransform } from "./hooks/useScrollTransform";
 import Footer from "./components/Footer";
 
 function App() {
   const heroContainerRef = useRef<HTMLElement>(null);
   const techContainerRef = useRef<HTMLElement>(null);
   const projectsContainerRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress: heroProgress } = useScroll({
-    target: heroContainerRef,
-    offset: ["start start", "end end"],
-  });
 
   const { scrollYProgress: techProgress } = useScroll({
     target: techContainerRef,
