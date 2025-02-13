@@ -8,12 +8,6 @@ interface HeroProps {
 }
 
 export const Hero = ({ scrollProgress }: HeroProps) => {
-  const GRID_SETTINGS = {
-    opacity: 0.01,
-    size: "50px",
-  } as const;
-
-  const containerRef = useRef<HTMLElement>(null);
   const portfolioTextRef = useRef<HTMLDivElement>(null);
 
   const textScale = useTransform(scrollProgress, [0, 1], [1, 0.9]);
@@ -22,7 +16,18 @@ export const Hero = ({ scrollProgress }: HeroProps) => {
   const rotateText = useTransform(scrollProgress, [0, 1], [0, 0]);
   const bioOpacity = useTransform(scrollProgress, [0, 0.1, 0.2], [0, 0, 1]);
   const bioScale = useTransform(scrollProgress, [0, 1], [1, 1.1]);
-  const letterSpacing = useTransform(scrollProgress, [0, 1], ["0rem", "0.rem"]);
+  const letterSpacing = useTransform(scrollProgress, [0, 1], ["0ch", "-0.1ch"]);
+
+  const text =
+    "I am an IT student at Florida State University, highly motivated about learning and practically applying technology. Specializing in Full Stack development with a focus on modern Web Development.";
+
+  const characters = text.split("");
+  // Calculate timing for each character based on total length
+  const characterOpacities = characters.map((_, index) => {
+    const start = (index / characters.length) * 0.8; // Distribute over first 50% of scroll
+    const end = start + 0.1; // Each character takes 10% of scroll to fade in
+    return useTransform(scrollProgress, [start, end], [0, 1]);
+  });
 
   const socialLinks = [
     {
@@ -50,11 +55,17 @@ export const Hero = ({ scrollProgress }: HeroProps) => {
 
   return (
     <motion.section
-      className="w-full h-screen relative overflow-hidden bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-stone-600 via-stone-950/50 to-stone-950"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 2 }}
+      className="w-full h-screen relative overflow-hidden"
+      // initial={{ opacity: 0 }}
+      // whileInView={{ opacity: 1 }}
+      // transition={{ duration: 4 }}
     >
+      <motion.div
+        className="fixed inset-0 w-full h-full z-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-stone-500 via-stone-950/50 to-stone-950"
+        initial={{ x: "100%" }}
+        animate={{ x: "0%" }}
+        transition={{ duration: 2, ease: "easeInOut" }}
+      />
       <div className="relative h-full w-full">
         <motion.div
           className="h-full flex flex-col items-center justify-center relative z-10 text-stone-200 mix-blend-difference"
@@ -62,15 +73,15 @@ export const Hero = ({ scrollProgress }: HeroProps) => {
         >
           <div className="w-full mx-auto px-0">
             <div className="flex flex-col items-start justify-center space-y-12">
-              <div className="skew-y-12 w-full">
-                <motion.div
-                  className="uppercase w-full text-center text-xl sm:text-2xl md:text-4xl lg:text-5xl leading-none tracking-wider"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  Nicholas Pfeffer
-                </motion.div>
+              <motion.div
+                className="uppercase w-full text-center text-xl sm:text-2xl md:text-4xl lg:text-5xl leading-none tracking-wider"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                Nicholas Pfeffer
+              </motion.div>
+              <motion.div className="w-full">
                 <motion.div
                   ref={portfolioTextRef}
                   className="font-akira uppercase font-black w-full text-center bg-clip-text text-transparent bg-gradient-to-r from-stone-200 via-stone-100 to-stone-200 tracking-tight leading-none"
@@ -86,52 +97,52 @@ export const Hero = ({ scrollProgress }: HeroProps) => {
                 >
                   Portfolio
                 </motion.div>
-              </div>
+              </motion.div>
 
               <div className="flex items-center justify-center w-full">
                 <motion.p
                   className="text-xs sm:text-sm md:text-lg max-w-lg text-left tracking-wider leading-relaxed text-stone-300 px-3 py-2 mt-2"
-                  style={{ opacity: bioOpacity, scale: bioScale }}
+                  style={{ scale: bioScale }}
                 >
-                  I am an IT student at{" "}
-                  <span className="font-black">Florida State University</span>,
-                  highly <span className="font-black">Motivated</span> about{" "}
-                  <span className="font-black">Learning</span> and practically{" "}
-                  <span className="font-black">Applying</span> technology.
-                  Specializing in <span className="font-black">Full Stack</span>{" "}
-                  development with a focus on modern{" "}
-                  <span className="font-black">Web Development</span>.
+                  {characters.map((char, index) => (
+                    <motion.span
+                      key={index}
+                      style={{ opacity: characterOpacities[index] }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
                 </motion.p>
               </div>
+
+              <motion.div
+                className="fixed bottom-8 left-0 right-0 sm:bottom-12 sm:right-12 sm:left-auto flex justify-center sm:justify-end gap-8 sm:gap-10 items-center px-4 sm:px-0"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+              >
+                {socialLinks.map((link, index) => (
+                  <motion.a
+                    key={index}
+                    href={link.href}
+                    target={link.download ? undefined : "_blank"}
+                    rel={link.download ? undefined : "noopener noreferrer"}
+                    download={link.download}
+                    className="relative group"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <div className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl text-stone-300 transition-colors duration-200 group-hover:text-stone-100">
+                      {link.icon}
+                    </div>
+                    <span className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 text-xs sm:text-sm text-stone-400 whitespace-nowrap transition-all duration-200 group-hover:-translate-y-1 pointer-events-none">
+                      {link.label}
+                    </span>
+                  </motion.a>
+                ))}
+              </motion.div>
             </div>
           </div>
-
-          <motion.div
-            className="fixed bottom-8 left-0 right-0 sm:bottom-12 sm:right-12 sm:left-auto flex justify-center sm:justify-end gap-8 sm:gap-10 items-center px-4 sm:px-0"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-          >
-            {socialLinks.map((link, index) => (
-              <motion.a
-                key={index}
-                href={link.href}
-                target={link.download ? undefined : "_blank"}
-                rel={link.download ? undefined : "noopener noreferrer"}
-                download={link.download}
-                className="relative group"
-                whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl text-stone-300 transition-colors duration-200 group-hover:text-stone-100">
-                  {link.icon}
-                </div>
-                <span className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 text-xs sm:text-sm text-stone-400 whitespace-nowrap transition-all duration-200 group-hover:-translate-y-1 pointer-events-none">
-                  {link.label}
-                </span>
-              </motion.a>
-            ))}
-          </motion.div>
         </motion.div>
       </div>
     </motion.section>

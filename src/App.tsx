@@ -17,42 +17,24 @@ function App() {
     offset: ["start start", "end start"],
   });
 
-  const { scrollYProgress: techProgress } = useScroll({
-    target: techRef,
-    offset: ["start end", "start start"],
-  });
-
-  const { scrollYProgress: projectsProgress } = useScroll({
-    target: projectsRef,
-    offset: ["start end", "start start"],
-  });
-
   const { scrollYProgress: stickyHeroProgress } = useScroll({
     target: heroContainerRef,
     offset: ["start start", "end end"],
   });
 
-  const overlayTransform = useTransform(
-    heroProgress,
-    [0, 0.7],
+  const overlay1Transform = useTransform(
+    stickyHeroProgress,
+    [0, 0.33],
     ["translateY(100%)", "translateY(0%)"]
   );
-
-  const techOverlayTransform = useTransform(
-    techProgress,
-    [0, 1],
-    ["translateX(120%) skew(-45deg)", "translateX(0%) skew(0deg)"]
-  );
-
-  const techTransform = useTransform(
-    techProgress,
-    [0, 1],
+  const overlay2Transform = useTransform(
+    stickyHeroProgress,
+    [0.33, 0.66],
     ["translateY(100%)", "translateY(0%)"]
   );
-
-  const projectsTransform = useTransform(
-    projectsProgress,
-    [0, 1],
+  const overlay3Transform = useTransform(
+    stickyHeroProgress,
+    [0.66, 1],
     ["translateY(100%)", "translateY(0%)"]
   );
 
@@ -65,21 +47,28 @@ function App() {
         <section
           ref={heroContainerRef}
           id="hero"
-          className="relative w-full h-[300vh] z-10"
+          className="relative w-full h-[400vh] z-10"
         >
-          <div className="sticky top-0 w-full h-screen overflow-hidden">
+          <div className="sticky top-0 w-full h-screen">
             <Hero scrollProgress={stickyHeroProgress} />
-            <div className="overflow-hidden">
+            <div className="overflow-hidden ">
               <motion.div
-                style={{ transform: overlayTransform }}
-                className="absolute inset-0 z-[5] bg-stone-200 w-full shadow-stone-200"
+                style={{ transform: overlay1Transform }}
+                className="absolute inset-0 z-[5] bg-stone-200 w-full"
+              />
+              <motion.div
+                style={{ transform: overlay2Transform }}
+                className="absolute inset-0 z-[6] bg-stone-950 w-full"
+              />
+              <motion.div
+                style={{ transform: overlay3Transform }}
+                className="absolute inset-0 z-[7] bg-stone-200 w-full"
               />
             </div>
           </div>
         </section>
 
         <section
-          style={{ transform: techTransform }}
           ref={techRef}
           id="tech"
           className="relative min-h-screen w-full bg-stone-200 z-20"
@@ -88,7 +77,6 @@ function App() {
         </section>
 
         <section
-          style={{ transform: projectsTransform }}
           ref={projectsRef}
           id="projects"
           className="relative w-full min-h-screen overflow-hidden bg-stone-200 z-30"

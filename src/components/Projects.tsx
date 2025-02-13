@@ -25,7 +25,7 @@ import { WebDesignVisual } from "./ProjectVisuals/WebDesignVisual";
 import { FiTool } from "react-icons/fi";
 import SectionHeader from "./SectionHeader";
 import SubheadingDivider from "./SubheadingDivider";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 // Remove GlyphCycler component as it's no longer needed
 
