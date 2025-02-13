@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, MotionValue, useTransform } from "framer-motion";
 import { SiTypescript, SiDocker, SiTailwindcss } from "react-icons/si";
 import {
   DiBootstrap,
@@ -44,7 +44,28 @@ const TechCard = ({
   </motion.div>
 );
 
-const Technology = () => {
+interface TechnologyProps {
+  scrollProgress: MotionValue<number>;
+}
+
+const Technology = ({ scrollProgress }: TechnologyProps) => {
+  // const opacity = useTransform(scrollProgress, [0, 0.5], [0, 1]);
+  const scale = useTransform(
+    scrollProgress,
+    [0, 0.3],
+    [0.8, 1]
+  );
+  const x = useTransform(
+    scrollProgress,
+    [0, 0.2],
+    ["-20%", "0%"]
+  );
+  const skew = useTransform(
+    scrollProgress,
+    [0, 0.2],
+    ["-15deg", "0deg"]
+  );
+
   const frontendTechnologies = [
     {
       Icon: DiReact,
@@ -115,8 +136,7 @@ const Technology = () => {
     {
       Icon: SiDocker,
       name: "Docker",
-      description:
-        "Platform for creating containerized applications",
+      description: "Platform for creating containerized applications",
       color: "#2496ED",
     },
     {
@@ -129,8 +149,9 @@ const Technology = () => {
 
   return (
     <motion.section
+      style={{ x, scale, skew }}
       id="tech"
-      className="relative w-full h-full py-24 max-w-7xl mx-auto px-4 md:px-8"
+      className="relative w-full h-full py-24 max-w-7xl mx-auto px-4 md:px-8 bg-stone-200 rounded-xl"
     >
       <SectionHeader
         title="Technology"

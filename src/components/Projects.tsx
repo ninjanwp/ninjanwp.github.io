@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useTransform, MotionValue } from "framer-motion";
 import {
   DiReact,
   DiPython,
@@ -218,7 +218,28 @@ const ProjectCarousel = ({
   );
 };
 
-export const Projects = () => {
+interface ProjectsProps {
+  scrollProgress: MotionValue<number>;
+}
+
+export const Projects = ({ scrollProgress }: ProjectsProps) => {
+  // const opacity = useTransform(scrollProgress, [0, 0.5], [0, 1]);
+  const scale = useTransform(
+    scrollProgress,
+    [0, 0.3],
+    [0.8, 1]
+  );
+  const x = useTransform(
+    scrollProgress,
+    [0, 0.2],
+    ["20%", "0%"]
+  );
+  const skew = useTransform(
+    scrollProgress,
+    [0, 0.2],
+    ["15deg", "0deg"]
+  );
+
   const personalProjects: Project[] = [
     {
       title: "Personal Portfolio Website",
@@ -291,8 +312,9 @@ export const Projects = () => {
 
   return (
     <motion.section
+      style={{ x, scale, skew }}
       id="projects"
-      className="relative w-full h-full overflow-y-auto py-12 max-w-7xl mx-auto px-4 md:px-8"
+      className="relative w-full h-full overflow-y-auto py-24 max-w-7xl mx-auto px-4 md:px-8 bg-stone-200 rounded-xl"
     >
       <SectionHeader
         title="Projects"

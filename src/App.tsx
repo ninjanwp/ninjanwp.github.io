@@ -6,11 +6,46 @@ import Technology from "./components/Technology";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ReactLenis } from "@studio-freight/react-lenis";
+import { useScrollTransform } from "./hooks/useScrollTransform";
+import Footer from "./components/Footer";
 
 function App() {
   const heroContainerRef = useRef<HTMLElement>(null);
-  const techRef = useRef<HTMLElement>(null);
-  const projectsRef = useRef<HTMLElement>(null);
+  const techContainerRef = useRef<HTMLElement>(null);
+  const projectsContainerRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroContainerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const { scrollYProgress: techProgress } = useScroll({
+    target: techContainerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const { scrollYProgress: projectsProgress } = useScroll({
+    target: projectsContainerRef,
+    offset: ["start end", "end start"],
+  });
+
+  // const {
+  //   ref: techRef,
+  //   scale: techScale,
+  //   opacity: techOpacity,
+  // } = useScrollTransform({
+  //   scale: [0.8, 1],
+  //   opacity: [0, 1],
+  // });
+
+  // const {
+  //   ref: projectsRef,
+  //   y: projectsY,
+  //   opacity: projectsOpacity,
+  // } = useScrollTransform({
+  //   y: [100, 0],
+  //   opacity: [0, 1],
+  // });
 
   const { scrollYProgress: stickyHeroProgress } = useScroll({
     target: heroContainerRef,
@@ -49,35 +84,40 @@ function App() {
             <div className="overflow-hidden ">
               <motion.div
                 style={{ transform: overlay1Transform }}
-                className="absolute inset-0 z-[5] bg-stone-200 w-full rounded-full"
+                className="absolute inset-0 z-[5] bg-stone-950 w-full rounded-full"
               />
               <motion.div
                 style={{ transform: overlay2Transform }}
-                className="absolute inset-0 z-[6] bg-stone-950 w-full rounded-full"
+                className="absolute inset-0 z-[6] bg-stone-200 w-full rounded-full"
               />
               <motion.div
                 style={{ transform: overlay3Transform }}
-                className="absolute inset-0 z-[7] bg-stone-200 w-full rounded-full"
+                className="absolute inset-0 z-[7] bg-stone-950 w-full rounded-full"
               />
             </div>
           </div>
         </section>
 
-        <section
-          ref={techRef}
+        <motion.section
+          ref={techContainerRef}
           id="tech"
-          className="relative min-h-screen w-full bg-stone-200 z-20"
+          className="relative w-full z-20 mb-9"
         >
-          <Technology />
-        </section>
+          <div className="h-full w-full overflow-hidden">
+            <Technology scrollProgress={techProgress} />
+          </div>
+        </motion.section>
 
-        <section
-          ref={projectsRef}
+        <motion.section
+          ref={projectsContainerRef}
           id="projects"
-          className="relative w-full min-h-screen overflow-hidden bg-stone-200 z-30"
+          className="relative w-full z-30 mb-9"
         >
-          <Projects />
-        </section>
+          <div className="w-full h-full overflow-hidden">
+            <Projects scrollProgress={projectsProgress} />
+          </div>
+        </motion.section>
+        <Footer />
       </main>
     </ReactLenis>
   );

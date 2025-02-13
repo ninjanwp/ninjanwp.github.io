@@ -23,7 +23,7 @@ const SectionHeader = ({
       }`}
     >
       <h2 className="text-4xl md:text-6xl font-black text-stone-950 font-akira uppercase tracking-tight">
-        <ZoopText variant={ZoopVariant.WHEN_VISIBLE}>{title}</ZoopText>
+        <ZoopText variant={ZoopVariant.WHEN_VISIBLE}>{title}*</ZoopText>
       </h2>
 
       <motion.p

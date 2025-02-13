@@ -13,7 +13,7 @@ interface ZoopTextProps {
 }
 
 const DURATION = 0.2;
-const DELAY_MULTIPLIER = 0.05;
+const DELAY_MULTIPLIER = 0.03;
 const TYPE = "";
 const DAMPING = 15;
 

@@ -1,5 +1,5 @@
 import { motion, MotionValue, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react"; // Remove useEffect
 import { RiGithubFill, RiLinkedinFill } from "react-icons/ri";
 import { HiMail, HiDocumentDownload } from "react-icons/hi";
 
@@ -8,14 +8,16 @@ interface HeroProps {
 }
 
 export const Hero = ({ scrollProgress }: HeroProps) => {
+  const [shouldAnimate] = useState(() => window.scrollY < 100);
   const portfolioTextRef = useRef<HTMLDivElement>(null);
 
   const textScale = useTransform(scrollProgress, [0, 1], [1, 0.9]);
   const titleScale = useTransform(scrollProgress, [0, 2], [1, 0.7]);
-  const textY = useTransform(scrollProgress, [0, 1], [0, -30]);
+  const textSkew = useTransform(scrollProgress, [0, 1], [0, 12]);
+  const textY = useTransform(scrollProgress, [0, 1], [0, -50]);
   const rotateText = useTransform(scrollProgress, [0, 1], [0, 0]);
   const bioScale = useTransform(scrollProgress, [0, 1], [1, 1.1]);
-  const letterSpacing = useTransform(scrollProgress, [0, 1], ["0ch", "-0.1ch"]);
+  const letterSpacing = useTransform(scrollProgress, [0, 1], ["0ch", "0.05ch"]);
 
   const text =
     "I am an IT student at Florida State University, highly motivated about learning and practically applying technology. Specializing in Full Stack development with a focus on modern Web Development.";
@@ -54,17 +56,16 @@ export const Hero = ({ scrollProgress }: HeroProps) => {
 
   return (
     <motion.section
-      className="w-full h-screen relative overflow-hidden"
-      // initial={{ opacity: 0 }}
-      // whileInView={{ opacity: 1 }}
-      // transition={{ duration: 4 }}
+      className="w-full h-screen relative overflow-hidden bg-stone-200"
+      initial={{ scale: shouldAnimate ? 3 : 1 }}
+      animate={{ scale: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 400,
+        damping: 30,
+        delay: shouldAnimate ? 0.5 : 0,
+      }}
     >
-      <motion.div
-        className="fixed inset-0 w-full h-full z-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-stone-500 via-stone-950/50 to-stone-950"
-        initial={{ x: "100%" }}
-        animate={{ x: "0%" }}
-        transition={{ duration: 2, ease: "easeInOut" }}
-      />
       <div className="relative h-full w-full">
         <motion.div
           className="h-full flex flex-col items-center justify-center relative z-10 text-stone-200 mix-blend-difference"
@@ -78,35 +79,38 @@ export const Hero = ({ scrollProgress }: HeroProps) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                Nicholas Pfeffer
+                &copy; Nicholas Pfeffer
               </motion.div>
               <motion.div className="w-full">
                 <motion.div
                   ref={portfolioTextRef}
-                  className="font-akira uppercase font-black w-full text-center bg-clip-text text-transparent bg-gradient-to-r from-stone-200 via-stone-100 to-stone-200 tracking-tight leading-none"
+                  className="font-akira uppercase font-black w-full text-center bg-clip-text text-stone-200 tracking-tight leading-none"
                   style={{
-                    fontSize: "clamp(2rem, 13vw, 12rem)",
+                    fontSize: "clamp(2rem, 12vw, 12rem)",
                     letterSpacing: letterSpacing,
                     rotate: rotateText,
                     scale: titleScale,
+                    skewX: textSkew,
                   }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
                 >
-                  Portfolio
+                  Portfolio*
                 </motion.div>
               </motion.div>
 
               <div className="flex items-center justify-center w-full">
                 <motion.p
-                  className="text-xs sm:text-sm md:text-lg max-w-lg text-left tracking-wider leading-relaxed text-stone-300 px-3 py-2 mt-2"
+                  className="text-xs sm:text-sm md:text-lg max-w-lg text-left font-semibold tracking-widest leading-loose text-stone-300 px-3 py-2 mt-2"
                   style={{ scale: bioScale }}
                 >
                   {characters.map((char, index) => (
                     <motion.span
                       key={index}
-                      style={{ opacity: characterOpacities[index] }}
+                      style={{
+                        opacity: characterOpacities[index],
+                      }}
                     >
                       {char}
                     </motion.span>

@@ -57,8 +57,31 @@ const Navigation = () => {
     return () => window.removeEventListener("resize", calculateButtonMetrics);
   }, []);
 
+  const scrollToElement = (element: Element) => {
+    const start = window.pageYOffset;
+    const target = element.getBoundingClientRect().top + window.pageYOffset;
+    const startTime = performance.now();
+    const duration = 1500; // Increased duration for slower scroll
+
+    const easeInOutQuad = (t: number) => {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    };
+
+    const animateScroll = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      window.scrollTo(0, start + (target - start) * easeInOutQuad(progress));
+
+      if (progress < 1) {
+        requestAnimationFrame(animateScroll);
+      }
+    };
+
+    requestAnimationFrame(animateScroll);
+  };
+
   const handleNavClick = (index: number, href: string) => {
-    // Clear any existing timeout
     if (clickTimeoutRef.current) {
       clearTimeout(clickTimeoutRef.current);
     }
@@ -66,12 +89,14 @@ const Navigation = () => {
     setActiveTab(index);
     isScrollingRef.current = true;
 
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    const element = document.querySelector(href);
+    if (element) {
+      scrollToElement(element);
+    }
 
-    // Set a longer timeout to prevent scroll detection from changing the active tab
     clickTimeoutRef.current = setTimeout(() => {
       isScrollingRef.current = false;
-    }, 1000);
+    }, 1500); // Match the duration of the scroll animation
   };
 
   return (
