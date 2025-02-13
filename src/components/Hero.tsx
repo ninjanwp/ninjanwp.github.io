@@ -14,7 +14,6 @@ export const Hero = ({ scrollProgress }: HeroProps) => {
   const titleScale = useTransform(scrollProgress, [0, 2], [1, 0.7]);
   const textY = useTransform(scrollProgress, [0, 1], [0, -30]);
   const rotateText = useTransform(scrollProgress, [0, 1], [0, 0]);
-  const bioOpacity = useTransform(scrollProgress, [0, 0.1, 0.2], [0, 0, 1]);
   const bioScale = useTransform(scrollProgress, [0, 1], [1, 1.1]);
   const letterSpacing = useTransform(scrollProgress, [0, 1], ["0ch", "-0.1ch"]);
 

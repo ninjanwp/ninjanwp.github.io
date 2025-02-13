@@ -12,11 +12,6 @@ function App() {
   const techRef = useRef<HTMLElement>(null);
   const projectsRef = useRef<HTMLElement>(null);
 
-  const { scrollYProgress: heroProgress } = useScroll({
-    target: heroContainerRef,
-    offset: ["start start", "end start"],
-  });
-
   const { scrollYProgress: stickyHeroProgress } = useScroll({
     target: heroContainerRef,
     offset: ["start start", "end end"],
@@ -25,17 +20,17 @@ function App() {
   const overlay1Transform = useTransform(
     stickyHeroProgress,
     [0, 0.33],
-    ["translateY(100%)", "translateY(0%)"]
+    ["translateY(100%) scale(1)", "translateY(0%) scale(2)"]
   );
   const overlay2Transform = useTransform(
     stickyHeroProgress,
     [0.33, 0.66],
-    ["translateY(100%)", "translateY(0%)"]
+    ["translateY(100%) scale(1)", "translateY(0%) scale(2)"]
   );
   const overlay3Transform = useTransform(
     stickyHeroProgress,
     [0.66, 1],
-    ["translateY(100%)", "translateY(0%)"]
+    ["translateY(100%) scale(1)", "translateY(0%) scale(2)"]
   );
 
   return (
@@ -49,20 +44,20 @@ function App() {
           id="hero"
           className="relative w-full h-[400vh] z-10"
         >
-          <div className="sticky top-0 w-full h-screen">
+          <div className="sticky top-0 w-full h-screen overflow-hidden">
             <Hero scrollProgress={stickyHeroProgress} />
             <div className="overflow-hidden ">
               <motion.div
                 style={{ transform: overlay1Transform }}
-                className="absolute inset-0 z-[5] bg-stone-200 w-full"
+                className="absolute inset-0 z-[5] bg-stone-200 w-full rounded-full"
               />
               <motion.div
                 style={{ transform: overlay2Transform }}
-                className="absolute inset-0 z-[6] bg-stone-950 w-full"
+                className="absolute inset-0 z-[6] bg-stone-950 w-full rounded-full"
               />
               <motion.div
                 style={{ transform: overlay3Transform }}
-                className="absolute inset-0 z-[7] bg-stone-200 w-full"
+                className="absolute inset-0 z-[7] bg-stone-200 w-full rounded-full"
               />
             </div>
           </div>
