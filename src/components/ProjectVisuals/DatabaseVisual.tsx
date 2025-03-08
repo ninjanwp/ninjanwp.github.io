@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { VISUAL_COLORS } from "../../utils/visualConstants";
 
 export const DatabaseVisual = () => {
   const tables = [
@@ -35,13 +36,13 @@ export const DatabaseVisual = () => {
             <motion.path
               key={i}
               d={path}
-              stroke="#e5e5e5"
+              stroke={VISUAL_COLORS.stroke}
               fill={"none"}
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              initial={{ opacity: 0.1 }}
-              animate={{ opacity: [0.1, 0.4, 0.1] }}
+              initial={{ opacity: VISUAL_COLORS.veryLowOpacity }}
+              animate={{ opacity: [VISUAL_COLORS.veryLowOpacity, VISUAL_COLORS.highOpacity, VISUAL_COLORS.veryLowOpacity] }}
               transition={{
                 duration: 2,
                 repeat: Infinity,
@@ -61,10 +62,10 @@ export const DatabaseVisual = () => {
                 height={table.height}
                 rx="4"
                 fill="none"
-                stroke="#e5e5e5"
+                stroke={VISUAL_COLORS.stroke}
                 strokeWidth="2"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 0.3 }}
+                animate={{ opacity: VISUAL_COLORS.mediumOpacity }}
                 transition={{ delay: i * 0.2 }}
               />
 
@@ -75,9 +76,9 @@ export const DatabaseVisual = () => {
                 width={table.width - 20}
                 height={8}
                 rx="2"
-                fill="#e5e5e5"
+                fill={VISUAL_COLORS.fill}
                 initial={{ opacity: 0 }}
-                animate={{ opacity: [0.2, 0.4, 0.2] }}
+                animate={{ opacity: [VISUAL_COLORS.lowOpacity, VISUAL_COLORS.highOpacity, VISUAL_COLORS.lowOpacity] }}
                 transition={{
                   duration: 2,
                   repeat: Infinity,
@@ -94,9 +95,9 @@ export const DatabaseVisual = () => {
                   width={(table.width - 20) * 0.8}
                   height={6}
                   rx="2"
-                  fill="#e5e5e5"
+                  fill={VISUAL_COLORS.fill}
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.15 }}
+                  animate={{ opacity: VISUAL_COLORS.veryLowOpacity }}
                   transition={{ delay: i * 0.2 + j * 0.1 }}
                 />
               ))}

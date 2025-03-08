@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { VISUAL_COLORS } from "../../utils/visualConstants";
 
 export const WebDesignVisual = () => {
   return (
@@ -13,24 +14,24 @@ export const WebDesignVisual = () => {
             height="160"
             rx="8"
             fill="none"
-            stroke="#e5e5e5"
+            stroke={VISUAL_COLORS.stroke}
             strokeWidth="2"
-            opacity={0.3}
+            opacity={VISUAL_COLORS.mediumOpacity}
           />
 
           {/* Browser controls */}
-          <motion.g opacity={0.3}>
-            <circle cx="40" cy="25" r="4" fill="#e5e5e5" />
-            <circle cx="55" cy="25" r="4" fill="#e5e5e5" />
-            <circle cx="70" cy="25" r="4" fill="#e5e5e5" />
+          <motion.g opacity={VISUAL_COLORS.mediumOpacity}>
+            <circle cx="40" cy="25" r="4" fill={VISUAL_COLORS.fill} />
+            <circle cx="55" cy="25" r="4" fill={VISUAL_COLORS.fill} />
+            <circle cx="70" cy="25" r="4" fill={VISUAL_COLORS.fill} />
             <rect
               x="85"
               y="21"
               width="140"
               height="8"
               rx="4"
-              fill="#e5e5e5"
-              opacity={0.2}
+              fill={VISUAL_COLORS.fill}
+              opacity={VISUAL_COLORS.lowOpacity}
             />
           </motion.g>
 
@@ -43,15 +44,15 @@ export const WebDesignVisual = () => {
               width="200"
               height="40"
               rx="4"
-              fill="#e5e5e5"
-              opacity={0.15}
+              fill={VISUAL_COLORS.fill}
+              opacity={VISUAL_COLORS.veryLowOpacity}
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 1 }}
             />
 
             {/* Navigation items */}
-            <motion.g opacity={0.3}>
+            <motion.g opacity={VISUAL_COLORS.mediumOpacity}>
               {[0, 1, 2, 3].map((i) => (
                 <motion.rect
                   key={i}
@@ -60,9 +61,9 @@ export const WebDesignVisual = () => {
                   width="35"
                   height="6"
                   rx="2"
-                  fill="#e5e5e5"
+                  fill={VISUAL_COLORS.fill}
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: [0.2, 0.4, 0.2] }}
+                  animate={{ opacity: [VISUAL_COLORS.lowOpacity, VISUAL_COLORS.highOpacity, VISUAL_COLORS.lowOpacity] }}
                   transition={{
                     duration: 2,
                     repeat: Infinity,
@@ -82,8 +83,8 @@ export const WebDesignVisual = () => {
                     width="60"
                     height="70"
                     rx="4"
-                    fill="#e5e5e5"
-                    opacity={0.1}
+                    fill={VISUAL_COLORS.fill}
+                    opacity={VISUAL_COLORS.veryLowOpacity}
                     initial={{ scaleY: 0 }}
                     animate={{ scaleY: 1 }}
                     transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
@@ -96,8 +97,8 @@ export const WebDesignVisual = () => {
                       width="50"
                       height="6"
                       rx="2"
-                      fill="#e5e5e5"
-                      opacity={0.3}
+                      fill={VISUAL_COLORS.fill}
+                      opacity={VISUAL_COLORS.mediumOpacity}
                       initial={{ width: 0 }}
                       animate={{ width: 50 }}
                       transition={{

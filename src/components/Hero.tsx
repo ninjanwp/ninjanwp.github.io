@@ -1,34 +1,13 @@
-import { motion, MotionValue, useTransform } from "framer-motion";
-import { useRef, useState } from "react"; // Remove useEffect
+import { motion } from "framer-motion";
+import { useRef } from "react";
 import { RiGithubFill, RiLinkedinFill } from "react-icons/ri";
 import { HiMail, HiDocumentDownload } from "react-icons/hi";
 
-interface HeroProps {
-  scrollProgress: MotionValue<number>;
-}
-
-export const Hero = ({ scrollProgress }: HeroProps) => {
-  const [shouldAnimate] = useState(() => window.scrollY < 100);
-  const portfolioTextRef = useRef<HTMLDivElement>(null);
-
-  const textScale = useTransform(scrollProgress, [0, 1], [1, 0.9]);
-  const titleScale = useTransform(scrollProgress, [0, 2], [1, 0.7]);
-  const textSkew = useTransform(scrollProgress, [0, 1], [0, 12]);
-  const textY = useTransform(scrollProgress, [0, 1], [0, -50]);
-  const rotateText = useTransform(scrollProgress, [0, 1], [0, 0]);
-  const bioScale = useTransform(scrollProgress, [0, 1], [1, 1.1]);
-  const letterSpacing = useTransform(scrollProgress, [0, 1], ["0ch", "0.05ch"]);
+export const Hero = () => {
+  const nameRef = useRef<HTMLHeadingElement>(null);
 
   const text =
-    "I am an IT student at Florida State University, highly motivated about learning and practically applying technology. Specializing in Full Stack development with a focus on modern Web Development.";
-
-  const characters = text.split("");
-  // Calculate timing for each character based on total length
-  const characterOpacities = characters.map((_, index) => {
-    const start = (index / characters.length) * 0.8; // Distribute over first 50% of scroll
-    const end = start + 0.1; // Each character takes 10% of scroll to fade in
-    return useTransform(scrollProgress, [start, end], [0, 1]);
-  });
+    "IT student, specializing in Full Stack development with a focus on modern Web Development.";
 
   const socialLinks = [
     {
@@ -55,99 +34,82 @@ export const Hero = ({ scrollProgress }: HeroProps) => {
   ];
 
   return (
-    <motion.section
-      className="w-full h-screen relative overflow-hidden bg-stone-200"
-      initial={{ scale: shouldAnimate ? 3 : 1 }}
-      animate={{ scale: 1 }}
-      transition={{
-        type: "spring",
-        stiffness: 400,
-        damping: 30,
-        delay: shouldAnimate ? 0.5 : 0,
-      }}
-    >
-      <div className="relative h-full w-full">
-        <motion.div
-          className="h-full flex flex-col items-center justify-center relative z-10 text-stone-200 mix-blend-difference"
-          style={{ scale: textScale, y: textY }}
-        >
-          <div className="w-full mx-auto px-0">
-            <div className="flex flex-col items-start justify-center space-y-12">
-              <motion.div
-                className="uppercase w-full text-center text-xl sm:text-2xl md:text-4xl lg:text-5xl leading-none tracking-wider"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
+    <section id="hero" className="max-w-7xl w-full mx-auto px-4 md:px-6 min-h-screen flex items-center">
+      <div className="w-full">
+        <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
+          {/* Content container */}
+          <div className="flex flex-col space-y-10">
+            {/* Name heading and bio grouped together */}
+            <div className="flex flex-col space-y-6">
+              {/* Main heading with your name */}
+              <motion.h1
+                ref={nameRef}
+                className="text-4xl md:text-7xl font-serif font-semibold text-stone-800 tracking-wide"
               >
-                &copy; Nicholas Pfeffer
-              </motion.div>
-              <motion.div className="w-full">
-                <motion.div
-                  ref={portfolioTextRef}
-                  className="font-akira uppercase font-black w-full text-center bg-clip-text text-stone-200 tracking-tight leading-none"
-                  style={{
-                    fontSize: "clamp(2rem, 12vw, 12rem)",
-                    letterSpacing: letterSpacing,
-                    rotate: rotateText,
-                    scale: titleScale,
-                    skewX: textSkew,
-                  }}
+                <motion.span
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
+                  transition={{ duration: 0.2, delay: 0.5 }}
+                  className="inline-block"
                 >
-                  Portfolio*
-                </motion.div>
-              </motion.div>
-
-              <div className="flex items-center justify-center w-full">
-                <motion.p
-                  className="text-xs sm:text-sm md:text-lg max-w-lg text-left font-semibold tracking-widest leading-loose text-stone-300 px-3 py-2 mt-2"
-                  style={{ scale: bioScale }}
+                  Nick
+                </motion.span>{" "}
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2, delay: 0.75 }}
+                  className="inline-block"
                 >
-                  {characters.map((char, index) => (
-                    <motion.span
-                      key={index}
-                      style={{
-                        opacity: characterOpacities[index],
-                      }}
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </motion.p>
-              </div>
+                  Pfeffer
+                </motion.span>
+              </motion.h1>
 
-              <motion.div
-                className="fixed bottom-8 left-0 right-0 sm:bottom-12 sm:right-12 sm:left-auto flex justify-center sm:justify-end gap-8 sm:gap-10 items-center px-4 sm:px-0"
+              {/* Bio paragraph */}
+              <motion.p
+                className="text-base md:text-lg lg:text-xl text-stone-700 max-w-2xl font-serif leading-relaxed"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
+                transition={{ duration: 0.5, delay: 1}}
               >
-                {socialLinks.map((link, index) => (
-                  <motion.a
-                    key={index}
-                    href={link.href}
-                    target={link.download ? undefined : "_blank"}
-                    rel={link.download ? undefined : "noopener noreferrer"}
-                    download={link.download}
-                    className="relative group"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  >
-                    <div className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl text-stone-300 transition-colors duration-200 group-hover:text-stone-100">
-                      {link.icon}
-                    </div>
-                    <span className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 text-xs sm:text-sm text-stone-400 whitespace-nowrap transition-all duration-200 group-hover:-translate-y-1 pointer-events-none">
-                      {link.label}
-                    </span>
-                  </motion.a>
-                ))}
-              </motion.div>
+                {text}
+              </motion.p>
             </div>
+
+            {/* Social links with improved animations */}
+            <motion.div
+              className="flex gap-2 bg-red-400/20 p-1 rounded-full max-w-fit"
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.5 }}
+            >
+              {socialLinks.map((link, index) => (
+                <motion.a
+                  key={index}
+                  href={link.href}
+                  target={link.download ? undefined : "_blank"}
+                  rel={link.download ? undefined : "noopener noreferrer"}
+                  download={link.download}
+                  className="relative group flex items-center overflow-hidden rounded-full bg-red-400 transition-all duration-300 ease-in-out"
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <motion.div 
+                    className="text-2xl md:text-3xl p-2 flex-shrink-0"
+                    layoutId={`icon-${index}`}
+                  >
+                    {link.icon}
+                  </motion.div>
+                  <motion.span 
+                    className="max-w-0 whitespace-nowrap overflow-hidden group-hover:max-w-[100px] opacity-0 group-hover:opacity-100 ml-0 group-hover:mr-4 text-sm md:text-base text-white font-semibold transition-all duration-300 ease-in-out"
+                  >
+                    {link.label.split(' ')[0]}
+                  </motion.span>
+                </motion.a>
+              ))}
+            </motion.div>
           </div>
-        </motion.div>
+          
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 };

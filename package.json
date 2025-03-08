@@ -1,6 +1,6 @@
 {
   "name": "portfolio",
-  "homepage": "https://ninjanwp.github.io/",
+  "homepage": "https://nickpfeffer.com",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,8 +9,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -19,7 +18,6 @@
     "@studio-freight/react-lenis": "^0.0.47",
     "@types/three": "^0.173.0",
     "framer-motion": "^12.0.11",
-    "gh-pages": "^6.3.0",
     "gsap": "^3.12.7",
     "lenis": "^1.1.20",
     "react": "^18.3.1",

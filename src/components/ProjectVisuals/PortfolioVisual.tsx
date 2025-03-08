@@ -5,7 +5,7 @@ export const PortfolioVisual = () => {
     <div className="w-full h-full">
       <div className="relative w-full h-full">
         <motion.img
-          src="ninjanwp.github.io/images/portfolio.png"
+          src="/images/portfolio.png"
           alt="Portfolio Website"
           className="w-full h-full object-cover opacity-90"
         />

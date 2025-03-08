@@ -1,4 +1,4 @@
-import { motion, useTransform, MotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   DiReact,
   DiPython,
@@ -13,7 +13,6 @@ import {
 } from "react-icons/di";
 
 import { SiR, SiTailwindcss, SiTypescript } from "react-icons/si";
-import ZoopText from "./ZoopText";
 import { DataGridVisual } from "./ProjectVisuals/DataGridVisual";
 import { PhoneVisual } from "./ProjectVisuals/PhoneVisual";
 import { DatabaseVisual } from "./ProjectVisuals/DatabaseVisual";
@@ -25,9 +24,6 @@ import { WebDesignVisual } from "./ProjectVisuals/WebDesignVisual";
 import { FiTool } from "react-icons/fi";
 import SectionHeader from "./SectionHeader";
 import SubheadingDivider from "./SubheadingDivider";
-import { useState, useRef } from "react";
-
-// Remove GlyphCycler component as it's no longer needed
 
 interface TechBadge {
   icon: JSX.Element;
@@ -36,6 +32,7 @@ interface TechBadge {
 
 const techStack: TechBadge[] = [
   { icon: <DiReact />, name: "React" },
+  { icon: <SiTypescript />, name: "TypeScript" },
   { icon: <DiPython />, name: "Python" },
   { icon: <DiPhp />, name: "PHP" },
   { icon: <DiJava />, name: "Java" },
@@ -47,7 +44,6 @@ const techStack: TechBadge[] = [
   { icon: <DiMsqlServer />, name: "MS SQL" },
   { icon: <SiR />, name: "R" },
   { icon: <SiTailwindcss />, name: "Tailwind" },
-  { icon: <SiTypescript />, name: "TypeScript" },
 ];
 
 const ProjectVisual = ({ type }: { type: ProjectVisualType }) => {
@@ -89,64 +85,66 @@ const ProjectItem = ({
   const techBadges = getTechBadges(glyphs);
 
   return (
-    <motion.div className="group relative w-full select-none">
-      <div className="relative flex flex-col h-[450px] rounded-lg border border-stone-950/5 shadow-lg transition-colors duration-300 group-hover:shadow-sm transition-shadow">
+    <motion.div 
+      className="group relative w-full select-none"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+    >
+      <div className="relative flex flex-col h-auto md:h-[400px] rounded-lg bg-white shadow-sm">
         {/* Visual Container */}
-        <div className="relative h-[300px] rounded-t-lg overflow-hidden">
-          <div className="w-full h-full bg-stone-950">
+        <div className="relative h-[200px] md:h-[250px] rounded-t-lg overflow-hidden">
+          <div className="w-full h-full bg-white">
             <ProjectVisual type={visualType} />
           </div>
 
           {/* Top overlay for index and status */}
           <div className="absolute top-0 left-0 right-0 flex justify-between items-start p-1">
-            <span className="font-mono text-stone-300 text-sm bg-stone-950/50 px-2 py-1 rounded-full">
+            <span className="font-mono text-red-400 text-sm bg-red-400/20 px-2 py-1 rounded-full">
               {formattedIndex}
             </span>
             {inProgress && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="flex items-center gap-1 text-xs bg-stone-500/20 text-stone-200 px-2 py-1 rounded-full border border-stone-500/20"
-              >
+              <div className="flex items-center gap-1 text-xs bg-red-400/20 text-red-400 px-2 py-1 rounded-full">
                 <FiTool /> In Progress
-              </motion.div>
+              </div>
             )}
           </div>
 
           {/* Bottom overlay for technologies */}
-          <div className="absolute bottom-0 left-0 right-0 p-4 flex flex-wrap gap-2">
+          <div className="p-3 flex flex-wrap gap-2">
             {techBadges.map((tech, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.1 }}
-                className="flex items-center gap-2 text-xs bg-stone-950/50 text-stone-200 px-2 py-1 rounded-full border border-stone-500/20"
+                className="flex items-center gap-1 text-xs bg-red-400/20 text-red-400 px-2 py-1 rounded-full"
               >
-                <span className="text-lg">{tech.icon}</span>
-                <span className="font-medium">{tech.name}</span>
-              </motion.div>
+                <span className="text-base">{tech.icon}</span>
+                <span>{tech.name}</span>
+              </div>
             ))}
           </div>
         </div>
 
         {/* Content Container */}
-        <div className="flex flex-col flex-1 p-5">
+        <div className="flex flex-col flex-1 p-4 border-t border-red-200">
           <div className="flex-1 space-y-2">
-            <h3 className="text-lg font-bold text-stone-950">{title}</h3>
-            <p className="text-sm text-stone-600 leading-relaxed">
+            <h3 className="text-xl font-medium text-stone-800">{title}</h3>
+            <p className="text-stone-700 font-serif leading-relaxed">
               {description}
             </p>
           </div>
 
-          <motion.a
-            className="select-none flex text-base text-stone-950 pt-3"
+          <a
+            className="mt-4 inline-flex items-center text-sm font-medium text-red-400 hover:text-red-500"
             href={link}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <ZoopText>GITHUB</ZoopText>
-          </motion.a>
+            View on GitHub
+            <svg className="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+            </svg>
+          </a>
         </div>
       </div>
     </motion.div>
@@ -160,86 +158,19 @@ const ProjectCarousel = ({
   projects: Project[];
   title: string;
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const handleScroll = () => {
-    const container = scrollRef.current;
-    if (container) {
-      const scrollPosition = container.scrollLeft;
-      const itemWidth = container.offsetWidth;
-      const newIndex = Math.round(scrollPosition / itemWidth);
-      setCurrentIndex(newIndex);
-    }
-  };
-
-  const scrollToIndex = (index: number) => {
-    const container = scrollRef.current;
-    if (container) {
-      const itemWidth = container.offsetWidth;
-      container.scrollTo({
-        left: itemWidth * index,
-        behavior: "smooth",
-      });
-      setCurrentIndex(index);
-    }
-  };
-
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <SubheadingDivider title={title} />
-      <div className="relative">
-        <div
-          ref={scrollRef}
-          onScroll={handleScroll}
-          className="grid grid-flow-col auto-cols-[100%] lg:auto-cols-[33.33%] overflow-x-auto snap-x snap-mandatory gap-3 pb-6 scrollbar-hide"
-        >
-          {projects.map((project, index) => (
-            <div key={index} className="snap-start">
-              <ProjectItem {...project} index={index} />
-            </div>
-          ))}
-        </div>
-
-        <div className="flex justify-center gap-2 mt-4">
-          {projects.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => scrollToIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                currentIndex === index ? "bg-stone-950 w-4" : "bg-stone-400"
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {projects.map((project, index) => (
+          <ProjectItem key={index} {...project} index={index} />
+        ))}
       </div>
     </div>
   );
 };
 
-interface ProjectsProps {
-  scrollProgress: MotionValue<number>;
-}
-
-export const Projects = ({ scrollProgress }: ProjectsProps) => {
-  // const opacity = useTransform(scrollProgress, [0, 0.5], [0, 1]);
-  const scale = useTransform(
-    scrollProgress,
-    [0, 0.3],
-    [0.8, 1]
-  );
-  const x = useTransform(
-    scrollProgress,
-    [0, 0.2],
-    ["20%", "0%"]
-  );
-  const skew = useTransform(
-    scrollProgress,
-    [0, 0.2],
-    ["15deg", "0deg"]
-  );
-
+export const Projects = () => {
   const personalProjects: Project[] = [
     {
       title: "Personal Portfolio Website",
@@ -311,10 +242,9 @@ export const Projects = ({ scrollProgress }: ProjectsProps) => {
   ];
 
   return (
-    <motion.section
-      style={{ x, scale, skew }}
+    <section
       id="projects"
-      className="relative w-full h-full overflow-y-auto py-24 max-w-7xl mx-auto px-4 md:px-8 bg-stone-200 rounded-xl"
+      className="relative w-full py-16 max-w-7xl mx-auto px-4 md:px-8"
     >
       <SectionHeader
         title="Projects"
@@ -325,6 +255,6 @@ export const Projects = ({ scrollProgress }: ProjectsProps) => {
         <ProjectCarousel title="Personal" projects={personalProjects} />
         <ProjectCarousel title="Academic" projects={academicProjects} />
       </div>
-    </motion.section>
+    </section>
   );
 };

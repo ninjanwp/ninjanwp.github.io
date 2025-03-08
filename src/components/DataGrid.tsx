@@ -18,6 +18,13 @@ const GRAPH = {
   MAX_Y: 100,
 } as const;
 
+// Theme colors - Updated to use red palette instead of purple
+const COLORS = {
+  PRIMARY: "#f87171", // red-400
+  SECONDARY: "#fecaca", // red-200
+  ACCENT: "#ef4444", // red-500
+} as const;
+
 const variants = {
   container: {
     initial: { opacity: 0, scale: 0.9 },
@@ -87,7 +94,7 @@ const variants = {
 
 // Visual style constants
 const STYLE = {
-  STROKE_COLOR: "#fff",
+  STROKE_COLOR: "#000",
   GRID_OPACITY: 0.1,
   STROKE_WIDTH: {
     GRID: "1",
@@ -95,18 +102,6 @@ const STYLE = {
   },
   BAR_WIDTH: 20,
   SCATTER_RADIUS: 8,
-  GLOW: {
-    id: "glow",
-    filter: (
-      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-        <feGaussianBlur stdDeviation="3" result="blur" />
-        <feMerge>
-          <feMergeNode in="blur" />
-          <feMergeNode in="SourceGraphic" />
-        </feMerge>
-      </filter>
-    ),
-  },
 } as const;
 
 const GraphLabel = ({ type }: { type: VisualType }) => (
@@ -117,7 +112,7 @@ const GraphLabel = ({ type }: { type: VisualType }) => (
     transition={{ duration: 0.5, ease: "easeInOut" }}
     className="absolute sm:top-0 top-9 sm:left-6 left-3 flex justify-center"
   >
-    <span className="text-stone-400 uppercase tracking-widest text-sm">
+    <span className="text-red-400 uppercase tracking-widest text-sm">
       // {type}
     </span>
   </motion.div>
@@ -154,7 +149,7 @@ export const DataGrid = () => {
 
   const renderGrid = (size: number) => {
     return (
-      <motion.g filter="url(#glow)" opacity={1}>
+      <motion.g opacity={1}>
         {/* Horizontal grid lines */}
         {Array.from({ length: GRAPH.GRID_STEPS + 1 }).map((_, i) => (
           <motion.line
@@ -212,8 +207,7 @@ export const DataGrid = () => {
     });
 
     const sharedSvgProps = {
-      className:
-        "mt-12 md:mt-0 overflow-visible",
+      className: "mt-12 md:mt-0 overflow-visible",
       viewBox: `0 0 ${size} ${size}`,
     };
 
@@ -221,10 +215,9 @@ export const DataGrid = () => {
       line: (
         <svg {...sharedSvgProps}>
           <defs>
-            {STYLE.GLOW.filter}
             <linearGradient id="lineGradient" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#d8b4fe" stopOpacity="1" />
-              <stop offset="100%" stopColor="#e9d5ff" stopOpacity="0" />
+              <stop offset="0%" stopColor={COLORS.PRIMARY} stopOpacity="1" />
+              <stop offset="100%" stopColor={COLORS.SECONDARY} stopOpacity="0" />
             </linearGradient>
             <mask id="lineMask">
               <motion.path
@@ -241,7 +234,7 @@ export const DataGrid = () => {
             </mask>
           </defs>
           {renderGrid(size)}
-          <motion.g filter="url(#glow)">
+          <motion.g>
             {/* Main line */}
             <motion.path
               variants={variants.line}
@@ -250,7 +243,7 @@ export const DataGrid = () => {
                 .map((p) => `${p.x} ${p.y}`)
                 .join(" L ")}`}
               fill="none"
-              stroke="#d8b4fe"
+              stroke={COLORS.PRIMARY}
               strokeWidth={STYLE.STROKE_WIDTH.LINE}
               strokeDasharray="0,1"
             />
@@ -272,14 +265,13 @@ export const DataGrid = () => {
       bar: (
         <svg {...sharedSvgProps}>
           <defs>
-            {STYLE.GLOW.filter}
             <linearGradient id="barGradient" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#d8b4fe" stopOpacity="1" />
-              <stop offset="100%" stopColor="#e9d5ff" stopOpacity="0" />
+              <stop offset="0%" stopColor={COLORS.PRIMARY} stopOpacity="1" />
+              <stop offset="100%" stopColor={COLORS.SECONDARY} stopOpacity="0" />
             </linearGradient>
           </defs>
           {renderGrid(size)}
-          <motion.g filter="url(#glow)">
+          <motion.g>
             {data.map((d, i) => {
               const point = normalizePoint(d);
               const barHeight = size - point.y;
@@ -305,9 +297,8 @@ export const DataGrid = () => {
       ),
       scatter: (
         <svg {...sharedSvgProps}>
-          <defs>{STYLE.GLOW.filter}</defs>
           {renderGrid(size)}
-          <motion.g filter="url(#glow)">
+          <motion.g>
             {data.map((d, i) => {
               const point = normalizePoint(d);
               return (
@@ -324,7 +315,7 @@ export const DataGrid = () => {
                   cx={point.x}
                   cy={point.y}
                   r={STYLE.SCATTER_RADIUS}
-                  fill="#d8b4fe"
+                  fill={COLORS.PRIMARY}
                 />
               );
             })}

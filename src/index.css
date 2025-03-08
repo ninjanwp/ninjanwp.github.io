@@ -15,6 +15,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  background-color: #FAF9F5;
+  color: #fff;
+}
+
 @keyframes glitch {
   0% {
     text-shadow: 0.05em 0 0 #ec2225, -0.025em -0.05em 0 #313f97;

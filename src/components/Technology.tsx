@@ -1,4 +1,4 @@
-import { motion, MotionValue, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { SiTypescript, SiDocker, SiTailwindcss } from "react-icons/si";
 import {
   DiBootstrap,
@@ -29,43 +29,23 @@ const TechCard = ({
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.3 }}
-    className="flex flex-col p-4 rounded-lg border border-stone-950/5 shadow-lg"
+    viewport={{ once: true }}
+    className="flex flex-col p-4 rounded-lg bg-white shadow-sm"
   >
     <div className="flex items-center gap-3 mb-2">
       <div
-        className="p-2 rounded text-4xl"
-        style={{ backgroundColor: `${color}25`, color: color }}
+        className="p-2 rounded text-3xl"
+        style={{ backgroundColor: `${color}15`, color: color }}
       >
         <Icon />
       </div>
-      <h3 className="text-lg font-bold text-stone-950">{name}</h3>
+      <h3 className="text-lg font-semibold text-stone-800">{name}</h3>
     </div>
-    <p className="text-sm text-stone-500 leading-relaxed">{description}</p>
+    <p className="text-sm text-stone-600 font-serif leading-relaxed">{description}</p>
   </motion.div>
 );
 
-interface TechnologyProps {
-  scrollProgress: MotionValue<number>;
-}
-
-const Technology = ({ scrollProgress }: TechnologyProps) => {
-  // const opacity = useTransform(scrollProgress, [0, 0.5], [0, 1]);
-  const scale = useTransform(
-    scrollProgress,
-    [0, 0.3],
-    [0.8, 1]
-  );
-  const x = useTransform(
-    scrollProgress,
-    [0, 0.2],
-    ["-20%", "0%"]
-  );
-  const skew = useTransform(
-    scrollProgress,
-    [0, 0.2],
-    ["-15deg", "0deg"]
-  );
-
+const Technology = () => {
   const frontendTechnologies = [
     {
       Icon: DiReact,
@@ -148,17 +128,16 @@ const Technology = ({ scrollProgress }: TechnologyProps) => {
   ];
 
   return (
-    <motion.section
-      style={{ x, scale, skew }}
+    <section
       id="tech"
-      className="relative w-full h-full py-24 max-w-7xl mx-auto px-4 md:px-8 bg-stone-200 rounded-xl"
+      className="relative w-full py-16 max-w-7xl mx-auto px-4 md:px-8"
     >
       <SectionHeader
         title="Technology"
-        label="An overview of the programming languages, frameworks, and tools that I use."
+        label="An overview of the programming languages, frameworks, and tools that I use and am experienced with."
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Frontend Section */}
         <div>
           <SubheadingDivider title="Frontend" />
@@ -189,7 +168,7 @@ const Technology = ({ scrollProgress }: TechnologyProps) => {
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

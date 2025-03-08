@@ -4,28 +4,45 @@
 }
 
 @font-face {
-  font-family: "Malven";
-  src: url("fonts/MalvenRegular-51MRB.otf") format("truetype");
+  font-family: "Butler Black";
+  src: url("/fonts/Butler_Black.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: "Bonivar";
-  src: url("ninjanwp.github.io/fonts/Bonivar-MAEAn.ttf") format("truetype");
+  font-family: "Butler Bold";
+  src: url("/fonts/Butler_Bold.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: "Mayonice";
-  src: url("ninjanwp.github.io/fonts/Mayonice-gwaq1.otf") format("truetype");
+  font-family: "Butler ExtraBold";
+  src: url("/fonts/Butler_ExtraBold.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: "Mostwanted";
-  src: url("/fonts/Mostwanted.ttf") format("truetype");
+  font-family: "Butler Light";
+  src: url("/fonts/Butler_Light.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: "Akira";
-  src: url("/fonts/AkiraExpanded.otf") format("truetype");
+  font-family: "Butler Medium";
+  src: url("/fonts/Butler_Medium.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Butler Regular";
+  src: url("/fonts/Butler_Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 * {
@@ -44,28 +61,9 @@
   /* overflow: hidden; */
 }
 
-body {
-  font-family: "LeagueSpartan";
-}
 
-.font-leaguespartan {
-  font-family: "LeagueSpartan";
-}
-
-.font-bonivar {
-  font-family: "Bonivar";
-}
-
-.font-mayonice {
-  font-family: "Mayonice";
-}
-
-.font-mostwanted {
-  font-family: "Mostwanted";
-}
-
-.font-akira {
-  font-family: "Akira";
+.font-butler {
+  font-family: "Butler ExtraBold", sans-serif;
 }
 
 button,

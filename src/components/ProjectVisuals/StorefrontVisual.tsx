@@ -11,7 +11,7 @@ export const StorefrontVisual = () => {
           transition={{ duration: 1 }}
         /> */}
         <motion.img
-          src="ninjanwp.github.io/images/storefront.png"
+          src="/images/storefront.png"
           alt="Retail Storefront"
           className="w-full h-full object-cover opacity-90"
         />

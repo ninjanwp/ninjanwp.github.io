@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { VISUAL_COLORS } from "../../utils/visualConstants";
 
 export const PhoneVisual = () => {
   return (
@@ -27,9 +28,9 @@ export const PhoneVisual = () => {
               height="160"
               rx="20"
               fill="none"
-              stroke="#e5e5e5"
+              stroke={VISUAL_COLORS.stroke}
               strokeWidth="2"
-              opacity={0.3}
+              opacity={VISUAL_COLORS.mediumOpacity}
             />
 
             {/* Notch */}
@@ -39,8 +40,8 @@ export const PhoneVisual = () => {
               width="30"
               height="6"
               rx="3"
-              fill="#e5e5e5"
-              opacity={0.3}
+              fill={VISUAL_COLORS.fill}
+              opacity={VISUAL_COLORS.mediumOpacity}
             />
 
             {/* Screen content */}
@@ -52,8 +53,8 @@ export const PhoneVisual = () => {
                 width="70"
                 height="20"
                 rx="4"
-                fill="#e5e5e5"
-                opacity={0.2}
+                fill={VISUAL_COLORS.fill}
+                opacity={VISUAL_COLORS.lowOpacity}
               />
             ))}
           </motion.g>

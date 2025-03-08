@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { VISUAL_COLORS } from "../../utils/visualConstants";
 
 export const DataGridVisual = () => {
   const grid = {
@@ -28,10 +29,13 @@ export const DataGridVisual = () => {
                   height={grid.cellSize}
                   rx="2"
                   fill="none"
-                  stroke="#e5e5e5"
+                  stroke={VISUAL_COLORS.stroke}
                   strokeWidth="2"
                   initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: [0.1, 0.3, 0.1], scale: [0, 1, 0] }}
+                  animate={{ 
+                    opacity: [VISUAL_COLORS.veryLowOpacity, VISUAL_COLORS.mediumOpacity, VISUAL_COLORS.veryLowOpacity], 
+                    scale: [0, 1, 0] 
+                  }}
                   transition={{
                     duration: 3,
                     repeat: Infinity,
