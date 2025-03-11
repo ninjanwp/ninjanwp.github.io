@@ -30,18 +30,18 @@ const TechCard = ({
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.3 }}
     viewport={{ once: true }}
-    className="flex flex-col p-4 rounded-lg bg-white shadow-sm"
+    className="flex flex-row items-stretch rounded-xl bg-[#27292E] shadow-sm"
   >
-    <div className="flex items-center gap-3 mb-2">
-      <div
-        className="p-2 rounded text-3xl"
-        style={{ backgroundColor: `${color}15`, color: color }}
-      >
-        <Icon />
-      </div>
-      <h3 className="text-lg font-semibold text-stone-800">{name}</h3>
+    <div
+      className="flex items-center justify-center rounded-l-xl text-6xl px-5 flex-shrink-0"
+      style={{ backgroundColor: `${color}15`, color: color }}
+    >
+      <Icon />
     </div>
-    <p className="text-sm text-stone-600 font-serif leading-relaxed">{description}</p>
+    <div className="p-4 flex flex-col">
+      <h3 className="text-xl font-black text-white">{name}</h3>
+      <p className="text-sm text-white/90 leading-relaxed">{description}</p>
+    </div>
   </motion.div>
 );
 
@@ -130,7 +130,7 @@ const Technology = () => {
   return (
     <section
       id="tech"
-      className="relative w-full py-16 max-w-7xl mx-auto px-4 md:px-8"
+      className="relative w-full py-32 max-w-7xl mx-auto px-4 md:px-8"
     >
       <SectionHeader
         title="Technology"

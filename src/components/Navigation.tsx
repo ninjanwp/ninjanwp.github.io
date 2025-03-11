@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { HiHome, HiCode, HiCollection } from "react-icons/hi"; // Import icons for navigation
 
 const Navigation = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -10,9 +11,9 @@ const Navigation = () => {
   const clickTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const sections = [
-    { name: "Home", href: "#hero" },
-    { name: "Tech", href: "#tech" },
-    { name: "Projects", href: "#projects" },
+    { name: "Home", href: "#hero", icon: <HiHome /> },
+    { name: "Tech", href: "#tech", icon: <HiCode /> },
+    { name: "Projects", href: "#projects", icon: <HiCollection /> },
   ];
 
   useEffect(() => {
@@ -100,15 +101,15 @@ const Navigation = () => {
   };
 
   return (
-    <div className="fixed top-6 left-0 right-0 z-50 flex justify-center items-center">
+    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center items-center">
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", delay: 0.5, stiffness: 500, damping: 30 }}
       >
-        <div className="relative bg-red-400/20 backdrop-blur-xl rounded-full flex items-center p-1">
+        <div className="relative bg-[#27292E] backdrop-blur-xl rounded-b-3xl flex items-center p-1">
           <motion.div
-            className="absolute bg-red-400 rounded-full"
+            className="absolute bg-green-400/20 rounded-full"
             initial={false}
             animate={{
               x: (buttonPositions[activeTab] || 0) - 4,
@@ -128,12 +129,15 @@ const Navigation = () => {
               ref={(el) => (buttonsRef.current[index] = el)}
               onClick={() => handleNavClick(index, section.href)}
               className={`relative z-10 px-4 font-bold py-2 rounded-full transition-all duration-300 ${
-              activeTab === index ? 'text-white' : 'text-stone-900'
+              activeTab === index ? 'text-green-300' : 'text-white'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {section.name}
+              <div className="flex items-center justify-center gap-2">
+                {section.icon}
+                {section.name}
+              </div>
             </motion.button>
           ))}
         </div>

@@ -22,7 +22,7 @@ const SectionHeader = ({
         align === "center" ? "items-center text-center" : ""
       }`}
     >
-      <h2 className="text-4xl md:text-7xl font-serif font-semibold text-stone-800 tracking-wider">
+      <h2 className="text-4xl md:text-7xl font-bold text-white tracking-wider">
         <ZoopText variant={ZoopVariant.WHEN_VISIBLE}>{title}</ZoopText>
       </h2>
 
@@ -30,7 +30,7 @@ const SectionHeader = ({
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-base md:text-lg lg:text-xl text-stone-700 max-w-2xl font-serif leading-relaxed"
+        className="text-base md:text-lg lg:text-xl text-white/90 max-w-3xl leading-relaxed border-l-4 border-green-300 pl-4"
       >
         {label}
       </motion.p>

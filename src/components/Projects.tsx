@@ -71,10 +71,8 @@ const ProjectItem = ({
   description,
   link,
   visualType,
-  index,
   inProgress,
 }: Project & { index: number }) => {
-  const formattedIndex = String(index + 1).padStart(2, "0");
 
   const getTechBadges = (icons: JSX.Element[]) => {
     return icons
@@ -92,20 +90,17 @@ const ProjectItem = ({
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
     >
-      <div className="relative flex flex-col h-auto md:h-[400px] rounded-lg bg-white shadow-sm">
+      <div className="relative flex flex-col h-auto md:h-[400px] rounded-lg bg-[#27292E] border-4 border-[#27292E] shadow-sm">
         {/* Visual Container */}
         <div className="relative h-[200px] md:h-[250px] rounded-t-lg overflow-hidden">
-          <div className="w-full h-full bg-white">
+          <div className="w-full h-full bg-[#16181C]">
             <ProjectVisual type={visualType} />
           </div>
 
           {/* Top overlay for index and status */}
           <div className="absolute top-0 left-0 right-0 flex justify-between items-start p-1">
-            <span className="font-mono text-red-400 text-sm bg-red-400/20 px-2 py-1 rounded-full">
-              {formattedIndex}
-            </span>
             {inProgress && (
-              <div className="flex items-center gap-1 text-xs bg-red-400/20 text-red-400 px-2 py-1 rounded-full">
+              <div className="flex items-center gap-1 text-xs bg-green-400/20 text-green-400 px-2 py-1 rounded-full">
                 <FiTool /> In Progress
               </div>
             )}
@@ -116,7 +111,7 @@ const ProjectItem = ({
             {techBadges.map((tech, i) => (
               <div
                 key={i}
-                className="flex items-center gap-1 text-xs bg-red-400/20 text-red-400 px-2 py-1 rounded-full"
+                className="flex items-center gap-1 text-xs bg-green-400/20 text-green-400 px-2 py-1 rounded-full"
               >
                 <span className="text-base">{tech.icon}</span>
                 <span>{tech.name}</span>
@@ -126,16 +121,16 @@ const ProjectItem = ({
         </div>
 
         {/* Content Container */}
-        <div className="flex flex-col flex-1 p-4 border-t border-red-200">
+        <div className="flex flex-col flex-1 p-4 border-t border-green-200">
           <div className="flex-1 space-y-2">
-            <h3 className="text-xl font-medium text-stone-800">{title}</h3>
-            <p className="text-stone-700 font-serif leading-relaxed">
+            <h3 className="text-xl font-black text-white">{title}</h3>
+            <p className="text-white/70 font-semibold leading-relaxed">
               {description}
             </p>
           </div>
 
           <a
-            className="mt-4 inline-flex items-center text-sm font-medium text-red-400 hover:text-red-500"
+            className="mt-4 inline-flex items-center text-sm font-medium text-green-300 hover:text-green-400"
             href={link}
             target="_blank"
             rel="noopener noreferrer"
@@ -244,7 +239,7 @@ export const Projects = () => {
   return (
     <section
       id="projects"
-      className="relative w-full py-16 max-w-7xl mx-auto px-4 md:px-8"
+      className="relative w-full py-32 max-w-7xl mx-auto px-4 md:px-8"
     >
       <SectionHeader
         title="Projects"
