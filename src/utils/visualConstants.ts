@@ -1,6 +1,6 @@
 export const VISUAL_COLORS = {
-  stroke: "#F87171",
-  fill: "#F87171",
+  stroke: "#4ade80",
+  fill: "#4ade80",
   
   // Opacity values commonly used
   highOpacity: 0.4,
