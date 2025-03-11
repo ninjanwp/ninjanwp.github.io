@@ -4,7 +4,8 @@ export type ProjectVisualType =
   | "phone"
   | "dataGrid"
   | "database"
-  | "portfolio";
+  | "portfolio"
+  | "cloudboard";
 
 export type Project = {
   title: string;

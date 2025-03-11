@@ -18,10 +18,12 @@ import { PhoneVisual } from "./ProjectVisuals/PhoneVisual";
 import { DatabaseVisual } from "./ProjectVisuals/DatabaseVisual";
 import { StorefrontVisual } from "./ProjectVisuals/StorefrontVisual";
 import { PortfolioVisual } from "./ProjectVisuals/PortfolioVisual";
+import { CloudboardVisual } from "./ProjectVisuals/CloudboardVisual";
 
 import { Project, ProjectVisualType } from "../types/project";
 import { WebDesignVisual } from "./ProjectVisuals/WebDesignVisual";
 import { FiTool } from "react-icons/fi";
+import { BsCircleFill } from "react-icons/bs";
 import SectionHeader from "./SectionHeader";
 import SubheadingDivider from "./SubheadingDivider";
 
@@ -48,6 +50,8 @@ const techStack: TechBadge[] = [
 
 const ProjectVisual = ({ type }: { type: ProjectVisualType }) => {
   switch (type) {
+    case "cloudboard":
+      return <CloudboardVisual />;
     case "portfolio":
       return <PortfolioVisual />;
     case "storefront":
@@ -81,6 +85,7 @@ const ProjectItem = ({
   };
 
   const techBadges = getTechBadges(glyphs);
+  const isGithubLink = link.includes('github.com');
 
   return (
     <motion.div 
@@ -130,12 +135,26 @@ const ProjectItem = ({
           </div>
 
           <a
-            className="mt-4 inline-flex items-center text-sm font-medium text-green-300 hover:text-green-400"
+            className={`mt-4 inline-flex items-center text-sm font-medium ${
+              isGithubLink 
+                ? "text-green-300 hover:text-green-400" 
+                : "text-red-300 hover:text-red-400"
+            }`}
             href={link}
             target="_blank"
             rel="noopener noreferrer"
           >
-            View on GitHub
+            {isGithubLink ? (
+              'View on GitHub'
+            ) : (
+              <>
+                <span className="mr-1 relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-full text-bold w-full bg-red-500"></span>
+                </span>
+                View Live Project
+              </>
+            )}
             <svg className="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
             </svg>
@@ -167,6 +186,15 @@ const ProjectCarousel = ({
 
 export const Projects = () => {
   const personalProjects: Project[] = [
+    {
+      title: "Cloudboard: Kanban Board",
+      slug: "cloudboard",
+      description:
+        "Kanban-style board with drag-and-drop, user authentication, and real-time collaboration",
+      link: "https://cloudboard.dev",
+      glyphs: [<DiReact />, <SiTypescript />, <SiTailwindcss />],
+      visualType: "cloudboard",
+    },
     {
       title: "Personal Portfolio Website",
       slug: "portfolio",
