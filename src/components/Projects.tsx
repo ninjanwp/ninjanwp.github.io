@@ -23,7 +23,6 @@ import { CloudboardVisual } from "./ProjectVisuals/CloudboardVisual";
 import { Project, ProjectVisualType } from "../types/project";
 import { WebDesignVisual } from "./ProjectVisuals/WebDesignVisual";
 import { FiTool } from "react-icons/fi";
-import { BsCircleFill } from "react-icons/bs";
 import SectionHeader from "./SectionHeader";
 import SubheadingDivider from "./SubheadingDivider";
 
