@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import ZoopText, { ZoopVariant } from "./ZoopText";
 
 interface SectionHeaderProps {
   label: string;
@@ -22,15 +21,15 @@ const SectionHeader = ({
         align === "center" ? "items-center text-center" : ""
       }`}
     >
-      <h2 className="text-4xl md:text-7xl font-bold text-white tracking-wider">
-        <ZoopText variant={ZoopVariant.WHEN_VISIBLE}>{title}</ZoopText>
+      <h2 className="text-4xl md:text-7xl font-bold text-white tracking-wider mb-6">
+        {title}
       </h2>
 
       <motion.p
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-base md:text-lg lg:text-xl text-white/90 max-w-3xl leading-relaxed border-l-4 border-green-300 pl-4"
+        className="text-base md:text-lg lg:text-xl text-white/75 max-w-3xl leading-relaxed border-l-4 border-green-300 pl-4"
       >
         {label}
       </motion.p>

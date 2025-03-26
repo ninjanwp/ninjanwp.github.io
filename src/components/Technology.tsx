@@ -27,10 +27,18 @@ const TechCard = ({
 }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.3 }}
+    whileInView={{ opacity: 1, y: 0}}
+    whileTap={{
+      backgroundColor: `${color}50`,
+      scale: 1
+    }}
+    whileHover={{ 
+      backgroundColor: `${color}50`,
+      scale: 1.05
+    }}
     viewport={{ once: true }}
-    className="flex flex-row items-stretch rounded-xl bg-[#27292E] shadow-sm"
+    className="flex flex-row items-stretch rounded-xl bg-[#27292E]"
+    style={{ border: `2px solid ${color}15` }}
   >
     <div
       className="flex items-center justify-center rounded-l-xl text-6xl px-5 flex-shrink-0"
@@ -39,8 +47,8 @@ const TechCard = ({
       <Icon />
     </div>
     <div className="p-4 flex flex-col">
-      <h3 className="text-xl font-black text-white">{name}</h3>
-      <p className="text-sm text-white/90 leading-relaxed">{description}</p>
+      <h3 className="text-xl font-bold text-white">{name}</h3>
+      <p className="text-sm text-white/75 leading-relaxed">{description}</p>
     </div>
   </motion.div>
 );

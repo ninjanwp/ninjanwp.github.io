@@ -73,7 +73,7 @@ export const Hero = () => {
 
               {/* Bio paragraph */}
               <motion.p
-                className="text-base md:text-lg lg:text-2xl text-white/90 max-w-2xl leading-relaxed border-l-4 border-green-300 pl-4"
+                className="text-base md:text-lg lg:text-2xl text-white/75 max-w-2xl leading-relaxed border-l-4 border-green-300 pl-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1}}

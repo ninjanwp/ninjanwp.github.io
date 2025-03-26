@@ -101,13 +101,13 @@ const Navigation = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center items-center">
+    <div className="fixed top-3 left-0 right-0 z-50 flex justify-center items-center">
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", delay: 0.5, stiffness: 500, damping: 30 }}
       >
-        <div className="relative bg-[#27292E] backdrop-blur-xl rounded-b-3xl flex items-center p-1">
+        <div className="relative bg-[#27292E] backdrop-blur-xl rounded-3xl flex items-center p-1">
           <motion.div
             className="absolute bg-green-400/20 rounded-full"
             initial={false}
