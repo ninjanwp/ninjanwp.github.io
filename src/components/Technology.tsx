@@ -142,7 +142,7 @@ const Technology = () => {
     >
       <SectionHeader
         title="Technology"
-        label="An overview of the programming languages, frameworks, and tools that I use and am experienced with."
+        label="An overview of the languages, libraries, and tools that I have the most experience with."
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

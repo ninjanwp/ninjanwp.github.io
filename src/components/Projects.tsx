@@ -270,7 +270,7 @@ export const Projects = () => {
     >
       <SectionHeader
         title="Projects"
-        label="A showcase of personal and academic projects demonstrating my experience with various technologies."
+        label="A showcase of personal and academic projects demonstrating my understanding of various technologies."
       />
 
       <div className="space-y-12">
