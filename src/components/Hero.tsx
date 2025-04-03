@@ -123,17 +123,16 @@ export const Hero = () => {
               <div className="absolute inset-0 bg-green-300/10 rounded-full -m-3 blur-xl"></div>
               
               {/* Image container with border effect */}
-              <div className="relative overflow-hidden rounded-full border-2 border-green-300 shadow-xl shadow-black/50 w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80">
-                {/* Image with 3D effect - head extends past the circle */}
-                <div className="absolute inset-0 overflow-visible">
+              <div className="relative overflow-hidden rounded-full border-2 border-green-300 bg-green-200 shadow-xl shadow-black/50 w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80">
+                {/* Image with position translation */}
+                <div className="absolute inset-0">
                   <img
                     src="/assets/headshot_transparent.png"
                     alt="Nick Pfeffer headshot"
-                    className="absolute w-[200%] h-auto max-w-none object-cover"
-                    style={{
-                      top: '-10%',
-                      left: '-5%',
-                      objectPosition: 'center 70%' // Position to keep shoulders inside circle
+                    className="w-[150%] h-[150%] object-cover object-center"
+                    style={{ 
+                      transform: "translate(-30px, -40px)", /* Adjust these values to position the image */
+                      objectPosition: "center bottom" /* This helps position the image toward the bottom */
                     }}
                   />
                 </div>
