@@ -123,7 +123,7 @@ export const Hero = () => {
               <div className="absolute inset-0 bg-green-300/10 rounded-full -m-3 blur-xl"></div>
               
               {/* Image container with border effect */}
-              <div className="relative overflow-hidden rounded-full border-2 border-green-300 shadow-xl shadow-black/50 w-60 h-60 md:w-72 md:h-72 lg:w-150 lg:h-150">
+              <div className="relative overflow-hidden rounded-full border-2 border-green-300 shadow-xl shadow-black/50 w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80">
                 {/* Image with 3D effect - head extends past the circle */}
                 <div className="absolute inset-0 overflow-visible">
                   <img
