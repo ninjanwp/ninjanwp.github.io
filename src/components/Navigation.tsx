@@ -107,7 +107,7 @@ const Navigation = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", delay: 0.5, stiffness: 500, damping: 30 }}
       >
-        <div className="relative bg-[#27292E] backdrop-blur-xl rounded-3xl flex items-center p-1">
+        <div className="relative bg-[#27292E]/50 backdrop-blur-xl rounded-3xl flex items-center p-1">
           <motion.div
             className="absolute bg-green-400/20 rounded-full"
             initial={false}

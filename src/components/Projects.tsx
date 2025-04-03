@@ -94,7 +94,7 @@ const ProjectItem = ({
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
     >
-      <div className="relative flex flex-col h-auto md:h-[400px] rounded-lg bg-[#27292E] border-4 border-[#27292E] shadow-sm">
+      <div className="relative flex flex-col h-auto md:h-[400px] rounded-lg bg-[#27292E]/50 backdrop-blur-xl border-2 border-[#27292E] shadow-sm">
         {/* Visual Container */}
         <div className="relative h-[200px] md:h-[250px] rounded-t-lg overflow-hidden">
           <div className="w-full h-full bg-[#16181C]">

@@ -37,7 +37,7 @@ const TechCard = ({
       scale: 1.05
     }}
     viewport={{ once: true }}
-    className="flex flex-row items-stretch rounded-xl bg-[#27292E]"
+    className="flex flex-row items-stretch rounded-xl bg-[#27292E]/50 backdrop-blur-xl"
     style={{ border: `2px solid ${color}15` }}
   >
     <div

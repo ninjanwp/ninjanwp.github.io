@@ -7,7 +7,7 @@ export const Hero = () => {
   const nameRef = useRef<HTMLHeadingElement>(null);
 
   const text =
-    "IT student, specializing in Full Stack development with a focus on modern Web Development.";
+    "Information Technology student, focusing on full-stack development.";
 
   const socialLinks = [
     {
@@ -36,7 +36,7 @@ export const Hero = () => {
   return (
     <section 
       id="hero" 
-      className="max-w-7xl w-full mx-auto px-4 md:px-6 min-h-screen flex items-center"
+      className="max-w-7xl w-full mx-auto px-4 md:px-8 min-h-screen flex items-center"
     >
       <div className="w-full">
         <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
@@ -80,7 +80,7 @@ export const Hero = () => {
 
             {/* Social links with improved animations */}
             <motion.div
-              className="flex gap-2 bg-[#27292E] p-1 rounded-full max-w-fit"
+              className="flex gap-2 bg-[#27292E]/50 backdrop-blur-xl p-1 rounded-full max-w-fit"
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1.5 }}
@@ -112,33 +112,47 @@ export const Hero = () => {
           </div>
           
           {/* Headshot Component */}
-          <motion.div
-            className="relative w-full md:w-1/3 lg:w-2/5 flex justify-center md:justify-end"
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ delay: 1 }}
-          >
-            <div className="relative">
+          <div className="relative w-full md:w-1/3 lg:w-2/5 flex justify-center md:justify-end">
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ 
+                delay: 1,
+                duration: 0.2,
+              }}
+              style={{
+                transformOrigin: "center center",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
               {/* Decorative background element */}
               <div className="absolute inset-0 bg-green-300/10 rounded-full -m-3 blur-xl"></div>
               
               {/* Image container with border effect */}
-              <div className="relative overflow-hidden rounded-full border-2 border-green-300 bg-green-200 shadow-xl shadow-black/50 w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80">
+              <div className="relative overflow-hidden rounded-full border-2 border-green-300 bg-green-200/50 shadow-xl shadow-black/50 w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80">
                 {/* Image with position translation */}
-                <div className="absolute inset-0">
-                  <img
+                <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+                  <motion.img
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.33, delay: 1.15 }}
                     src="/assets/headshot_transparent.png"
                     alt="Nick Pfeffer headshot"
-                    className="w-[150%] h-[150%] object-cover object-center"
-                    style={{ 
-                      transform: "translate(-30px, -40px)", /* Adjust these values to position the image */
-                      objectPosition: "center bottom" /* This helps position the image toward the bottom */
+                    className="grayscale"
+                    style={{
+                      width: "130%",
+                      height: "130%",
+                      objectFit: "cover",
+                      objectPosition: "center"
                     }}
                   />
                 </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
