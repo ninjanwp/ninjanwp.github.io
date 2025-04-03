@@ -21,7 +21,7 @@ const Footer = () => {
           <p className="text-center text-white/70 text-sm flex items-center justify-center gap-1">
             Built with React, TypeScript, and Tailwind CSS.
             <a 
-              href="/rss/rss.xml" 
+              href="/feed/rss.xml" 
               target="_blank" 
               rel="noopener noreferrer"
               className="ml-2 inline-flex items-center text-green-300 hover:text-green-400 transition-colors"
