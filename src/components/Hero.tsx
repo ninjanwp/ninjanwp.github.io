@@ -128,16 +128,6 @@ export const Hero = () => {
                 alignItems: "center"
               }}
             >
-              {/* Decorative background element */}
-              <motion.div
-                initial={{ opacity: 0}}
-                animate={{ opacity: 1}}
-                transition={{
-                  delay: 1.2,
-                  duration: 0.5,
-                }}
-                className="absolute inset-0 bg-gradient-to-t from-green-200/30 to-to-transparent rounded-full -m-3 blur-xl"></motion.div>
-              
               {/* Image container with border effect */}
               <div className="relative overflow-hidden rounded-full border-2 border-green-300 bg-gradient-to-t from-green-200/50 to-to-transparent shadow-xl shadow-black/50 w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80">
                 {/* Image with position translation */}
@@ -145,7 +135,7 @@ export const Hero = () => {
                   <motion.img
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.33, delay: 1.15 }}
+                    transition={{ duration: 1, delay: 1.15 }}
                     src="/assets/headshot_transparent.png"
                     alt="Nick Pfeffer headshot"
                     className="grayscale"
