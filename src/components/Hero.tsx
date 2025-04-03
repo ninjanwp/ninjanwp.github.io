@@ -124,11 +124,19 @@ export const Hero = () => {
               
               {/* Image container with border effect */}
               <div className="relative overflow-hidden rounded-full border-2 border-green-300 shadow-xl shadow-black/50 w-60 h-60 md:w-72 md:h-72 lg:w-150 lg:h-150">
-                <img
-                  src="/assets/headshot.png" // Add your actual headshot image path here
-                  alt="Nick Pfeffer headshot"
-                  className="w-full h-full object-cover"
-                />
+                {/* Image with 3D effect - head extends past the circle */}
+                <div className="absolute inset-0 overflow-visible">
+                  <img
+                    src="/assets/headshot_transparent.png"
+                    alt="Nick Pfeffer headshot"
+                    className="absolute w-[200%] h-auto max-w-none object-cover"
+                    style={{
+                      top: '-10%',
+                      left: '-5%',
+                      objectPosition: 'center 70%' // Position to keep shoulders inside circle
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </motion.div>
