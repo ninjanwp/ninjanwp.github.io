@@ -5,15 +5,15 @@
     <link>https://www.nickpfeffer.com</link>
     <description>Updates and projects from Nick Pfeffer's portfolio - Full Stack developer specializing in React, TypeScript, and modern web development technologies.</description>
     <language>en-us</language>
-    <pubDate>Tue, 03 Apr 2025 12:00:00 GMT</pubDate>
-    <lastBuildDate>Tue, 03 Apr 2025 12:00:00 GMT</lastBuildDate>
-    <atom:link href="https://www.nickpfeffer.com/rss/rss.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Thu, 03 Apr 2025 12:00:00 GMT</pubDate>
+    <lastBuildDate>Thu, 03 Apr 2025 12:00:00 GMT</lastBuildDate>
+    <atom:link href="https://nickpfeffer.com/feed/rss.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Cloudboard: Kanban Board Project</title>
       <link>https://cloudboard.dev</link>
       <description>Kanban-style board with drag-and-drop, user authentication, and real-time collaboration</description>
-      <pubDate>Tue, 03 Apr 2025 11:00:00 GMT</pubDate>
+      <pubDate>Thu, 03 Apr 2025 11:00:00 GMT</pubDate>
       <guid>https://cloudboard.dev</guid>
     </item>
     
@@ -21,7 +21,7 @@
       <title>Personal Portfolio Website Launch</title>
       <link>https://www.nickpfeffer.com</link>
       <description>Modern, responsive portfolio website built with React, TypeScript, and Tailwind CSS</description>
-      <pubDate>Mon, 02 Apr 2025 14:30:00 GMT</pubDate>
+      <pubDate>Wed, 02 Apr 2025 14:30:00 GMT</pubDate>
       <guid>https://www.nickpfeffer.com</guid>
     </item>
     
@@ -29,7 +29,7 @@
       <title>CRUD Retail Application</title>
       <link>https://github.com/ninjanwp/webstore</link>
       <description>Full-stack webstore with CRUD support via Node.js RESTful API</description>
-      <pubDate>Sun, 01 Apr 2025 09:45:00 GMT</pubDate>
+      <pubDate>Tue, 01 Apr 2025 09:45:00 GMT</pubDate>
       <guid>https://github.com/ninjanwp/webstore</guid>
     </item>
   </channel>
