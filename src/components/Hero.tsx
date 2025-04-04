@@ -181,7 +181,7 @@ export const Hero = () => {
                   }}
                   transition={{ 
                     delay: 0.85,
-                    duration: 0.5,
+                    duration: 0.75,
                     ease: "easeInOut"
                   }}
                   className="relative rounded-full w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80 z-10"
@@ -189,8 +189,8 @@ export const Hero = () => {
                   {/* Image with position translation */}
                   <div className="absolute bottom-0 left-0 flex items-center justify-center rounded-b-full overflow-hidden h-[150%]">
                     <motion.img
-                      initial={{ opacity: 1, y: "115%" }}
-                      animate={{ opacity: 1, y: "10%" }}
+                      initial={{ opacity: 1, y: "115%", scale: 0.5 }}
+                      animate={{ opacity: 1, y: "10%", scale: 1 }}
                       transition={{ duration: 1, delay: 0.75, ease: "easeInOut" }}
                       src="/assets/headshot_transparent.png"
                       alt="Nick Pfeffer headshot"
