@@ -115,12 +115,6 @@ export const Hero = () => {
           <div className="relative w-full md:w-1/3 lg:w-2/5 flex justify-center md:justify-end">
             <motion.div
               className="relative"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ 
-                delay: 1,
-                duration: 0.2,
-              }}
               style={{
                 transformOrigin: "center center",
                 display: "flex",
@@ -128,25 +122,90 @@ export const Hero = () => {
                 alignItems: "center"
               }}
             >
-              {/* Image container with border effect */}
-              <div className="relative overflow-hidden rounded-full border-2 border-green-300 bg-gradient-to-t from-green-200/50 to-to-transparent shadow-xl shadow-black/50 w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80">
-                {/* Image with position translation */}
-                <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-                  <motion.img
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, delay: 1.15 }}
-                    src="/assets/headshot_transparent.png"
-                    alt="Nick Pfeffer headshot"
-                    className="grayscale"
-                    style={{
-                      width: "130%",
-                      height: "130%",
-                      objectFit: "cover",
-                      objectPosition: "center"
-                    }}
-                  />
-                </div>
+              {/* Wrapper div to position both the gradient and image container */}
+              <div className="relative">
+                {/* Larger animated conic gradient background that peeks around the border */}
+                <motion.div
+                  className="absolute rounded-full blur-xl"
+                  style={{
+                    top: "-2.5%",
+                    left: "-2.5%", 
+                    width: "105%",
+                    height: "105%",
+                    zIndex: 5
+                  }}
+                  initial={{ background: "conic-gradient(from 0deg, rgb(74 222 128 / 0.3) 0%, transparent 0%)" }}
+                  animate={{ 
+                    background: [
+                      "conic-gradient(from 0deg, rgb(74 222 128 / 0.3) 0%, transparent 0%)",
+                      "conic-gradient(from 0deg, rgb(74 222 128 / 0.3) 100%, transparent 100%)"
+                    ]
+                  }}
+                  transition={{ 
+                    delay: 0.5,
+                    duration: 0.5,
+                  }}
+                />
+                <motion.div
+                  className="absolute rounded-full"
+                  style={{
+                    top: "-0.5%",
+                    left: "-0.5%", 
+                    width: "101%",
+                    height: "101%",
+                    zIndex: 6
+                  }}
+                  initial={{ background: "conic-gradient(from 0deg, #87EFAC 0%, transparent 0%)" }}
+                  animate={{ 
+                    background: [
+                      "conic-gradient(from 0deg, #87EFAC 0%, transparent 0%)",
+                      "conic-gradient(from 0deg, #87EFAC 100%, transparent 100%)"
+                    ]
+                  }}
+                  transition={{ 
+                    delay: 0.5,
+                    duration: 0.5,
+                  }}
+                />
+
+                {/* Image container with overflow hidden for the image only */}
+                <motion.div
+                  initial={{ 
+                    background: "radial-gradient(circle at center, #16181C 100%, #87EFAC 100%)" 
+                  }}
+                  animate={{ 
+                    background: [
+                      "radial-gradient(circle at center, #16181C 100%, #87EFAC 100%)",
+                      "radial-gradient(circle at center, #16181C 0%, #87EFAC 0%)"
+                    ]
+                  }}
+                  transition={{ 
+                    delay: 0.85,
+                    duration: 0.5,
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 20
+                  }}
+                  className="relative overflow-hidden rounded-full w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80 z-10"
+                >
+                  {/* Image with position translation */}
+                  <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+                    <motion.img
+                      initial={{ opacity: 1, y: "100%" }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.75, delay: 0.75, ease: "easeInOut" }}
+                      src="/assets/headshot_transparent.png"
+                      alt="Nick Pfeffer headshot"
+                      className="grayscale"
+                      style={{
+                        width: "130%",
+                        height: "130%",
+                        objectFit: "cover",
+                        objectPosition: "center"
+                      }}
+                    />
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           </div>
