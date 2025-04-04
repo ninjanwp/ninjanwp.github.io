@@ -112,7 +112,7 @@ export const Hero = () => {
           </div>
           
           {/* Headshot Component */}
-          <div className="relative w-full md:w-1/3 lg:w-2/5 flex justify-center md:justify-end">
+          <div className="relative w-full md:w-1/3 lg:w-2/5 flex justify-center md:justify-end p-4 md:p-0">
             <motion.div
               className="relative"
               style={{
