@@ -149,10 +149,10 @@ export const Hero = () => {
                 <motion.div
                   className="absolute rounded-full"
                   style={{
-                    top: "-0.5%",
-                    left: "-0.5%", 
-                    width: "101%",
-                    height: "101%",
+                    top: "-1.5%",
+                    left: "-1.5%", 
+                    width: "103%",
+                    height: "103%",
                     zIndex: 6
                   }}
                   initial={{ background: "conic-gradient(from 0deg, #87EFAC 0%, transparent 0%)" }}
@@ -171,12 +171,12 @@ export const Hero = () => {
                 {/* Image container with overflow hidden for the image only */}
                 <motion.div
                   initial={{ 
-                    background: "radial-gradient(circle at center, #16181C 100%, #87EFAC 100%)" 
+                    background: "radial-gradient(circle at center, #101010 100%, #87EFAC 100%)" 
                   }}
                   animate={{ 
                     background: [
-                      "radial-gradient(circle at center, #16181C 100%, #87EFAC 100%)",
-                      "radial-gradient(circle at center, #16181C 0%, #87EFAC 0%)"
+                      "radial-gradient(circle at center, #101010 100%, #87EFAC 100%)",
+                      "radial-gradient(circle at center, #101010 0%, #87EFAC 0%)"
                     ]
                   }}
                   transition={{ 
