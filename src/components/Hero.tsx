@@ -171,12 +171,12 @@ export const Hero = () => {
                 {/* Image container with overflow hidden for the image only */}
                 <motion.div
                   initial={{ 
-                    background: "radial-gradient(circle at center, #101010 100%, #87EFAC 100%)" 
+                    background: "radial-gradient(circle at center, #16181C 100%, #87EFAC 100%)" 
                   }}
                   animate={{ 
                     background: [
-                      "radial-gradient(circle at center, #101010 100%, #87EFAC 100%)",
-                      "radial-gradient(circle at center, #101010 0%, #87EFAC 0%)"
+                      "radial-gradient(circle at center, #16181C 100%, #87EFAC 100%)",
+                      "radial-gradient(circle at center, #16181C 0%, #87EFAC 0%)"
                     ]
                   }}
                   transition={{ 
