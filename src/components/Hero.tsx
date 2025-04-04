@@ -126,7 +126,7 @@ export const Hero = () => {
               <div className="relative">
                 {/* Larger animated conic gradient background that peeks around the border */}
                 <motion.div
-                  className="absolute rounded-full blur-xl"
+                  className="absolute rounded-full blur-sm"
                   style={{
                     top: "-2.5%",
                     left: "-2.5%", 
