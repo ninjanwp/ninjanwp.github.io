@@ -125,7 +125,7 @@ export const Hero = () => {
               {/* Wrapper div to position both the gradient and image container */}
               <div className="relative">
                 {/* Larger animated conic gradient background that peeks around the border */}
-                <motion.div
+                {/* <motion.div
                   className="absolute rounded-full blur-sm"
                   style={{
                     top: "-2.5%",
@@ -145,7 +145,7 @@ export const Hero = () => {
                     delay: 0.5,
                     duration: 0.5,
                   }}
-                />
+                /> */}
                 <motion.div
                   className="absolute rounded-full"
                   style={{
@@ -182,9 +182,7 @@ export const Hero = () => {
                   transition={{ 
                     delay: 0.85,
                     duration: 0.5,
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 20
+                    ease: "easeInOut"
                   }}
                   className="relative overflow-hidden rounded-full w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80 z-10"
                 >
