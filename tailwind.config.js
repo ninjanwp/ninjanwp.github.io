@@ -4,6 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Theme colors
+        background: '#000',
+        card: 'rgba(17, 17, 17, 0.5)', // Dark card color that works well on the near-black background
+        accent: "rgb(var(--accent))",
+        'accent-dark': '#4ade80',
+        success: '#22c55e',
+        error: '#ef4444',
         custom: {
           orange: {
             50: "#fff7e6",
@@ -57,5 +64,15 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addBase }) {
+      addBase({
+        ":root": {
+          "--accent": "255 255 255", // Default green accent color RGB values
+          "--background": "#000", // Default background color
+          
+        },
+      });
+    },
+  ],
 };

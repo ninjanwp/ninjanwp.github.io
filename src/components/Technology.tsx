@@ -37,18 +37,16 @@ const TechCard = ({
       scale: 1.05
     }}
     viewport={{ once: true }}
-    className="flex flex-row items-stretch rounded-xl bg-[#27292E]/50 backdrop-blur-xl"
-    style={{ border: `2px solid ${color}15` }}
+    className="flex flex-row items-stretch rounded-lg bg-card backdrop-blur shadow-sm"
   >
     <div
-      className="flex items-center justify-center rounded-l-xl text-6xl px-5 flex-shrink-0"
-      style={{ backgroundColor: `${color}15`, color: color }}
+      className="flex items-center justify-center rounded-lg text-6xl px-5 flex-shrink-0"
     >
       <Icon />
     </div>
     <div className="p-4 flex flex-col">
       <h3 className="text-xl font-bold text-white">{name}</h3>
-      <p className="text-sm text-white/75 leading-relaxed">{description}</p>
+      <p className="font-medium text-white/50 leading-relaxed">{description}</p>
     </div>
   </motion.div>
 );
@@ -149,7 +147,7 @@ const Technology = () => {
         {/* Frontend Section */}
         <div>
           <SubheadingDivider title="Frontend" />
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-4 mt-5">
             {frontendTechnologies.map((tech, index) => (
               <TechCard key={index} {...tech} />
             ))}
@@ -159,17 +157,17 @@ const Technology = () => {
         {/* Backend Section */}
         <div>
           <SubheadingDivider title="Backend" />
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-4 mt-5">
             {backendTechnologies.map((tech, index) => (
               <TechCard key={index} {...tech} />
             ))}
           </div>
         </div>
 
-        {/* Infrastructure Section */}
+        {/* Tools Section */}
         <div>
-          <SubheadingDivider title="Infrastructure" />
-          <div className="grid grid-cols-1 gap-4">
+          <SubheadingDivider title="Tools" />
+          <div className="grid grid-cols-1 gap-4 mt-5">
             {infrastructureTechnologies.map((tech, index) => (
               <TechCard key={index} {...tech} />
             ))}

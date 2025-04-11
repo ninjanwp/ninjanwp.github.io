@@ -6,14 +6,14 @@ const Footer = () => {
 
   return (
     <footer
-      className="w-full bg-[#27292E] border-t border-green-200"
+      className="w-full bg-background rounded-t-3xl"
     >
         <motion.div 
           className="py-9"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
         >
           <p className="text-center text-white">
             © {currentYear} Nicholas Pfeffer.
@@ -24,7 +24,7 @@ const Footer = () => {
               href="/feed/rss.xml" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="ml-2 inline-flex items-center text-green-300 hover:text-green-400 transition-colors"
+              className="ml-2 inline-flex items-center text-accent"
               title="Subscribe to RSS feed"
             >
               <RiRssFill className="w-4 h-4" />

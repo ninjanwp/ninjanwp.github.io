@@ -7,12 +7,13 @@ export type ProjectVisualType =
   | "portfolio"
   | "cloudboard";
 
-export type Project = {
+export interface Project {
   title: string;
   slug: string;
-  glyphs: JSX.Element[];
   description: string;
-  link: string;
+  link?: string;
+  githubLink?: string;
+  glyphs: JSX.Element[];
   visualType: ProjectVisualType;
   inProgress?: boolean;
-};
+}

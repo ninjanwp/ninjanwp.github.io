@@ -1,6 +1,22 @@
+// Extract accent color from Tailwind config
+
+// CSS variable reference for dynamic usage in styles
+export const CSS_VARIABLES = {
+  accent: "var(--accent)",
+  accentRgb: "rgb(var(--accent))",
+  accentRgba: (opacity: number) => `rgba(var(--accent), ${opacity})`,
+};
+
 export const VISUAL_COLORS = {
-  stroke: "#4ade80",
-  fill: "#4ade80",
+  // Use CSS variables for accent colors
+  stroke: CSS_VARIABLES.accentRgb,
+  fill: CSS_VARIABLES.accentRgb,
+  
+  // Background color from theme
+  background: "#16181C",
+  
+  // Card color from theme
+  card: "#27292E",
   
   // Opacity values commonly used
   highOpacity: 0.4,

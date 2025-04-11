@@ -73,6 +73,7 @@ const ProjectItem = ({
   glyphs,
   description,
   link,
+  githubLink,
   visualType,
   inProgress,
 }: Project & { index: number }) => {
@@ -84,7 +85,6 @@ const ProjectItem = ({
   };
 
   const techBadges = getTechBadges(glyphs);
-  const isGithubLink = link.includes('github.com');
 
   return (
     <motion.div 
@@ -94,17 +94,17 @@ const ProjectItem = ({
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
     >
-      <div className="relative flex flex-col h-auto md:h-[400px] rounded-lg bg-[#27292E]/50 backdrop-blur-xl border-2 border-[#27292E] shadow-sm">
+      <div className="relative flex flex-col h-auto md:h-[400px] rounded-lg bg-card backdrop-blur shadow-sm">
         {/* Visual Container */}
         <div className="relative h-[200px] md:h-[250px] rounded-t-lg overflow-hidden">
-          <div className="w-full h-full bg-[#16181C]">
+          <div className="w-full h-full bg-background">
             <ProjectVisual type={visualType} />
           </div>
 
           {/* Top overlay for index and status */}
           <div className="absolute top-0 left-0 right-0 flex justify-between items-start p-1">
             {inProgress && (
-              <div className="flex items-center gap-1 text-xs bg-green-400/20 text-green-400 px-2 py-1 rounded-full">
+              <div className="flex items-center gap-1 text-xs bg-accent/20 text-accent px-2 py-1 rounded-full">
                 <FiTool /> In Progress
               </div>
             )}
@@ -115,7 +115,7 @@ const ProjectItem = ({
             {techBadges.map((tech, i) => (
               <div
                 key={i}
-                className="flex items-center gap-1 text-xs bg-green-400/20 text-green-400 px-2 py-1 rounded-full"
+                className="flex items-center gap-1 text-xs bg-accent/20 text-accent px-2 py-1 rounded-full"
               >
                 <span className="text-base">{tech.icon}</span>
                 <span>{tech.name}</span>
@@ -125,39 +125,47 @@ const ProjectItem = ({
         </div>
 
         {/* Content Container */}
-        <div className="flex flex-col flex-1 p-4 border-t border-green-200">
+        <div className="flex flex-col flex-1 p-4">
           <div className="flex-1 space-y-2">
             <h3 className="text-xl font-bold text-white">{title}</h3>
-            <p className="text-white/70 font-semibold leading-relaxed">
+            <p className="text-white/60 leading-relaxed">
               {description}
             </p>
           </div>
 
-          <a
-            className={`mt-4 inline-flex items-center text-sm font-medium ${
-              isGithubLink 
-                ? "text-green-300 hover:text-green-400" 
-                : "text-red-300 hover:text-red-400"
-            }`}
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {isGithubLink ? (
-              'View on GitHub'
-            ) : (
-              <>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {link && (
+              <a
+                className="inline-flex items-center text-sm font-medium bg-background hover:bg-background/50 transition-colors w-fit p-2 rounded-lg border border-accent/20 text-red-300"
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <span className="mr-1 relative flex h-2.5 w-2.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-full text-bold w-full bg-red-500"></span>
                 </span>
                 View Live Project
-              </>
+                <svg className="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+                </svg>
+              </a>
             )}
-            <svg className="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
-            </svg>
-          </a>
+            
+            {githubLink && (
+              <a
+                className="inline-flex items-center text-sm font-medium bg-background hover:bg-background/50 transition-colors w-fit p-2 rounded-lg border border-accent/20 text-white"
+                href={githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View on GitHub
+                <svg className="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+                </svg>
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>
@@ -191,6 +199,7 @@ export const Projects = () => {
       description:
         "Kanban-style board with drag-and-drop, user authentication, and real-time collaboration",
       link: "https://cloudboard.dev",
+      githubLink: "https://github.com/ninjanwp/cloudboard",
       glyphs: [<DiReact />, <SiTypescript />, <SiTailwindcss />],
       visualType: "cloudboard",
     },
@@ -199,7 +208,7 @@ export const Projects = () => {
       slug: "portfolio",
       description:
         "Modern, responsive portfolio website built with React, TypeScript, and Tailwind CSS",
-      link: "https://github.com/ninjanwp/portfolio",
+      githubLink: "https://github.com/ninjanwp/portfolio",
       glyphs: [<DiReact />, <SiTypescript />, <SiTailwindcss />],
       visualType: "portfolio",
     },
@@ -208,7 +217,7 @@ export const Projects = () => {
       slug: "webstore",
       description:
         "Full-stack webstore with CRUD support via Node.js RESTful API",
-      link: "https://github.com/ninjanwp/webstore",
+      githubLink: "https://github.com/ninjanwp/webstore",
       glyphs: [<DiReact />, <DiNodejs />, <DiJavascript1 />],
       visualType: "storefront",
     },
@@ -219,8 +228,8 @@ export const Projects = () => {
       title: "Advanced Web App Development",
       slug: "lis4368",
       description: "Full-stack web development focusing on best practices",
-      link: "https://github.com/ninjanwp/lis4368",
-      glyphs: [<DiJava />, <DiJavascript1 />, <DiBootstrap />], // Multiple icons
+      githubLink: "https://github.com/ninjanwp/lis4368",
+      glyphs: [<DiJava />, <DiJavascript1 />, <DiBootstrap />],
       visualType: "webDesign",
       inProgress: true,
     },
@@ -229,8 +238,8 @@ export const Projects = () => {
       slug: "lis4381",
       description:
         "Cross-platform mobile development with responsive design principles",
-      link: "https://github.com/ninjanwp/lis4381",
-      glyphs: [<DiPhp />, <DiJava />], // Multiple icons
+      githubLink: "https://github.com/ninjanwp/lis4381",
+      glyphs: [<DiPhp />, <DiJava />],
       visualType: "phone",
     },
     {
@@ -238,8 +247,8 @@ export const Projects = () => {
       slug: "lis4369",
       description:
         "Data Science implementations using Python, R, and Business Intelligence tools",
-      link: "https://github.com/ninjanwp/lis4369",
-      glyphs: [<DiPython />, <SiR />], // Multiple icons
+      githubLink: "https://github.com/ninjanwp/lis4369",
+      glyphs: [<DiPython />, <SiR />],
       visualType: "dataGrid",
     },
     {
@@ -247,8 +256,8 @@ export const Projects = () => {
       slug: "lis4331",
       description:
         "Native mobile application development with advanced features",
-      link: "https://github.com/ninjanwp/lis4331",
-      glyphs: [<DiJava />, <DiAndroid />], // Multiple icons
+      githubLink: "https://github.com/ninjanwp/lis4331",
+      glyphs: [<DiJava />, <DiAndroid />],
       visualType: "phone",
       inProgress: true,
     },
@@ -256,8 +265,8 @@ export const Projects = () => {
       title: "Advanced Database Management",
       slug: "lis3781",
       description: "Complex database systems design and implementation",
-      link: "https://github.com/ninjanwp/lis3781",
-      glyphs: [<DiMysql />, <DiMsqlServer />], // Multiple icons
+      githubLink: "https://github.com/ninjanwp/lis3781",
+      glyphs: [<DiMysql />, <DiMsqlServer />],
       visualType: "database",
       inProgress: true,
     },

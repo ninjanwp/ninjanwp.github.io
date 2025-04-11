@@ -7,7 +7,7 @@ export const Hero = () => {
   const nameRef = useRef<HTMLHeadingElement>(null);
 
   const text =
-    "Information Technology student, focusing on full-stack development.";
+    "Information Technology student — studying full-stack and software development.";
 
   const socialLinks = [
     {
@@ -33,6 +33,9 @@ export const Hero = () => {
     },
   ];
 
+  // Using the accent color from Tailwind config
+  const accentColor = "rgba(255, 255, 255, 0.2)"; // Low opacity white color for gradient effect
+
   return (
     <section 
       id="hero" 
@@ -47,20 +50,20 @@ export const Hero = () => {
               {/* Main heading with your name */}
               <motion.h1
                 ref={nameRef}
-                className="text-4xl md:text-7xl font-bold text-white tracking-wide"
+                className="text-4xl md:text-6xl font-bold text-white tracking-wide"
               >
                 <motion.span
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2, delay: 0.5 }}
+                  transition={{ duration: 0.2, delay: 0.2 }}
                   className="inline-block"
                 >
                   Nick
                 </motion.span>{" "}
                 <motion.span
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2, delay: 0.75 }}
+                  transition={{ duration: 0.2, delay: 0.3 }}
                   className="inline-block"
                 >
                   Pfeffer
@@ -69,46 +72,51 @@ export const Hero = () => {
 
               {/* Bio paragraph */}
               <motion.p
-                className="text-base md:text-lg lg:text-2xl text-white/75 max-w-2xl leading-relaxed border-l-4 border-green-300 pl-4"
-                initial={{ opacity: 0, y: 20 }}
+                className="text-base md:text-lg lg:text-xl text-white/50 max-w-3xl leading-relaxed"
+                initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1}}
+                transition={{ duration: 0.5, delay: 0.4 }}
               >
                 {text}
               </motion.p>
             </div>
 
-            {/* Social links with improved animations */}
-            <motion.div
-              className="flex gap-2 bg-[#27292E]/50 backdrop-blur-xl p-1 rounded-full max-w-fit"
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.5 }}
-            >
-              {socialLinks.map((link, index) => (
-                <motion.a
-                  key={index}
-                  href={link.href}
-                  target={link.download ? undefined : "_blank"}
-                  rel={link.download ? undefined : "noopener noreferrer"}
-                  download={link.download}
-                  className="relative group flex items-center overflow-hidden rounded-full hover:text-green-300 hover:bg-green-400/40 bg-transparent transition-all"
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <motion.div 
-                    className="text-2xl md:text-3xl p-2 flex-shrink-0"
-                    layoutId={`icon-${index}`}
+            {/* Links section with subheading */}
+            <div className="flex w-full justify-start items-center">
+              
+              {/* Social links with improved animations */}
+              <motion.div
+                className="flex gap-2 bg-background border border-accent/20 backdrop-blur p-1 rounded-lg max-w-fit"
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+                
+                {socialLinks.map((link, index) => (
+                  <motion.a
+                    key={index}
+                    href={link.href}
+                    target={link.download ? undefined : "_blank"}
+                    rel={link.download ? undefined : "noopener noreferrer"}
+                    download={link.download}
+                    className="relative group flex items-center overflow-hidden rounded-lg hover:text-black hover:bg-accent bg-transparent transition-all"
+                    whileTap={{ scale: 0.98 }}
                   >
-                    {link.icon}
-                  </motion.div>
-                  <motion.span 
-                    className="max-w-0 whitespace-nowrap overflow-hidden group-hover:max-w-[100px] opacity-0 group-hover:opacity-100 ml-0 group-hover:mr-4 text-sm md:text-base text-green-300 font-semibold transition-all duration-300 ease-in-out"
-                  >
-                    {link.label.split(' ')[0]}
-                  </motion.span>
-                </motion.a>
-              ))}
-            </motion.div>
+                    <motion.div 
+                      className="text-2xl md:text-3xl p-2 flex-shrink-0"
+                      layoutId={`icon-${index}`}
+                    >
+                      {link.icon}
+                    </motion.div>
+                    <motion.span 
+                      className="max-w-0 whitespace-nowrap overflow-hidden group-hover:max-w-[100px] opacity-0 group-hover:opacity-100 ml-0 group-hover:mr-4 text-sm md:text-base text-black font-semibold transition-all duration-300 ease-in-out"
+                    >
+                      {link.label.split(' ')[0]}
+                    </motion.span>
+                  </motion.a>
+                ))}
+              </motion.div>
+            </div>
           </div>
           
           {/* Headshot Component */}
@@ -124,77 +132,42 @@ export const Hero = () => {
             >
               {/* Wrapper div to position both the gradient and image container */}
               <div className="relative">
-                {/* Larger animated conic gradient background that peeks around the border */}
-                {/* <motion.div
-                  className="absolute rounded-full blur-sm"
-                  style={{
-                    top: "-2.5%",
-                    left: "-2.5%", 
-                    width: "105%",
-                    height: "105%",
-                    zIndex: 5
-                  }}
-                  initial={{ background: "conic-gradient(from 0deg, rgb(74 222 128 / 0.3) 0%, transparent 0%)" }}
-                  animate={{ 
-                    background: [
-                      "conic-gradient(from 0deg, rgb(74 222 128 / 0.3) 0%, transparent 0%)",
-                      "conic-gradient(from 0deg, rgb(74 222 128 / 0.3) 100%, transparent 100%)"
-                    ]
-                  }}
-                  transition={{ 
-                    delay: 0.5,
-                    duration: 0.5,
-                  }}
-                /> */}
                 <motion.div
                   className="absolute rounded-full"
                   style={{
-                    top: "-1.5%",
-                    left: "-1.5%", 
-                    width: "103%",
-                    height: "103%",
+                    top: "-0.5%",
+                    left: "-0.5%", 
+                    width: "101%",
+                    height: "101%",
                     zIndex: 6
                   }}
-                  initial={{ background: "conic-gradient(from 0deg, #87EFAC 0%, transparent 0%)" }}
+                  initial={{ background: `conic-gradient(from 0deg, ${accentColor} 0%, transparent 0%)` }}
                   animate={{ 
                     background: [
-                      "conic-gradient(from 0deg, #87EFAC 0%, transparent 0%)",
-                      "conic-gradient(from 0deg, #87EFAC 100%, transparent 100%)"
+                      `conic-gradient(from 0deg, ${accentColor} 0%, transparent 0%)`,
+                      `conic-gradient(from 0deg, ${accentColor} 100%, transparent 100%)`,
                     ]
                   }}
                   transition={{ 
-                    delay: 0.5,
+                    delay: 0.3,
                     duration: 0.5,
+                    ease: "easeInOut"
                   }}
                 />
 
                 {/* Image container with overflow hidden for the image only */}
                 <motion.div
-                  initial={{ 
-                    background: "radial-gradient(circle at center, #16181C 100%, #87EFAC 100%)" 
-                  }}
-                  animate={{ 
-                    background: [
-                      "radial-gradient(circle at center, #16181C 100%, #87EFAC 100%)",
-                      "radial-gradient(circle at center, #16181C 0%, #87EFAC 0%)"
-                    ]
-                  }}
-                  transition={{ 
-                    delay: 0.85,
-                    duration: 0.75,
-                    ease: "easeInOut"
-                  }}
-                  className="relative rounded-full w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80 z-10"
+                  className="relative rounded-full w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80 z-10 bg-black"
                 >
                   {/* Image with position translation */}
                   <div className="absolute bottom-0 left-0 flex items-center justify-center rounded-b-full overflow-hidden h-[150%]">
                     <motion.img
-                      initial={{ opacity: 1, y: "115%", scale: 0.5 }}
-                      animate={{ opacity: 1, y: "10%", scale: 1 }}
-                      transition={{ duration: 1, delay: 0.75, ease: "easeInOut" }}
+                      initial={{ opacity: 0, y: "10%"}}
+                      animate={{ opacity: 1, y: "10%"}}
+                      transition={{ duration: 0.8, delay: 0, ease: "easeInOut" }}
                       src="/assets/headshot_transparent.png"
                       alt="Nick Pfeffer headshot"
-                      className="grayscale"
+                      className="grayscale-"
                       style={{
                         width: "85%",
                         height: "85%",

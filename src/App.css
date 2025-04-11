@@ -4,6 +4,16 @@
 }
 
 @font-face {
+  font-family: "Akira Expanded";
+  src: url("/fonts/AkiraExpanded.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Bonivar";
+  src: url("/fonts/Bonivar-MAEAn.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "Butler Black";
   src: url("/fonts/Butler_Black.otf") format("opentype");
   font-weight: normal;
@@ -64,6 +74,14 @@
 
 .font-butler {
   font-family: "Butler ExtraBold", sans-serif;
+}
+
+.font-akira {
+  font-family: "Akira Expanded", sans-serif;
+}
+
+.font-bonivar {
+  font-family: "Bonivar", sans-serif;
 }
 
 button,
