@@ -288,7 +288,7 @@ export const Projects = () => {
   return (
     <section
       id="projects"
-      className="relative w-full min-h-screen pt-12 max-w-7xl mx-auto"
+      className="relative w-full min-h-screen pt-12 max-w-7xl mx-auto px-4 md:px-8"
     >
       <SectionHeader
         title="Projects"

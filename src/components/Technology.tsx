@@ -1,4 +1,5 @@
 import { SiTypescript, SiDocker, SiTailwindcss } from "react-icons/si";
+import { motion } from "framer-motion";
 import {
   DiBootstrap,
   DiGit,
@@ -17,7 +18,6 @@ const TechCard = ({
   Icon,
   name,
   description,
-  color,
 }: {
   Icon: React.ElementType;
   name: string;
@@ -26,7 +26,7 @@ const TechCard = ({
 }) => (
   <div className="flex flex-row">
     <div
-      className="flex items-center justify-center rounded-lg text-6xl px-5 flex-shrink-0"
+      className="flex items-center justify-center rounded-lg text-6xl"
     >
       <Icon />
     </div>
@@ -122,7 +122,7 @@ const Technology = () => {
   return (
     <section
       id="tech"
-      className="relative w-full  pt-12 max-w-7xl mx-auto"
+      className="relative w-full pt-12 max-w-7xl mx-auto px-4 md:px-8"
     >
       <SectionHeader
         title="Skills"
@@ -131,40 +131,73 @@ const Technology = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Frontend Section */}
-        <div className="rounded-lg border border-white/10 bg-white/5">
+        <motion.div 
+          className="rounded-lg border border-white/10 bg-white/5"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
           <div className="px-4 pt-4">
             <SubheadingDivider title="Frontend" />
           </div>
           <div className="grid grid-cols-1 gap-4 p-4">
             {frontendTechnologies.map((tech, index) => (
-              <TechCard key={index} {...tech} />
+              <div key={index}>
+                <TechCard {...tech} />
+                {index < frontendTechnologies.length - 1 && (
+                  <hr className="border-white/10 rounded-full my-2 mx-2" />
+                )}
+              </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Backend Section */}
-        <div className="rounded-lg border border-white/10 bg-white/5">
+        <motion.div 
+          className="rounded-lg border border-white/10 bg-white/5"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          viewport={{ once: true }}
+        >
           <div className="px-4 pt-4">
             <SubheadingDivider title="Backend" />
           </div>
           <div className="grid grid-cols-1 gap-4 p-4">
             {backendTechnologies.map((tech, index) => (
-              <TechCard key={index} {...tech} />
+              <div key={index}>
+                <TechCard {...tech} />
+                {index < backendTechnologies.length - 1 && (
+                  <hr className="border-white/10 rounded-full my-2 mx-2" />
+                )}
+              </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Tools Section */}
-        <div className="rounded-lg border border-white/10 bg-white/5">
+        <motion.div 
+          className="rounded-lg border border-white/10 bg-white/5"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
           <div className="px-4 pt-4">
             <SubheadingDivider title="Tools" />
           </div>
           <div className="grid grid-cols-1 gap-4 p-4">
             {infrastructureTechnologies.map((tech, index) => (
-              <TechCard key={index} {...tech} />
+              <div key={index}>
+                <TechCard {...tech} />
+                {index < infrastructureTechnologies.length - 1 && (
+                  <hr className="border-white/10 rounded-full my-2 mx-2" />
+                )}
+              </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

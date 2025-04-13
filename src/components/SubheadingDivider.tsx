@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { DiCode } from "react-icons/di";
-import { FiTool, FiCode, FiLayers, FiDatabase, FiMonitor, FiUser, FiBookOpen, FiBook } from "react-icons/fi";
+import { FiTool, FiLayers, FiDatabase, FiMonitor, FiUser, FiBook } from "react-icons/fi";
 
 interface SubheadingDividerProps {
   title: string;

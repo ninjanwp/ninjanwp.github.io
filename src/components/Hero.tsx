@@ -1,24 +1,10 @@
 import { motion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
 import { RiGithubFill, RiLinkedinFill } from "react-icons/ri";
 import { HiMail, HiDocumentDownload } from "react-icons/hi";
-import { FiSun, FiMoon } from "react-icons/fi";
+
+import SectionHeader from "./SectionHeader";
 
 export const Hero = () => {
-  const nameRef = useRef<HTMLHeadingElement>(null);
-  const [currentTime, setCurrentTime] = useState(new Date());
-
-  // Update the time every minute
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 60000); // 60000ms = 1 minute
-    
-    return () => clearInterval(timer);
-  }, []);
-
-  const text =
-    "Information Technology student — studying full-stack and software development.";
 
   const socialLinks = [
     {
@@ -48,10 +34,6 @@ export const Hero = () => {
   const accentColor = "rgba(255, 255, 255, 0.2)"; // Low opacity white color for gradient effect
 
   // Function to determine if it's daytime (between 6am and 6pm)
-  const isDaytime = () => {
-    const hour = currentTime.getHours();
-    return hour >= 6 && hour < 18;
-  };
 
   return (
     <section 
@@ -99,40 +81,10 @@ export const Hero = () => {
           {/* Content container */}
           <div className="flex flex-col space-y-10">
             {/* Name heading and bio grouped together */}
-            <div className="flex flex-col space-y-6">
-              {/* Main heading with your name */}
-              <motion.h1
-                ref={nameRef}
-                className="text-4xl md:text-6xl font-bold text-white tracking-tighter"
-              >
-                <motion.span
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2, delay: 0.2 }}
-                  className="inline-block"
-                >
-                  Nick
-                </motion.span>{" "}
-                <motion.span
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2, delay: 0.3 }}
-                  className="inline-block"
-                >
-                  Pfeffer
-                </motion.span>
-              </motion.h1>
-
-              {/* Bio paragraph */}
-              <motion.p
-                className="text-base md:text-lg lg:text-xl text-white/50 max-w-3xl leading-relaxed tracking-tight"
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                {text}
-              </motion.p>
-            </div>
+            <SectionHeader 
+              label="Information Technology student — studying full-stack and software development."
+              title="Nick Pfeffer"
+            />
 
             {/* Links section with subheading */}
             <div className="flex w-full justify-start items-center">
@@ -183,39 +135,6 @@ export const Hero = () => {
                 alignItems: "center"
               }}
             >
-
-                <motion.div 
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                  className="absolute -bottom-5 z-50 backdrop-blur-md bg-black/30 border border-white/10 rounded-full px-4 py-3"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="text-accent animate-pulse text-3xl">
-                      {isDaytime() ? <FiSun className="text-yellow-400" /> : <FiMoon className="text-blue-300" />}
-                    </div>
-                    <div className="flex flex-col">
-                      <div className="text-sm font-medium text-white/80 flex items-center gap-1">
-                        <span>
-                          {currentTime.toLocaleString('en-US', { 
-                            timeZone: 'America/New_York',
-                            hour: '2-digit', 
-                            minute: '2-digit',
-                            hour12: true 
-                          })}
-                        </span>
-                        <span className="text-xs text-white/50">EST</span>
-                      </div>
-                      <div className="text-xs text-white/50">
-                        {currentTime.toLocaleString('en-US', {
-                          timeZone: 'America/New_York',
-                          month: 'short',
-                          day: 'numeric'
-                        })} • <span className="font-medium">My Local Time</span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
 
               {/* Wrapper div to position both the gradient and image container */}
               <div className="relative">
