@@ -6,7 +6,7 @@ export default {
       colors: {
         // Theme colors
         background: '#000',
-        card: 'rgba(17, 17, 17, 0.5)', // Dark card color that works well on the near-black background
+        card: 'rgba(17, 17, 17, 0.8)', // Dark card color that works well on the near-black background
         accent: "rgb(var(--accent))",
         'accent-dark': '#4ade80',
         success: '#22c55e',
@@ -62,15 +62,33 @@ export default {
           },
         },
       },
+      boxShadow: {
+        'glass': '0 4px 30px rgba(255, 255, 255, 0.1)',
+        'inner-glow': 'inset 0 0 20px 5px rgba(255, 255, 255, 0.05)',
+      },
+      backdropBlur: {
+        'glass': '10px',
+      },
     },
   },
   plugins: [
-    function ({ addBase }) {
+    function ({ addBase, addUtilities }) {
       addBase({
         ":root": {
           "--accent": "255 255 255", // Default green accent color RGB values
           "--background": "#000", // Default background color
-          
+        },
+      });
+      
+      // Add custom glass card utility
+      addUtilities({
+        '.glass-card': {
+          'background': 'rgba(255, 255, 255, 0.05)',
+          'border': '1px solid rgba(255, 255, 255, 0.1)',
+          'border-radius': '16px',
+          'box-shadow': 'inset 0 0 20px 5px rgba(255, 255, 255, 0.05)',
+          'backdrop-filter': 'blur(10px)',
+          '-webkit-backdrop-filter': 'blur(10px)',
         },
       });
     },

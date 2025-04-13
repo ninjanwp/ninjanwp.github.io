@@ -6,10 +6,10 @@ const Footer = () => {
 
   return (
     <footer
-      className="w-full bg-background rounded-t-3xl"
+      className="w-full bg-background"
     >
         <motion.div 
-          className="py-9"
+          className="py-32"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

@@ -12,7 +12,7 @@ import {
   DiMsqlServer,
 } from "react-icons/di";
 
-import { SiR, SiTailwindcss, SiTypescript } from "react-icons/si";
+import { SiFirebase, SiR, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { DataGridVisual } from "./ProjectVisuals/DataGridVisual";
 import { PhoneVisual } from "./ProjectVisuals/PhoneVisual";
 import { DatabaseVisual } from "./ProjectVisuals/DatabaseVisual";
@@ -45,6 +45,7 @@ const techStack: TechBadge[] = [
   { icon: <DiMsqlServer />, name: "MS SQL" },
   { icon: <SiR />, name: "R" },
   { icon: <SiTailwindcss />, name: "Tailwind" },
+  { icon: <SiFirebase />, name: "Firebase" },
 ];
 
 const ProjectVisual = ({ type }: { type: ProjectVisualType }) => {
@@ -94,31 +95,31 @@ const ProjectItem = ({
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
     >
-      <div className="relative flex flex-col h-auto md:h-[400px] rounded-lg bg-card backdrop-blur shadow-sm">
+      <div className="relative flex flex-col h-auto md:h-[400px] overflow-hidden">
         {/* Visual Container */}
-        <div className="relative h-[200px] md:h-[250px] rounded-t-lg overflow-hidden">
-          <div className="w-full h-full bg-background">
+        <div className="relative h-[200px] md:h-[300px] overflow-hidden rounded-lg bg-black border border-white/10">
+          <div className="w-full h-full">
             <ProjectVisual type={visualType} />
           </div>
 
           {/* Top overlay for index and status */}
           <div className="absolute top-0 left-0 right-0 flex justify-between items-start p-1">
             {inProgress && (
-              <div className="flex items-center gap-1 text-xs bg-accent/20 text-accent px-2 py-1 rounded-full">
+              <div className="flex items-center gap-1 text-xs glass-card text-accent px-2 py-1">
                 <FiTool /> In Progress
               </div>
             )}
           </div>
 
-          {/* Bottom overlay for technologies */}
-          <div className="p-3 flex flex-wrap gap-2">
+          {/* Technology badges - repositioned and restyled for better visibility */}
+          <div className="absolute bottom-0 left-0 right-0 p-3 flex flex-wrap gap-2">
             {techBadges.map((tech, i) => (
               <div
                 key={i}
-                className="flex items-center gap-1 text-xs bg-accent/20 text-accent px-2 py-1 rounded-full"
+                className="flex items-center gap-1 text-xs bg-accent/30 text-accent px-2 py-1 glass-card"
               >
                 <span className="text-base">{tech.icon}</span>
-                <span>{tech.name}</span>
+                <span className="font-medium">{tech.name}</span>
               </div>
             ))}
           </div>
@@ -127,19 +128,23 @@ const ProjectItem = ({
         {/* Content Container */}
         <div className="flex flex-col flex-1 p-4">
           <div className="flex-1 space-y-2">
-            <h3 className="text-xl font-bold text-white">{title}</h3>
-            <p className="text-white/60 leading-relaxed">
+            <h3 className="text-xl font-bold text-white tracking-tighter">{title}</h3>
+            <p className="text-white/60 leading-relaxed tracking-tight">
               {description}
             </p>
           </div>
 
           <div className="mt-4 flex flex-wrap gap-2">
             {link && (
-              <a
+              <motion.a
                 className="inline-flex items-center text-sm font-medium bg-background hover:bg-background/50 transition-colors w-fit p-2 rounded-lg border border-accent/20 text-red-300"
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
+                whileHover={{ 
+                  boxShadow: "inset 0 0 20px 5px rgba(255, 255, 255, 0.05)",
+                }}
+                transition={{ duration: 0.2 }}
               >
                 <span className="mr-1 relative flex h-2.5 w-2.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
@@ -149,21 +154,25 @@ const ProjectItem = ({
                 <svg className="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
                 </svg>
-              </a>
+              </motion.a>
             )}
             
             {githubLink && (
-              <a
+              <motion.a
                 className="inline-flex items-center text-sm font-medium bg-background hover:bg-background/50 transition-colors w-fit p-2 rounded-lg border border-accent/20 text-white"
                 href={githubLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                whileHover={{ 
+                  boxShadow: "inset 0 0 20px 5px rgba(255, 255, 255, 0.05)",
+                }}
+                transition={{ duration: 0.2 }}
               >
                 View on GitHub
                 <svg className="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
                 </svg>
-              </a>
+              </motion.a>
             )}
           </div>
         </div>
@@ -181,11 +190,15 @@ const ProjectCarousel = ({
 }) => {
   return (
     <div className="space-y-6">
-      <SubheadingDivider title={title} />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((project, index) => (
-          <ProjectItem key={index} {...project} index={index} />
-        ))}
+      <div className="rounded-lg border border-white/10 bg-white/5">
+        <div className="px-4 pt-4">
+          <SubheadingDivider title={title} />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
+          {projects.map((project, index) => (
+            <ProjectItem key={index} {...project} index={index} />
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -200,7 +213,7 @@ export const Projects = () => {
         "Kanban-style board with drag-and-drop, user authentication, and real-time collaboration",
       link: "https://cloudboard.dev",
       githubLink: "https://github.com/ninjanwp/cloudboard",
-      glyphs: [<DiReact />, <SiTypescript />, <SiTailwindcss />],
+      glyphs: [<DiReact />, <SiTypescript />, <SiFirebase />, <SiTailwindcss />],
       visualType: "cloudboard",
     },
     {
@@ -275,7 +288,7 @@ export const Projects = () => {
   return (
     <section
       id="projects"
-      className="relative w-full py-32 max-w-7xl mx-auto px-4 md:px-8"
+      className="relative w-full min-h-screen pt-12 max-w-7xl mx-auto"
     >
       <SectionHeader
         title="Projects"

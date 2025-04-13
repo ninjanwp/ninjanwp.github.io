@@ -1,11 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* Using Inter as a fallback since Geist is not directly available on Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;*/
+  font-family: 'Geist', sans-serif;
 
   color-scheme: dark;
 
@@ -20,168 +23,4 @@ body {
   padding: 0;
   background-color: #000; /* Using the background color from Tailwind config */
   color: #FFFFFF;
-}
-
-
-@keyframes glitch {
-  0% {
-    text-shadow: 0.05em 0 0 #ec2225, -0.025em -0.05em 0 #313f97;
-    color: rgba(236, 34, 37, 0.2);
-  }
-  15% {
-    text-shadow: -0.05em -0.025em 0 #ec2225, 0.025em 0.05em 0 #50c878;
-    color: #50c878;
-  }
-  50% {
-    text-shadow: 0.025em 0.05em 0 #313f97, -0.05em -0.05em 0 #50c878;
-  }
-  100% {
-    text-shadow: -0.025em 0 0 #ec2225, -0.025em -0.025em 0 #313f97;
-    color: #313f97;
-  }
-}
-
-@keyframes spinBlob {
-  0% {
-    transform: rotate(0deg) scale(2);
-  }
-
-  100% {
-    transform: rotate(1turn) scale(2);
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-
-@layer base {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
-    margin: 0;
-    padding: 0;
-    line-height: 1;
-  }
-}
-
-@layer utilities {
-  .shadow-glitch {
-    text-shadow: 0.05em 0 0 #ec2225, -0.025em -0.05em 0 #313f97,
-      0.025em 0.05em 0 #50c878;
-  }
-  .animate-glitch {
-    animation: glitch 650ms infinite;
-  }
-  .animate-glitch::before {
-    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-    transform: translate(-0.025em, -0.0125em);
-    opacity: 0.8;
-  }
-  .animate-glitch::after {
-    clip-path: polygon(0 65%, 100% 20%, 100% 100%, 0 70%);
-    transform: translate(0.025em, 0.025em);
-    opacity: 0.8;
-  }
-  .bg-gradient {
-    background-size: 100% 100%, 200px 200px;
-    background-position: center;
-    background-repeat: repeat;
-    background-blend-mode: overlay, overlay, overlay, overlay, normal, normal;
-    background-attachment: fixed;
-    transition: all 1s ease;
-  }
-  .animate-grain {
-    animation: grain 8s steps(8) infinite;
-  }
-  .blob-gradient {
-    background: conic-gradient(
-      from 0deg,
-      #08f,
-      #f60,
-      #bbffa1,
-      #4c00ff,
-      #ab2666,
-      #09f
-    );
-  }
-  .vaporwave-gradient {
-    background-size: 100% 100%;
-    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
-    background-image: radial-gradient(
-        49% 81% at 45% 47%,
-        #ffe20345 0%,
-        #073aff00 100%
-      ),
-      radial-gradient(113% 91% at 17% -2%, #ff5a00ff 1%, #ff000000 99%),
-      radial-gradient(142% 91% at 83% 7%, #ffdb00ff 1%, #ff000000 99%),
-      radial-gradient(142% 91% at -6% 74%, #ff0049ff 1%, #ff000000 99%),
-      radial-gradient(142% 91% at 111% 84%, #ff7000ff 0%, #ff0000ff 100%);
-    opacity: 0.1;
-  }
-  .bg-grid-white {
-    background-image: linear-gradient(currentColor 1px, transparent 1px),
-      linear-gradient(to right, currentColor 1px, transparent 1px);
-  }
-  .brutal-shadow {
-    box-shadow: 4px 4px 0 0 white;
-  }
-  .brutal-border {
-    border: 4px solid white;
-  }
-  .noise-filter {
-    filter: url("#noise");
-  }
-  .glow {
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-  }
-
-  .animate-circuit-once {
-    stroke-dasharray: var(--len), var(--len);
-    stroke-dashoffset: var(--len);
-    animation: drawCircuit 0.5s ease-in forwards;
-  }
-
-  .animate-circuit-repeat {
-    stroke-dasharray: var(--len), var(--len);
-    animation: drawCircuit var(--animate-time) linear infinite;
-  }
-
-  @keyframes pulseOpacity {
-    0%,
-    100% {
-      opacity: 0.15;
-    }
-    50% {
-      opacity: 0.4;
-    }
-  }
-
-  .animate-pulse-opacity {
-    animation: pulseOpacity 3s ease-in-out infinite;
-  }
-
-  .animate-blink {
-    animation: blink 1s step-end infinite;
-  }
 }

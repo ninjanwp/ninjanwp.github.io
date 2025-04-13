@@ -61,16 +61,6 @@
   margin: 0;
 }
 
-#root {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  z-index: 2;
-  font-family: "system-ui", sans-serif;
-  /* overflow: hidden; */
-}
-
 
 .font-butler {
   font-family: "Butler ExtraBold", sans-serif;

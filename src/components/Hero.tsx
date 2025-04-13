@@ -1,10 +1,21 @@
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { RiGithubFill, RiLinkedinFill } from "react-icons/ri";
 import { HiMail, HiDocumentDownload } from "react-icons/hi";
+import { FiSun, FiMoon } from "react-icons/fi";
 
 export const Hero = () => {
   const nameRef = useRef<HTMLHeadingElement>(null);
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Update the time every minute
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000); // 60000ms = 1 minute
+    
+    return () => clearInterval(timer);
+  }, []);
 
   const text =
     "Information Technology student — studying full-stack and software development.";
@@ -36,11 +47,53 @@ export const Hero = () => {
   // Using the accent color from Tailwind config
   const accentColor = "rgba(255, 255, 255, 0.2)"; // Low opacity white color for gradient effect
 
+  // Function to determine if it's daytime (between 6am and 6pm)
+  const isDaytime = () => {
+    const hour = currentTime.getHours();
+    return hour >= 6 && hour < 18;
+  };
+
   return (
     <section 
       id="hero" 
-      className="max-w-7xl w-full mx-auto px-4 md:px-8 min-h-screen flex items-center"
+      className="max-w-7xl w-full mx-auto px-4 md:px-8 min-h-screen flex items-center relative"
     >
+      {/* Background video effect - moved from App.tsx */}
+      <motion.div 
+        className='fixed w-full h-full inset-0 -z-10 overflow-hidden'
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5, ease: "easeInOut" }}
+      >
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          className="w-full h-full object-cover blur-3xl"
+        >
+          <source src="/assets/test.mp4" type="video/mp4"  />
+          Your browser does not support the video tag.
+        </video>
+        
+        {/* Grain overlay on top of the video */}
+        <div 
+          className="absolute inset-0 w-screen h-screen z-[9]"
+          style={{ 
+            background: "radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 1) 80%)",
+            backgroundRepeat: "repeat",
+          }}
+        />
+        <div 
+          className="absolute inset-0 w-full h-full z-10 opacity-100 grayscale invert"
+          style={{ 
+            background: "url(https://grainy-gradients.vercel.app/noise.svg)",
+            backgroundRepeat: "repeat",
+            mixBlendMode: "overlay"
+          }}
+        />
+      </motion.div>
+
       <div className="w-full">
         <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
           {/* Content container */}
@@ -50,7 +103,7 @@ export const Hero = () => {
               {/* Main heading with your name */}
               <motion.h1
                 ref={nameRef}
-                className="text-4xl md:text-6xl font-bold text-white tracking-wide"
+                className="text-4xl md:text-6xl font-bold text-white tracking-tighter"
               >
                 <motion.span
                   initial={{ opacity: 0, y: 5 }}
@@ -72,7 +125,7 @@ export const Hero = () => {
 
               {/* Bio paragraph */}
               <motion.p
-                className="text-base md:text-lg lg:text-xl text-white/50 max-w-3xl leading-relaxed"
+                className="text-base md:text-lg lg:text-xl text-white/50 max-w-3xl leading-relaxed tracking-tight"
                 initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
@@ -130,6 +183,40 @@ export const Hero = () => {
                 alignItems: "center"
               }}
             >
+
+                <motion.div 
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  className="absolute -bottom-5 z-50 backdrop-blur-md bg-black/30 border border-white/10 rounded-full px-4 py-3"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="text-accent animate-pulse text-3xl">
+                      {isDaytime() ? <FiSun className="text-yellow-400" /> : <FiMoon className="text-blue-300" />}
+                    </div>
+                    <div className="flex flex-col">
+                      <div className="text-sm font-medium text-white/80 flex items-center gap-1">
+                        <span>
+                          {currentTime.toLocaleString('en-US', { 
+                            timeZone: 'America/New_York',
+                            hour: '2-digit', 
+                            minute: '2-digit',
+                            hour12: true 
+                          })}
+                        </span>
+                        <span className="text-xs text-white/50">EST</span>
+                      </div>
+                      <div className="text-xs text-white/50">
+                        {currentTime.toLocaleString('en-US', {
+                          timeZone: 'America/New_York',
+                          month: 'short',
+                          day: 'numeric'
+                        })} • <span className="font-medium">My Local Time</span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
               {/* Wrapper div to position both the gradient and image container */}
               <div className="relative">
                 <motion.div
@@ -157,7 +244,7 @@ export const Hero = () => {
 
                 {/* Image container with overflow hidden for the image only */}
                 <motion.div
-                  className="relative rounded-full w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80 z-10 bg-black"
+                  className="relative w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80 z-10 bg-black rounded-full"
                 >
                   {/* Image with position translation */}
                   <div className="absolute bottom-0 left-0 flex items-center justify-center rounded-b-full overflow-hidden h-[150%]">

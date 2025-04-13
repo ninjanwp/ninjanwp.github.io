@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { SiTypescript, SiDocker, SiTailwindcss } from "react-icons/si";
 import {
   DiBootstrap,
@@ -25,30 +24,17 @@ const TechCard = ({
   description: string;
   color: string;
 }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0}}
-    whileTap={{
-      backgroundColor: `${color}50`,
-      scale: 1
-    }}
-    whileHover={{ 
-      backgroundColor: `${color}50`,
-      scale: 1.05
-    }}
-    viewport={{ once: true }}
-    className="flex flex-row items-stretch rounded-lg bg-card backdrop-blur shadow-sm"
-  >
+  <div className="flex flex-row">
     <div
       className="flex items-center justify-center rounded-lg text-6xl px-5 flex-shrink-0"
     >
       <Icon />
     </div>
     <div className="p-4 flex flex-col">
-      <h3 className="text-xl font-bold text-white">{name}</h3>
-      <p className="font-medium text-white/50 leading-relaxed">{description}</p>
+      <h3 className="text-xl font-bold text-white tracking-tighter">{name}</h3>
+      <p className="font-medium text-white/50 leading-relaxed tracking-tight">{description}</p>
     </div>
-  </motion.div>
+  </div>
 );
 
 const Technology = () => {
@@ -136,18 +122,20 @@ const Technology = () => {
   return (
     <section
       id="tech"
-      className="relative w-full py-32 max-w-7xl mx-auto px-4 md:px-8"
+      className="relative w-full  pt-12 max-w-7xl mx-auto"
     >
       <SectionHeader
-        title="Technology"
+        title="Skills"
         label="An overview of the languages, libraries, and tools that I have the most experience with."
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Frontend Section */}
-        <div>
-          <SubheadingDivider title="Frontend" />
-          <div className="grid grid-cols-1 gap-4 mt-5">
+        <div className="rounded-lg border border-white/10 bg-white/5">
+          <div className="px-4 pt-4">
+            <SubheadingDivider title="Frontend" />
+          </div>
+          <div className="grid grid-cols-1 gap-4 p-4">
             {frontendTechnologies.map((tech, index) => (
               <TechCard key={index} {...tech} />
             ))}
@@ -155,9 +143,11 @@ const Technology = () => {
         </div>
 
         {/* Backend Section */}
-        <div>
-          <SubheadingDivider title="Backend" />
-          <div className="grid grid-cols-1 gap-4 mt-5">
+        <div className="rounded-lg border border-white/10 bg-white/5">
+          <div className="px-4 pt-4">
+            <SubheadingDivider title="Backend" />
+          </div>
+          <div className="grid grid-cols-1 gap-4 p-4">
             {backendTechnologies.map((tech, index) => (
               <TechCard key={index} {...tech} />
             ))}
@@ -165,9 +155,11 @@ const Technology = () => {
         </div>
 
         {/* Tools Section */}
-        <div>
-          <SubheadingDivider title="Tools" />
-          <div className="grid grid-cols-1 gap-4 mt-5">
+        <div className="rounded-lg border border-white/10 bg-white/5">
+          <div className="px-4 pt-4">
+            <SubheadingDivider title="Tools" />
+          </div>
+          <div className="grid grid-cols-1 gap-4 p-4">
             {infrastructureTechnologies.map((tech, index) => (
               <TechCard key={index} {...tech} />
             ))}

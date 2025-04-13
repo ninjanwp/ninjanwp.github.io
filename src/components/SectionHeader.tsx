@@ -17,11 +17,11 @@ const SectionHeader = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      className={`flex flex-col gap-3 mb-9 ${
+      className={`flex flex-col gap-3 mb-12 mt-32 w-full ${
         align === "center" ? "items-center text-center" : ""
       }`}
     >
-      <h2 className="text-4xl md:text-6xl font-bold text-white tracking-wide">
+      <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter">
         {title}
       </h2>
 
@@ -30,7 +30,7 @@ const SectionHeader = ({
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="text-base md:text-lg lg:text-xl text-white/50 max-w-3xl leading-relaxed"
+        className="text-base md:text-lg lg:text-xl text-white/50 max-w-3xl leading-relaxed tracking-tight"
       >
         {label}
       </motion.p>
