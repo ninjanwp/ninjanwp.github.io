@@ -77,9 +77,9 @@ export const Hero = () => {
       </motion.div>
 
       <div className="w-full">
-        <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
+        <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-0 md:gap-12">
           {/* Content container */}
-          <div className="flex flex-col space-y-10">
+          <div className="flex flex-col">
             {/* Name heading and bio grouped together */}
             <SectionHeader 
               label="Information Technology student — studying full-stack and software development."

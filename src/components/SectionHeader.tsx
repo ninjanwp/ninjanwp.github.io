@@ -1,4 +1,4 @@
-import { filterProps, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 interface SectionHeaderProps {
@@ -56,7 +56,7 @@ const SectionHeader = ({
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      className={`flex flex-col gap-3 mb-12 mt-32 w-full ${
+      className={`flex flex-col gap-3 mb-12 w-full ${
         align === "center" ? "items-center text-center" : ""
       }`}
     >
