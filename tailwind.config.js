@@ -11,6 +11,7 @@ export default {
         'accent-dark': '#4ade80',
         success: '#22c55e',
         error: '#ef4444',
+        muted: 'rgba(255, 255, 255, 0.5)',
         custom: {
           orange: {
             50: "#fff7e6",

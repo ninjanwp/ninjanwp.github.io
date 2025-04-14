@@ -101,7 +101,7 @@ const Navigation = () => {
   };
 
   return (
-    <div className="fixed top-3 left-0 right-0 z-50 flex justify-center items-center">
+    <div className="fixed bg-black border-b border-white/20 top-0 left-0 right-0 py-2 z-50 flex justify-center items-center">
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

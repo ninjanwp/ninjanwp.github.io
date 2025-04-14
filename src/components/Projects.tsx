@@ -97,7 +97,7 @@ const ProjectItem = ({
     >
       <div className="relative flex flex-col h-auto md:h-[400px] overflow-hidden">
         {/* Visual Container */}
-        <div className="relative h-[200px] md:h-[300px] overflow-hidden rounded-lg bg-black border border-white/10">
+        <div className="relative h-[200px] md:h-[300px] overflow-hidden rounded-lg bg-black border border-white/10 shadow">
           <div className="w-full h-full">
             <ProjectVisual type={visualType} />
           </div>
@@ -288,7 +288,7 @@ export const Projects = () => {
   return (
     <section
       id="projects"
-      className="relative w-full min-h-screen pt-12 max-w-7xl mx-auto px-4 md:px-8"
+      className="relative w-full min-h-screen py-24 max-w-7xl mx-auto px-4 md:px-8 bg-black"
     >
       <SectionHeader
         title="Projects"

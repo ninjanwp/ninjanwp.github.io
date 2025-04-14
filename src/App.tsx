@@ -3,6 +3,7 @@ import { Projects } from './components/Projects';
 import Technology from './components/Technology';
 import Footer from './components/Footer';
 import { Navigation } from './components/Navigation';
+import { Banner } from './components/Banner';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Navigation />
       
       {/* Hero section with custom background */}
-      <div className="w-full relative bg-gradient-to-b from-transparent via-transparent to-black">
+      <div className="w-full relative bg-black/30 border-y border-white/10">
         <Hero />
       </div>
       
@@ -18,6 +19,9 @@ function App() {
       <div className="w-full bg-black">
         <Technology />
       </div>
+
+      {/* Self-hosted Server Info banner */}
+      <Banner />
       
       {/* Projects section with black background */}
       <div className="w-full bg-black">

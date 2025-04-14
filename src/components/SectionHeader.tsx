@@ -31,7 +31,7 @@ const SectionHeader = ({
     visible: {
       opacity: 1,
       transition: { 
-        staggerChildren: 0.005,
+        staggerChildren: 0.01,
         delayChildren: 0.1,
       },
     },
@@ -73,7 +73,7 @@ const SectionHeader = ({
         viewport={{ once: true }}
         className="overflow-hidden"
       >
-        <div className="flex flex-wrap text-base md:text-lg lg:text-xl text-white/50 max-w-3xl leading-relaxed tracking-tight">
+        <div className="flex flex-wrap text-base md:text-lg lg:text-xl text-muted max-w-3xl leading-relaxed tracking-tight">
           {words.map((word, wordIndex) => (
             <div 
               key={`word-${wordIndex}`} 

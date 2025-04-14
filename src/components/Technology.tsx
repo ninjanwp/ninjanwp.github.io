@@ -17,22 +17,20 @@ import SubheadingDivider from "./SubheadingDivider";
 const TechCard = ({
   Icon,
   name,
-  description,
 }: {
   Icon: React.ElementType;
   name: string;
   description: string;
   color: string;
 }) => (
-  <div className="flex flex-row">
+  <div className="flex flex-row gap-2 glass-card px-4 py-2 w-fit">
     <div
-      className="flex items-center justify-center rounded-lg text-6xl"
+      className="flex items-center justify-center rounded-lg text-xl animate-pulse"
     >
       <Icon />
     </div>
-    <div className="p-4 flex flex-col">
-      <h3 className="text-xl font-bold text-white tracking-tighter">{name}</h3>
-      <p className="font-medium text-white/50 leading-relaxed tracking-tight">{description}</p>
+    <div className="flex flex-col">
+      <h3 className="font-semibold text-white tracking-tighter">{name}</h3>
     </div>
   </div>
 );
@@ -122,14 +120,14 @@ const Technology = () => {
   return (
     <section
       id="tech"
-      className="relative w-full pt-12 max-w-7xl mx-auto px-4 md:px-8"
+      className="relative w-full py-24 max-w-7xl mx-auto px-4 md:px-8 bg-black"
     >
       <SectionHeader
         title="Skills"
         label="An overview of the languages, libraries, and tools that I have the most experience with."
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="space-y-8">
         {/* Frontend Section */}
         <motion.div 
           className="rounded-lg border border-white/10 bg-white/5"
@@ -141,14 +139,9 @@ const Technology = () => {
           <div className="px-4 pt-4">
             <SubheadingDivider title="Frontend" />
           </div>
-          <div className="grid grid-cols-1 gap-4 p-4">
+          <div className="flex flex-wrap gap-4 p-4">
             {frontendTechnologies.map((tech, index) => (
-              <div key={index}>
-                <TechCard {...tech} />
-                {index < frontendTechnologies.length - 1 && (
-                  <hr className="border-white/10 rounded-full my-2 mx-2" />
-                )}
-              </div>
+              <TechCard key={index} {...tech} />
             ))}
           </div>
         </motion.div>
@@ -164,14 +157,9 @@ const Technology = () => {
           <div className="px-4 pt-4">
             <SubheadingDivider title="Backend" />
           </div>
-          <div className="grid grid-cols-1 gap-4 p-4">
+          <div className="flex flex-wrap gap-4 p-4">
             {backendTechnologies.map((tech, index) => (
-              <div key={index}>
-                <TechCard {...tech} />
-                {index < backendTechnologies.length - 1 && (
-                  <hr className="border-white/10 rounded-full my-2 mx-2" />
-                )}
-              </div>
+              <TechCard key={index} {...tech} />
             ))}
           </div>
         </motion.div>
@@ -187,14 +175,9 @@ const Technology = () => {
           <div className="px-4 pt-4">
             <SubheadingDivider title="Tools" />
           </div>
-          <div className="grid grid-cols-1 gap-4 p-4">
+          <div className="flex flex-wrap gap-4 p-4">
             {infrastructureTechnologies.map((tech, index) => (
-              <div key={index}>
-                <TechCard {...tech} />
-                {index < infrastructureTechnologies.length - 1 && (
-                  <hr className="border-white/10 rounded-full my-2 mx-2" />
-                )}
-              </div>
+              <TechCard key={index} {...tech} />
             ))}
           </div>
         </motion.div>
