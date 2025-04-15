@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 
 export const Banner = () => {
   return (
-    <section className="bg-black/80 w-full py-12 border-y border-white/10 select-none">
+    <section className="bg-black w-full py-12 border-y border-white/10 select-none">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <motion.div 
-          className="w-full p-9 flex relative items-center justify-center border rounded-xl px-8 border-white/20 shadow-lg bg-black my-12"
+          className="w-full p-9 flex relative items-center justify-center border rounded-xl px-8 border-white/20 bg-black my-12 shadow-[0px_0px_107px_0px_rgba(59,_130,_246,_0.5)]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -19,13 +19,44 @@ export const Banner = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-4xl md:text-7xl font-semibold text-muted tracking-tighter leading-tight">
-                This site lives on <br /> my personal <br /> <span className="text-white font-bold">Ubuntu server</span>.
+              <h2 className="text-4xl md:text-7xl font-semibold text-muted tracking-tight leading-tight">
+                <motion.span 
+                  className="block"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                  viewport={{ once: true }}
+                >
+                  This site
+                </motion.span>
+                <motion.span 
+                  className="block"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  lives on my
+                </motion.span>
+                <motion.span 
+                  className="text-white font-bold block"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.7 }}
+                  viewport={{ once: true }}
+                >
+                  Ubuntu server.
+                </motion.span>
               </h2>
               <div className="flex justify-start items-center gap-2">
-                <p className="text-muted max-w-3xl text-lg md:text-xl lg:text-3xl leading-relaxed">
+                <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.9 }}
+                viewport={{ once: true }}
+                className="text-muted max-w-3xl text-lg md:text-xl lg:text-3xl leading-relaxed">
                   I have practical experience with Linux and distributed deployment workflows.
-                </p>
+                </motion.p>
               </div>
             </motion.div>
             
@@ -53,7 +84,6 @@ export const Banner = () => {
                       whileHover={{ scale: 1.2 }}
                     />
                   </div>
-                  <div className="ml-4 text-white text-sm font-mono">Terminal</div>
                 </div>
                 <div className="p-4 font-mono text-white text-xs md:text-sm whitespace-pre-wrap h-full">
                   <motion.div

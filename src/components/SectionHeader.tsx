@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 
 interface SectionHeaderProps {
   label: string;
@@ -13,6 +13,8 @@ const SectionHeader = ({
   align = "left",
 }: SectionHeaderProps) => {
   const [words, setWords] = useState<{ chars: string[], isSpace: boolean }[]>([]);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   useEffect(() => {
     // Split the label into words, then characters within words
@@ -27,9 +29,8 @@ const SectionHeader = ({
 
   // Animation variants
   const container = {
-    hidden: { opacity: 0 },
+    hidden: {},
     visible: {
-      opacity: 1,
       transition: { 
         staggerChildren: 0.01,
         delayChildren: 0.1,
@@ -41,7 +42,6 @@ const SectionHeader = ({
     visible: {
       opacity: 1,
       transition: {
-        type: "tween",
         duration: 0.5,
       },
     },
@@ -51,26 +51,27 @@ const SectionHeader = ({
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      viewport={{ once: true }}
+    <div
       className={`flex flex-col gap-3 mb-12 w-full ${
         align === "center" ? "items-center text-center" : ""
       }`}
     >
       <div className="relative">
-        <h1 className="text-4xl md:text-6xl w-fit font-bold text-white tracking-tighter">
+        <motion.h1 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="text-4xl md:text-6xl w-fit font-bold text-white tracking-tighter">
           {title}
-        </h1>
+        </motion.h1>
       </div>
 
       <motion.div
+        ref={ref}
         variants={container}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
+        animate={isInView ? "visible" : "hidden"}
         className="overflow-hidden"
       >
         <div className="flex flex-wrap text-base md:text-lg lg:text-xl text-muted max-w-3xl leading-relaxed tracking-tight">
@@ -97,7 +98,7 @@ const SectionHeader = ({
           ))}
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 };
 
