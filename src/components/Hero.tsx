@@ -24,8 +24,8 @@ export const Hero = () => {
     },
     {
       icon: <HiDocumentDownload />,
-      href: "/assets/Nicholas Pfeffer Resume Spring 2025.pdf",
-      label: "Resume PDF",
+      href: "assets/Nicholas Pfeffer Resume Spring 2025.docx",
+      label: "Resume (.docx)",
       download: true,
     },
   ];
