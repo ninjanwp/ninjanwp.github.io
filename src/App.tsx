@@ -11,7 +11,7 @@ function App() {
       <Navigation />
       
       {/* Hero section with custom background */}
-      <div className="w-full relative bg-black/30 border-y border-white/10">
+      <div className="w-full relative bg-black/30">
         <Hero />
       </div>
       

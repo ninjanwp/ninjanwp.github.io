@@ -42,7 +42,7 @@ export const Hero = () => {
     >
       {/* Background video effect - moved from App.tsx */}
       <motion.div 
-        className='fixed w-full h-full inset-0 -z-10 overflow-hidden'
+        className='fixed w-full max-w-7xl mx-auto h-full inset-0 -z-10 overflow-hidden'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5, ease: "easeInOut" }}
@@ -52,7 +52,7 @@ export const Hero = () => {
           loop 
           muted 
           playsInline
-          className="w-full h-full object-cover blur-3xl"
+          className="w-full h-full object-fill blur-3xl"
         >
           <source src="/assets/test.mp4" type="video/mp4"  />
           Your browser does not support the video tag.
@@ -60,10 +60,9 @@ export const Hero = () => {
         
         {/* Grain overlay on top of the video */}
         <div 
-          className="absolute inset-0 w-screen h-screen z-[9]"
+          className="absolute inset-0 w-auto h-auto\ z-[9]"
           style={{ 
-            background: "radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 1) 80%)",
-            backgroundRepeat: "repeat",
+            background: "radial-gradient(circle, transparent 90%, rgba(0, 0, 0, 1) 80%)",
           }}
         />
         <div 
@@ -83,7 +82,7 @@ export const Hero = () => {
             {/* Name heading and bio grouped together */}
             <SectionHeader 
               label="Information Technology student — studying full-stack and software development."
-              title="Nick Pfeffer"
+              title="Nicholas Pfeffer"
             />
 
             {/* Links section with subheading */}

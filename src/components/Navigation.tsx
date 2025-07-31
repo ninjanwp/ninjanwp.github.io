@@ -101,13 +101,13 @@ const Navigation = () => {
   };
 
   return (
-    <div className="fixed bg-black border-b border-white/20 top-0 left-0 right-0 py-2 z-50 flex justify-center items-center">
+    <div className="fixed bg-black border-b border-white/10 top-0 left-0 right-0 py-2 z-50 flex justify-center items-center">
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", delay: 0.5, stiffness: 500, damping: 30 }}
       >
-        <div className="relative bg-background border border-accent/20 backdrop-blur rounded-lg flex items-center gap-3 p-1">
+        <div className="relative bg-background border border-accent/10 backdrop-blur rounded-lg flex items-center gap-3 p-1">
           <motion.div
             className="absolute bg-accent rounded-lg"
             initial={false}
