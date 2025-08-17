@@ -40,41 +40,6 @@ export const Hero = () => {
       id="hero" 
       className="max-w-7xl w-full mx-auto px-4 md:px-8 min-h-screen flex items-center relative"
     >
-      {/* Background video effect - moved from App.tsx */}
-      <motion.div 
-        className='fixed w-full max-w-7xl mx-auto h-full inset-0 -z-10 overflow-hidden'
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeInOut" }}
-      >
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          className="w-full h-full object-fill blur-3xl"
-        >
-          <source src="/assets/test.mp4" type="video/mp4"  />
-          Your browser does not support the video tag.
-        </video>
-        
-        {/* Grain overlay on top of the video */}
-        <div 
-          className="absolute inset-0 w-auto h-auto\ z-[9]"
-          style={{ 
-            background: "radial-gradient(circle, transparent 90%, rgba(0, 0, 0, 1) 80%)",
-          }}
-        />
-        <div 
-          className="absolute inset-0 w-full h-full z-10 opacity-100 grayscale invert"
-          style={{ 
-            background: "url(https://grainy-gradients.vercel.app/noise.svg)",
-            backgroundRepeat: "repeat",
-            mixBlendMode: "overlay"
-          }}
-        />
-      </motion.div>
-
       <div className="w-full">
         <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-0 md:gap-12">
           {/* Content container */}
@@ -82,7 +47,7 @@ export const Hero = () => {
             {/* Name heading and bio grouped together */}
             <SectionHeader 
               label="Information Technology student — studying full-stack and software development."
-              title="Nicholas Pfeffer"
+              title="Nick_Pfeffer"
             />
 
             {/* Links section with subheading */}

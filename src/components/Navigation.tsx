@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
-import { HiHome, HiCode, HiCollection } from "react-icons/hi"; // Import icons for navigation
 
 const Navigation = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -11,9 +10,9 @@ const Navigation = () => {
   const clickTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const sections = [
-    { name: "Home", href: "#hero", icon: <HiHome /> },
-    { name: "Skills", href: "#tech", icon: <HiCode /> },
-    { name: "Projects", href: "#projects", icon: <HiCollection /> },
+    { name: "Home", href: "#hero" },
+    { name: "Skills", href: "#tech" },
+    { name: "Projects", href: "#projects" },
   ];
 
   useEffect(() => {
@@ -53,9 +52,16 @@ const Navigation = () => {
       setButtonPositions(positions);
     };
 
-    calculateButtonMetrics();
+    // Use requestAnimationFrame to ensure DOM is fully rendered
+    const timeoutId = setTimeout(() => {
+      calculateButtonMetrics();
+    }, 0);
+
     window.addEventListener("resize", calculateButtonMetrics);
-    return () => window.removeEventListener("resize", calculateButtonMetrics);
+    return () => {
+      window.removeEventListener("resize", calculateButtonMetrics);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const scrollToElement = (element: Element) => {
@@ -103,39 +109,57 @@ const Navigation = () => {
   return (
     <div className="fixed bg-black border-b border-white/10 top-0 left-0 right-0 py-2 z-50 flex justify-center items-center">
       <motion.div
-        initial={{ y: -100, opacity: 0 }}
+        initial={{ y: -5, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ type: "spring", delay: 0.5, stiffness: 500, damping: 30 }}
+        transition={{ type: "spring", delay: 0.3, stiffness: 500, damping: 30 }}
       >
         <div className="relative bg-background border border-accent/10 backdrop-blur rounded-lg flex items-center gap-3 p-1">
-          <motion.div
-            className="absolute bg-accent rounded-lg"
-            initial={false}
-            animate={{
-              x: (buttonPositions[activeTab] || 0) - 4,
-              width: buttonWidths[activeTab] || 0,
-              height: 38,
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 700,
-              damping: 35,
-              duration: 0.2,
-            }}
-          />
+          {buttonWidths.length > 0 && (
+            <motion.div
+              className="absolute bg-accent rounded-lg"
+              initial={false}
+              animate={{
+                x: (buttonPositions[activeTab] || 0) - 4,
+                width: buttonWidths[activeTab] || 0,
+                height: 38,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 700,
+                damping: 35,
+                duration: 0.2,
+              }}
+            />
+          )}
           {sections.map((section, index) => (
             <motion.button
               key={index}
               ref={(el) => (buttonsRef.current[index] = el)}
               onClick={() => handleNavClick(index, section.href)}
-              className="relative z-10 px-2 py-2 font-bold text-white rounded-lg mix-blend-difference"
-              whileHover={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+              className="relative z-10 px-3 py-2 font-extralight font-mono tracking-widest text-white rounded-lg mix-blend-difference flex items-center justify-center group"
               whileTap={{ scale: 0.95 }}
             >
-              <div className="flex items-center justify-center gap-2">
-                {section.icon}
+              <span className={`transition-all duration-200 ${
+                activeTab === index 
+                  ? 'opacity-0 translate-x-0' 
+                  : 'opacity-0 group-hover:opacity-50 -translate-x-3 group-hover:translate-x-0'
+              }`}>
+                [
+              </span>
+              <span className={`mx-1 transition-all duration-200 ${
+                activeTab === index 
+                  ? 'opacity-100' 
+                  : 'opacity-30 group-hover:opacity-70'
+              }`}>
                 {section.name}
-              </div>
+              </span>
+              <span className={`transition-all duration-200 ${
+                activeTab === index 
+                  ? 'opacity-0 translate-x-0' 
+                  : 'opacity-0 group-hover:opacity-50 translate-x-3 group-hover:translate-x-0'
+              }`}>
+                ]
+              </span>
             </motion.button>
           ))}
         </div>
