@@ -1,155 +1,81 @@
-import { motion } from "framer-motion";
-import { RiGithubFill, RiLinkedinFill } from "react-icons/ri";
-import { HiMail, HiDocumentDownload } from "react-icons/hi";
-
-import SectionHeader from "./SectionHeader";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 export const Hero = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  
+  // Track scroll progress for this section
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"]
+  });
 
-  const socialLinks = [
-    {
-      icon: <RiGithubFill />,
-      href: "https://github.com/ninjanwp",
-      label: "GitHub Profile",
-    },
-    {
-      icon: <RiLinkedinFill />,
-      href: "https://www.linkedin.com/in/nicholas-pfeffer-51713434a/",
-      label: "LinkedIn Profile",
-    },
-    {
-      icon: <HiMail />,
-      href: "mailto:np22i@fsu.edu",
-      label: "Email Contact",
-    },
-    {
-      icon: <HiDocumentDownload />,
-      href: "assets/Nicholas Pfeffer Resume Spring 2025.docx",
-      label: "Resume (.docx)",
-      download: true,
-    },
-  ];
+  // Blue bar transition matches Portfolio's SectionTransition exactly
+  const bar1Scale = useTransform(scrollYProgress, [0.8, 0.85], [0, 1]);
+  const bar2Scale = useTransform(scrollYProgress, [0.82, 0.87], [0, 1]);
+  const bar3Scale = useTransform(scrollYProgress, [0.84, 0.89], [0, 1]);
+  const bar4Scale = useTransform(scrollYProgress, [0.86, 0.91], [0, 1]);
 
-  // Using the accent color from Tailwind config
-  const accentColor = "rgba(255, 255, 255, 0.2)"; // Low opacity white color for gradient effect
-
-  // Function to determine if it's daytime (between 6am and 6pm)
+  // Text animations
+  const nameOpacity = useTransform(scrollYProgress, [0.1, 0.3], [1, 0]);
+  const nameY = useTransform(scrollYProgress, [0.1, 0.3], [50, 0]);
+  const subtitleOpacity = useTransform(scrollYProgress, [0.3, 0.5, 0.9], [0, 1, 0]);
+  const subtitleY = useTransform(scrollYProgress, [0.3, 0.5, 0.8], [50, 0, -50]);
 
   return (
     <section 
+      ref={sectionRef}
       id="hero" 
-      className="max-w-7xl w-full mx-auto px-4 md:px-8 min-h-screen flex items-center relative"
+      className="w-full h-[400dvh] relative"
     >
-      <div className="w-full">
-        <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-0 md:gap-12">
-          {/* Content container */}
-          <div className="flex flex-col">
-            {/* Name heading and bio grouped together */}
-            <SectionHeader 
-              label="Information Technology student — studying full-stack and software development."
-              title="Nick_Pfeffer"
-            />
+      <div className="sticky top-0 h-screen overflow-hidden">
+        {/* Background Horizontal Bars - Only Blue for seamless transition */}
+        <div className="absolute inset-0 flex flex-col">
+          <motion.div 
+            className="h-1/4 bg-blue-700 origin-left"
+            style={{ scaleX: bar1Scale }}
+          />
+          <motion.div 
+            className="h-1/4 bg-blue-700 origin-left"
+            style={{ scaleX: bar2Scale }}
+          />
+          <motion.div 
+            className="h-1/4 bg-blue-700 origin-left"
+            style={{ scaleX: bar3Scale }}
+          />
+          <motion.div 
+            className="h-1/4 bg-blue-700 origin-left"
+            style={{ scaleX: bar4Scale }}
+          />
+        </div>
 
-            {/* Links section with subheading */}
-            <div className="flex w-full justify-start items-center">
-              
-              {/* Social links with improved animations */}
-              <motion.div
-                className="flex gap-2 bg-background border border-accent/20 backdrop-blur p-1 rounded-lg max-w-fit"
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-              >
-                
-                {socialLinks.map((link, index) => (
-                  <motion.a
-                    key={index}
-                    href={link.href}
-                    target={link.download ? undefined : "_blank"}
-                    rel={link.download ? undefined : "noopener noreferrer"}
-                    download={link.download}
-                    className="relative group flex items-center overflow-hidden rounded-lg hover:text-black hover:bg-accent bg-transparent transition-all"
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <motion.div 
-                      className="text-2xl md:text-3xl p-2 flex-shrink-0"
-                      layoutId={`icon-${index}`}
-                    >
-                      {link.icon}
-                    </motion.div>
-                    <motion.span 
-                      className="max-w-0 whitespace-nowrap overflow-hidden group-hover:max-w-[100px] opacity-0 group-hover:opacity-100 ml-0 group-hover:mr-4 text-sm md:text-base text-black font-semibold transition-all duration-300 ease-in-out"
-                    >
-                      {link.label.split(' ')[0]}
-                    </motion.span>
-                  </motion.a>
-                ))}
-              </motion.div>
-            </div>
-          </div>
-          
-          {/* Headshot Component */}
-          <div className="relative w-full md:w-1/3 lg:w-2/5 flex justify-center md:justify-end p-4 md:p-0">
-            <motion.div
-              className="relative"
-              style={{
-                transformOrigin: "center center",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
+        {/* Content */}
+        <div className="relative z-10 w-full h-full px-4 md:px-8 lg:px-12 flex flex-col items-center justify-center">
+          {/* Big Text */}
+          <motion.div 
+            className="relative flex flex-col items-center justify-center"
+            style={{ 
+              opacity: nameOpacity,
+              y: nameY 
+            }}
+          >
+            <span className="text-[6rem] md:text-[8rem] lg:text-[12rem] xl:text-[16rem] font-bold text-white text-center">
+              Nick Pfeffer
+            </span>
+          </motion.div>
 
-              {/* Wrapper div to position both the gradient and image container */}
-              <div className="relative">
-                <motion.div
-                  className="absolute rounded-full"
-                  style={{
-                    top: "-0.5%",
-                    left: "-0.5%", 
-                    width: "101%",
-                    height: "101%",
-                    zIndex: 6
-                  }}
-                  initial={{ background: `conic-gradient(from 0deg, ${accentColor} 0%, transparent 0%)` }}
-                  animate={{ 
-                    background: [
-                      `conic-gradient(from 0deg, ${accentColor} 0%, transparent 0%)`,
-                      `conic-gradient(from 0deg, ${accentColor} 100%, transparent 100%)`,
-                    ]
-                  }}
-                  transition={{ 
-                    delay: 0.3,
-                    duration: 0.5,
-                    ease: "easeInOut"
-                  }}
-                />
-
-                {/* Image container with overflow hidden for the image only */}
-                <motion.div
-                  className="relative w-60 h-60 md:w-72 md:h-72 lg:w-80 lg:h-80 z-10 bg-black rounded-full"
-                >
-                  {/* Image with position translation */}
-                  <div className="absolute bottom-0 left-0 flex items-center justify-center rounded-b-full overflow-hidden h-[150%]">
-                    <motion.img
-                      initial={{ opacity: 0, y: "10%"}}
-                      animate={{ opacity: 1, y: "10%"}}
-                      transition={{ duration: 0.8, delay: 0, ease: "easeInOut" }}
-                      src="/assets/headshot_transparent.png"
-                      alt="Nick Pfeffer headshot"
-                      className="grayscale-"
-                      style={{
-                        width: "85%",
-                        height: "85%",
-                        objectFit: "cover",
-                        objectPosition: "center"
-                      }}
-                    />
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
+          {/* Subtitle */}
+          <motion.div
+            className="mt-8 text-center relative"
+            style={{ 
+              opacity: subtitleOpacity,
+              y: subtitleY 
+            }}
+          >
+            <p className="text-[1rem] md:text-[2rem] lg:text-[4rem] xl:text-[8rem] text-white/80 font-light tracking-wider">
+              Digital Portfolio
+            </p>
+          </motion.div>
         </div>
       </div>
     </section>

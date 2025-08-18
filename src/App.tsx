@@ -1,38 +1,42 @@
 import { Hero } from './components/Hero';
-import { Projects } from './components/Projects';
-import Technology from './components/Technology';
+import Portfolio from './components/Portfolio';
 import Footer from './components/Footer';
 import { Navigation } from './components/Navigation';
-import { Banner } from './components/Banner';
+import { ReactLenis } from '@studio-freight/react-lenis';
+// import { Banner } from './components/Banner';
 
 function App() {
   return (
-    <main className="w-full flex flex-col items-center justify-center">
+    <ReactLenis root options={{ 
+      lerp: 0.08,
+      duration: 1.2,
+      smoothWheel: true,
+      syncTouch: true,
+      touchMultiplier: 2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+    }}>
+      <main className="w-full flex flex-col items-center justify-center bg-black">
       <Navigation />
       
       {/* Hero section with custom background */}
-      <div className="w-full relative bg-black/30">
+      <div className="w-full relative">
         <Hero />
       </div>
       
-      {/* Tech section with black background */}
-      <div className="w-full bg-black">
-        <Technology />
+      {/* Portfolio section combining skills and projects */}
+      <div className="w-full">
+        <Portfolio />
       </div>
 
-      {/* Self-hosted Server Info banner */}
-      <Banner />
-      
-      {/* Projects section with black background */}
-      <div className="w-full bg-black">
-        <Projects />
-      </div>
+      {/* Self-hosted Server Info banner
+      <Banner /> */}
       
       {/* Footer with black background */}
-      <div className="w-full bg-black">
+      <div className="w-full">
         <Footer />
       </div>
     </main>
+    </ReactLenis>
   );
 }
 

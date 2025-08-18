@@ -62,7 +62,7 @@ const SectionHeader = ({
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="text-4xl md:text-6xl w-fit font-mono uppercase font-extralight text-white tracking-loose">
+        className="text-4xl md:text-6xl w-fit font-mono font-extralight text-white tracking-loose">
           {title}
         </motion.h1>
       </div>
