@@ -19,7 +19,7 @@ export const colorScheme = {
     secondary: "text-black",
     light: "text-white",
     lightSecondary: "text-white/80",
-    accent: "text-yellow-100",
+    accent: "text-white",
     muted: "text-black/30"
   },
 
@@ -39,13 +39,13 @@ export const colorScheme = {
   // Skill tag colors
   skillTags: {
     bg: "bg-black",
-    text: "text-yellow-100",
+    text: "text-white",
     border: "border-black"
   },
 
   // Large number colors
   numbers: {
-    text: "text-yellow-100"
+    text: "text-white"
   },
 
   // Icon colors

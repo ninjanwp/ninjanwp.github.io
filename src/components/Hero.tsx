@@ -15,13 +15,15 @@ export const Hero = () => {
     <section ref={sectionRef} id="hero" className="w-full h-[200dvh] relative">
       <div className="sticky top-0 h-screen overflow-hidden isolate">
         {/* White base */}
-        <motion.div className="absolute inset-0 bg-yellow-100 z-0" />
+        <motion.div className="absolute inset-0 bg-white z-0" />
 
         {/* Three.js 3D blobs */}
-        <ThreeBlobs scrollProgress={scrollYProgress} />
+        <div className="blur-md">
+          <ThreeBlobs scrollProgress={scrollYProgress} />
+        </div>
 
         {/* Blended text (single layer) */}
-        <div className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center ">
+        <div className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center">
           <div className="text-center text-black">
             <motion.h1 
               className="text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-black tracking-tighter leading-[0.7] mb-8"

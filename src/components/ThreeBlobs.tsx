@@ -44,9 +44,9 @@ export const ThreeBlobs = ({ scrollProgress }: ThreeBlobsProps) => {
       segments = 40; // Medium resolution for tablet
     }
     
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 50; i++) {
       // Create blob geometry using sphere with noise
-      const geometry = new THREE.SphereGeometry(0.1 + Math.random() * 1.5, segments, segments);
+      const geometry = new THREE.SphereGeometry(0.1 + Math.random() * 0.5, segments, segments);
       
       // Add some noise to make it more organic
       const positions = geometry.attributes.position;
@@ -55,23 +55,24 @@ export const ThreeBlobs = ({ scrollProgress }: ThreeBlobsProps) => {
         const y = positions.getY(j);
         const z = positions.getZ(j);
         
-        const noise = Math.sin(x * 3) * Math.cos(y * 3) * Math.sin(z * 3) * 0.15;
+        const noise = Math.sin(x * 3) * Math.cos(y * 3) * Math.sin(z * 3) * 0.1;
         positions.setXYZ(j, x + noise, y + noise, z + noise);
       }
       
       const material = new THREE.MeshPhongMaterial({
         color: 0x1d4ed8,
-        emissive: 0x1d4ed8,
+        emissive: 0x1d4ed0,
         transparent: true,
-        dithering: true,
         opacity: 0.9,
-        shininess: 100,
-        specular: 0x1d4ed8,
+        shininess: 50,
+        
+        specular: 0xffffff,
+        flatShading: false,
         side: THREE.DoubleSide
       });
       
       const blob = new THREE.Mesh(geometry, material);
-      blob.position.x = (Math.random() - 0.5) * 10; // Much wider spread - spawn off-screen on both sides
+      blob.position.x = (Math.random() - 0.5) * 2; // Much wider spread - spawn off-screen on both sides
       blob.position.y = 15 + Math.random() * 15; // Start off-screen above
       blob.position.z = (Math.random() - 0.5) * 3;
       
@@ -150,11 +151,15 @@ export const ThreeBlobs = ({ scrollProgress }: ThreeBlobsProps) => {
           if (!blob.userData.targetRotZ) blob.userData.targetRotZ = 0;
           
           blob.userData.targetY = targetY;
-          blob.userData.targetRotX = value * Math.PI * 2;
-          blob.userData.targetRotY = value * Math.PI * 1.5;
-          blob.userData.targetRotZ = value * Math.PI * 0.8;
+          // Add rotational variations based on blob index for more dynamic movement
+          const rotationMultiplier = 1 + (index * 0.1); // Each blob rotates at slightly different speeds
+          const directionMultiplier = index % 2 === 0 ? 1 : -1; // Alternate rotation directions
+          
+          blob.userData.targetRotX = value * Math.PI * 2 * rotationMultiplier * directionMultiplier;
+          blob.userData.targetRotY = value * Math.PI * 1.5 * rotationMultiplier * (directionMultiplier * 0.7);
+                    blob.userData.targetRotZ = value * Math.PI * 1 * rotationMultiplier * (directionMultiplier * 0.5);
         });
-    });
+      });
     
     return unsubscribe;
   }, [scrollProgress]);

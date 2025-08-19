@@ -91,7 +91,7 @@ const Portfolio = () => {
     // Content parallax effects with blur
     const numberOpacity = useTransform(scrollYProgress, [0, 0.2, 0.6], [0, 0.1, 1]);
     const numberScale = useTransform(scrollYProgress, [0, 1], [1.5, 1.5]);
-    const numberY = useTransform(scrollYProgress, [0, 1], [ "-50%", "50%"]); // Number parallax
+    const numberY = useTransform(scrollYProgress, [0, 1], [ "-25%", "0%"]); // Number parallax
     const numberX = useTransform(scrollYProgress, [0, 0.5], ["0%", "0%"]); // Number parallax
     const numberBlur = useTransform(scrollYProgress, [0.1, 0.3], [0, 0]); // Blur from 5px to 0px
     
@@ -114,7 +114,7 @@ const Portfolio = () => {
         ref={sectionRef}
         key={skill.id}
         id={index === 0 ? "skills" : skill.id}
-        className={`min-h-screen h-[500dvh] relative ${getBackgroundColor(index)}`}
+        className={`h-[200dvh] relative ${getBackgroundColor(index)}`}
         // initial={{ opacity: 0 }}
         // whileInView={{ opacity: 1 }}
         // transition={{ duration: 0.6, delay: 0.2 }}
@@ -148,7 +148,7 @@ const Portfolio = () => {
 
                           {/* Large Number with parallax, improved scaling, and blur */}
                 <motion.div 
-                  className={`text-[14rem] md:text-[28rem] font-bold ${colorScheme.numbers.text} leading-none tracking-tighter absolute left-0 top-0`}
+                  className={`text-[12rem] md:text-[22rem] font-bold ${colorScheme.numbers.text} leading-none tracking-tighter absolute left-0 top-0`}
                   style={{ 
                     opacity: numberOpacity,
                     scale: numberScale,

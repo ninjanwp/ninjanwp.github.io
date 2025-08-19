@@ -60,7 +60,7 @@ const Navigation = () => {
       target = elementTop;
     } else {
       // Portfolio sections - scroll to 50% of the section
-      target = elementTop + (elementHeight * 0.6
+      target = elementTop + (elementHeight * 0.4
   
       );
     }
@@ -127,15 +127,15 @@ const Navigation = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 bg-black z-40 flex flex-col items-center justify-center"
+            className="fixed inset-0 md:inset-y-0 md:left-auto md:right-0 md:w-1/5 bg-black z-40 flex flex-col items-center justify-center"
           >
             {/* Navigation Links */}
-            <div className="absolute top-0 left-0 flex flex-col items-start gap-1">
+            <div className="absolute top-0 left-0 md:left-8 md:top-8 flex flex-col items-start gap-1">
               {sections.map((section, index) => (
                 <motion.button
                   key={index}
                   onClick={() => handleNavClick(index, section.href)}
-                  className="text-6xl md:text-7xl lg:text-8xl font-light text-white hover:text-white/80 transition-colors group relative flex items-center gap-6"
+                  className="text-6xl md:text-4xl lg:text-5xl font-light text-white hover:text-white/80 transition-colors group relative flex items-center gap-3"
                   style={{ lineHeight: 1 }}
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -145,8 +145,8 @@ const Navigation = () => {
                     {section.name}
                   </span>
                   <motion.div
-                    className={`${section.color} rotate-45 opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-200`}
-                    style={{ width: 50, height: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    className={`${section.color} rounded-full opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-200`}
+                    style={{ width: 20, height: 20, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                   />
                 </motion.button>
               ))}
