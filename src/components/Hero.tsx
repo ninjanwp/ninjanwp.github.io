@@ -12,9 +12,9 @@ export const Hero = () => {
 
   // Blue bar transition matches Portfolio's SectionTransition exactly
   const bar1Scale = useTransform(scrollYProgress, [0.8, 0.85], [0, 1]);
-  const bar2Scale = useTransform(scrollYProgress, [0.82, 0.87], [0, 1]);
-  const bar3Scale = useTransform(scrollYProgress, [0.84, 0.89], [0, 1]);
-  const bar4Scale = useTransform(scrollYProgress, [0.86, 0.91], [0, 1]);
+  const bar2Scale = useTransform(scrollYProgress, [0.85, 0.9], [0, 1]);
+  const bar3Scale = useTransform(scrollYProgress, [0.9, 0.95], [0, 1]);
+  const bar4Scale = useTransform(scrollYProgress, [0.95, 1], [0, 1]);
 
   // Text animations
   const nameOpacity = useTransform(scrollYProgress, [0.1, 0.3], [1, 0]);
@@ -36,7 +36,7 @@ export const Hero = () => {
             style={{ scaleX: bar1Scale }}
           />
           <motion.div 
-            className="h-1/4 bg-blue-700 origin-left"
+            className="h-1/4 bg-blue-700 origin-right"
             style={{ scaleX: bar2Scale }}
           />
           <motion.div 
@@ -44,7 +44,7 @@ export const Hero = () => {
             style={{ scaleX: bar3Scale }}
           />
           <motion.div 
-            className="h-1/4 bg-blue-700 origin-left"
+            className="h-1/4 bg-blue-700 origin-right"
             style={{ scaleX: bar4Scale }}
           />
         </div>

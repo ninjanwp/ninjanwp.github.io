@@ -58,7 +58,7 @@ const Portfolio = () => {
             style={{ scaleX: bar1Scale }}
           />
           <motion.div 
-            className={`h-1/4 ${nextColor} origin-left`}
+            className={`h-1/4 ${nextColor} origin-right`}
             style={{ scaleX: bar2Scale }}
           />
           <motion.div 
@@ -66,7 +66,7 @@ const Portfolio = () => {
             style={{ scaleX: bar3Scale }}
           />
           <motion.div 
-            className={`h-1/4 ${nextColor} origin-left`}
+            className={`h-1/4 ${nextColor} origin-right`}
             style={{ scaleX: bar4Scale }}
           />
         </div>
