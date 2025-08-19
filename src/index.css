@@ -24,3 +24,29 @@ body {
   background-color: #000; /* Using the background color from Tailwind config */
   color: #FFFFFF;
 }
+
+/* Mobile viewport handling */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+  body {
+    min-height: -webkit-fill-available;
+  }
+  
+  html {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Prevent zoom on input focus for iOS */
+input, textarea, select {
+  font-size: 16px;
+}

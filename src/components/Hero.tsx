@@ -1,82 +1,53 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { ThreeBlobs } from "./ThreeBlobs";
 
 export const Hero = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
   
-  // Track scroll progress for this section
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"]
-  });
+  // Scale variables based on scroll progress
+  const textScale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
 
-  // Blue bar transition matches Portfolio's SectionTransition exactly
-  const bar1Scale = useTransform(scrollYProgress, [0.8, 0.85], [0, 1]);
-  const bar2Scale = useTransform(scrollYProgress, [0.85, 0.9], [0, 1]);
-  const bar3Scale = useTransform(scrollYProgress, [0.9, 0.95], [0, 1]);
-  const bar4Scale = useTransform(scrollYProgress, [0.95, 1], [0, 1]);
-
-  // Text animations
-  const nameOpacity = useTransform(scrollYProgress, [0.1, 0.3], [1, 0]);
-  const nameY = useTransform(scrollYProgress, [0.1, 0.3], [50, 0]);
-  const subtitleOpacity = useTransform(scrollYProgress, [0.3, 0.5, 0.9], [0, 1, 0]);
-  const subtitleY = useTransform(scrollYProgress, [0.3, 0.5, 0.8], [50, 0, -50]);
+  
 
   return (
-    <section 
-      ref={sectionRef}
-      id="hero" 
-      className="w-full h-[400dvh] relative"
-    >
-      <div className="sticky top-0 h-screen overflow-hidden">
-        {/* Background Horizontal Bars - Only Blue for seamless transition */}
-        <div className="absolute inset-0 flex flex-col">
-          <motion.div 
-            className="h-1/4 bg-blue-700 origin-left"
-            style={{ scaleX: bar1Scale }}
-          />
-          <motion.div 
-            className="h-1/4 bg-blue-700 origin-right"
-            style={{ scaleX: bar2Scale }}
-          />
-          <motion.div 
-            className="h-1/4 bg-blue-700 origin-left"
-            style={{ scaleX: bar3Scale }}
-          />
-          <motion.div 
-            className="h-1/4 bg-blue-700 origin-right"
-            style={{ scaleX: bar4Scale }}
-          />
+    <section ref={sectionRef} id="hero" className="w-full h-[200dvh] relative">
+      <div className="sticky top-0 h-screen overflow-hidden isolate">
+        {/* White base */}
+        <motion.div className="absolute inset-0 bg-yellow-100 z-0" />
+
+        {/* Three.js 3D blobs */}
+        <ThreeBlobs scrollProgress={scrollYProgress} />
+
+        {/* Blended text (single layer) */}
+        <div className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center ">
+          <div className="text-center text-black">
+            <motion.h1 
+              className="text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-black tracking-tighter leading-[0.7] mb-8"
+              style={{ scale: textScale }}
+            >
+              NICK
+            </motion.h1>
+            <motion.h1 
+              className="text-6xl md:text-8xl lg:text-9xl xl:text-[9rem] font-black tracking-tighter leading-[0.7] mb-8"
+              style={{ scale: textScale }}
+            >
+              PFEFFER
+            </motion.h1>
+            <motion.p 
+              className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wide"
+              style={{ scale: textScale }}
+            >
+              PORTFOLIO
+            </motion.p>
+          </div>
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 w-full h-full px-4 md:px-8 lg:px-12 flex flex-col items-center justify-center">
-          {/* Big Text */}
-          <motion.div 
-            className="relative flex flex-col items-center justify-center"
-            style={{ 
-              opacity: nameOpacity,
-              y: nameY 
-            }}
-          >
-            <span className="text-[6rem] md:text-[8rem] lg:text-[12rem] xl:text-[16rem] font-bold text-white text-center">
-              Nick Pfeffer
-            </span>
-          </motion.div>
-
-          {/* Subtitle */}
-          <motion.div
-            className="mt-8 text-center relative"
-            style={{ 
-              opacity: subtitleOpacity,
-              y: subtitleY 
-            }}
-          >
-            <p className="text-[1rem] md:text-[2rem] lg:text-[4rem] xl:text-[8rem] text-white/80 font-light tracking-wider">
-              Digital Portfolio
-            </p>
-          </motion.div>
-        </div>
+        {/* Section transition behind text */}
+        <motion.div
+          className="absolute inset-0 z-0 pointer-events-none"
+        />
       </div>
     </section>
   );

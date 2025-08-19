@@ -3,12 +3,14 @@ import { useRef } from "react";
 import { 
   DiReact, 
   DiPython,
-  DiAndroid
+  DiAndroid,
+  DiGit,
 } from "react-icons/di";
 import { 
   SiFigma
 } from "react-icons/si";
 
+import { colorScheme, getBackgroundColor } from "../utils/colorScheme";
 interface SkillSection {
   id: string;
   number: string;
@@ -20,57 +22,50 @@ interface SkillSection {
 }
 
 const Portfolio = () => {
-  // Transition component that appears between sections
+  // Smooth fade transition component between sections
   const SectionTransition = ({ toIndex, sectionRef }: { 
     toIndex: number;
     sectionRef: React.RefObject<HTMLDivElement>;
   }) => {
     const { scrollYProgress } = useScroll({
       target: sectionRef,
-      offset: ["start center", "end center"]
+      offset: ["start start", "end start"]
     });
 
-    // Create horizontal bars that transition to the next section's color
-    const transitionOpacity = useTransform(scrollYProgress, [0.8, 1], [1, 1]);
-    const bar1Scale = useTransform(scrollYProgress, [0.8, 0.85], [0, 1]);
-    const bar2Scale = useTransform(scrollYProgress, [0.85, 0.9], [0, 1]);
-    const bar3Scale = useTransform(scrollYProgress, [0.9, 0.95], [0, 1]);
-    const bar4Scale = useTransform(scrollYProgress, [0.95, 1], [0, 1]);
+    // Simple fade transition with next section color
+    const transitionOpacity = useTransform(scrollYProgress, [0.8, 1], [0, 1]);
+    const currentOpacity = useTransform(scrollYProgress, [0.8, 1], [1, 0]);
 
     const nextSectionColors = [
       "bg-blue-700",    // Web Development
       "bg-purple-700",  // Mobile Development  
       "bg-emerald-700", // Data Analysis
-      "bg-rose-700",     // UI/UX Design
-      "bg-black"         // Other
+      "bg-orange-600",  // DevOps
+      "bg-rose-700"     // UI/UX Design
     ];
 
     const nextColor = nextSectionColors[toIndex % 5];
 
     return (
-      <motion.div 
-        className="absolute inset-0 z-20 pointer-events-none"
-        style={{ opacity: transitionOpacity }}
-      >
-        <div className="absolute inset-0 flex flex-col">
-          <motion.div 
-            className={`h-1/4 ${nextColor} origin-left`}
-            style={{ scaleX: bar1Scale }}
-          />
-          <motion.div 
-            className={`h-1/4 ${nextColor} origin-right`}
-            style={{ scaleX: bar2Scale }}
-          />
-          <motion.div 
-            className={`h-1/4 ${nextColor} origin-left`}
-            style={{ scaleX: bar3Scale }}
-          />
-          <motion.div 
-            className={`h-1/4 ${nextColor} origin-right`}
-            style={{ scaleX: bar4Scale }}
-          />
-        </div>
-      </motion.div>
+      <>
+        {/* Fade out current section */}
+        <motion.div 
+          className="absolute inset-0 z-20 pointer-events-none h-full w-full"
+          style={{ 
+            opacity: currentOpacity,
+            backgroundColor: getBackgroundColor(toIndex - 1) || "bg-black"
+          }}
+        />
+        
+        {/* Fade in next section */}
+        <motion.div 
+          className="absolute inset-0 z-20 pointer-events-none h-full w-full"
+          style={{ 
+            opacity: transitionOpacity,
+            backgroundColor: nextColor
+          }}
+        />
+      </>
     );
   };
 
@@ -79,6 +74,7 @@ const Portfolio = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     
     // Track scroll progress for this specific section
+    // Use more conservative offset for better cross-environment compatibility
     const { scrollYProgress } = useScroll({
       target: sectionRef,
       offset: ["start center", "end center"]
@@ -93,9 +89,9 @@ const Portfolio = () => {
 
     
     // Content parallax effects with blur
-    const numberOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
+    const numberOpacity = useTransform(scrollYProgress, [0, 0.2, 0.6], [0, 0.1, 1]);
     const numberScale = useTransform(scrollYProgress, [0, 1], [1.5, 1.5]);
-    const numberY = useTransform(scrollYProgress, [0, 1], [ "0%", "100%"]); // Number parallax
+    const numberY = useTransform(scrollYProgress, [0, 1], [ "-50%", "50%"]); // Number parallax
     const numberX = useTransform(scrollYProgress, [0, 0.5], ["0%", "0%"]); // Number parallax
     const numberBlur = useTransform(scrollYProgress, [0.1, 0.3], [0, 0]); // Blur from 5px to 0px
     
@@ -108,20 +104,23 @@ const Portfolio = () => {
     const descriptionBlur = useTransform(scrollYProgress, [0.3, 0.5], [5, 0]); // Blur from 5px to 0px
     
     const tagsOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
-    const tagsY = useTransform(scrollYProgress, [0.4, 0.6, 1], [20, 0, -20]); // Subtle parallax
+    const tagsY = useTransform(scrollYProgress, [0, 1], [0, 0]); // Subtle parallax
+    
+    // Button animation - appears early, no movement
+    const buttonOpacity = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
 
     return (
       <motion.div 
         ref={sectionRef}
         key={skill.id}
         id={index === 0 ? "skills" : skill.id}
-        className={`min-h-screen h-[300dvh] relative ${backgroundColors[index]}`}
+        className={`min-h-screen h-[500dvh] relative ${getBackgroundColor(index)}`}
         // initial={{ opacity: 0 }}
         // whileInView={{ opacity: 1 }}
         // transition={{ duration: 0.6, delay: 0.2 }}
         // viewport={{ once: true }}
       >
-        <div className="top-0 sticky h-screen overflow-hidden">
+        <div className="sticky top-0 h-screen overflow-hidden">
           {/* Section Transition Bars */}
           <SectionTransition 
             toIndex={index + 1}
@@ -140,14 +139,16 @@ const Portfolio = () => {
             }}
           >
             <motion.div 
-              className="text-[30rem] md:text-[40rem] lg:text-[50rem] xl:text-[80rem] text-black/20 transform"
+              className={`text-[30rem] md:text-[40rem] lg:text-[50rem] xl:text-[80rem] ${colorScheme.icons.opacity} transform`}
             >
               {skill.icon}
             </motion.div>
           </motion.div>
+
+
                           {/* Large Number with parallax, improved scaling, and blur */}
                 <motion.div 
-                  className="text-[14rem] md:text-[28rem] font-bold text-yellow-100 leading-none tracking-tighter absolute left-0 top-0"
+                  className={`text-[14rem] md:text-[28rem] font-bold ${colorScheme.numbers.text} leading-none tracking-tighter absolute left-0 top-0`}
                   style={{ 
                     opacity: numberOpacity,
                     scale: numberScale,
@@ -159,6 +160,38 @@ const Portfolio = () => {
                   {skill.number}
                 </motion.div>
 
+          {/* View Work Button - positioned at same level as number and icon */}
+          {skill.link && (
+            <motion.div
+              className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30"
+              style={{ 
+                opacity: buttonOpacity
+              }}
+            >
+              <a
+                href={skill.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 text-black hover:text-white bg-transparent hover:bg-black border-2 border-black px-6 py-3 rounded-lg font-bold tracking-wide transition-all duration-300 group"
+              >
+                <span>View Work</span>
+                <svg 
+                  className="w-5 h-5" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" 
+                  />
+                </svg>
+              </a>
+            </motion.div>
+          )}
+
           {/* Content */}
           <div className="w-full h-full px-4 md:px-8 lg:px-12 flex items-center relative z-10">
             <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-start w-full">
@@ -168,7 +201,7 @@ const Portfolio = () => {
 
                 {/* Title with extended parallax slide up and blur */}
                 <motion.h2 
-                  className="text-4xl md:text-6xl font-bold tracking-tight text-black leading-tight"
+                  className={`text-3xl md:text-5xl lg:text-6xl font-black tracking-tight ${colorScheme.text.primary} leading-[0.9] mb-6`}
                   style={{ 
                     opacity: titleOpacity,
                     y: titleY,
@@ -180,7 +213,7 @@ const Portfolio = () => {
 
                 {/* Description with parallax slide up and blur */}
                 <motion.p 
-                  className="text-xl md:text-2xl text-black leading-relaxed max-w-2xl"
+                  className={`text-lg md:text-xl lg:text-2xl ${colorScheme.text.secondary} font-semibold leading-[1.6] max-w-3xl tracking-wide`}
                   style={{ 
                     opacity: descriptionOpacity,
                     y: descriptionY,
@@ -219,41 +252,25 @@ const Portfolio = () => {
                     return (
                       <motion.span
                         key={tech}
-                        className={`px-4 py-2 border border-black bg-black ${textColors[index]} font-black rounded-lg text-sm tracking-wider`}
+                        className={`px-5 py-3 border-2 ${colorScheme.skillTags.border} ${colorScheme.skillTags.bg} ${colorScheme.skillTags.text} font-bold rounded-xl text-base tracking-wide shadow-lg`}
                         style={{
                           opacity: techOpacity,
                           y: techY,
                           scale: techScale
                         }}
                       >
-                        // {tech}
+                        {tech}
                       </motion.span>
                     );
                   })}
                 </motion.div>
-
-                {/* Link with parallax fade in */}
-                {skill.link && (
-                  <motion.a
-                    href={skill.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 text-black hover:text-accent transition-colors font-mono tracking-wider group"
-                    style={{ 
-                      opacity: tagsOpacity,
-                      y: tagsY 
-                    }}
-                    whileHover={{ x: 10 }}
-                  >
-                    <span>View Work</span>
-                    <span className="group-hover:translate-x-1 transition-transform">→</span>
-                  </motion.a>
-                )}
               </div>
 
             </div>
           </div>
         </div>
+
+
       </motion.div>
     );
   };
@@ -287,8 +304,17 @@ const Portfolio = () => {
       link: "https://github.com/ninjanwp"
     },
     {
-      id: "ui-design",
+      id: "devops",
       number: "04",
+      title: "DevOps and System Administration",
+      description: "Version control, containerization, and Linux system management. CI/CD pipelines and infrastructure automation.",
+      skills: ["Git", "Linux", "Docker", "CI/CD", "Bash", "SSH"],
+      icon: <DiGit />,
+      link: "https://github.com/ninjanwp"
+    },
+    {
+      id: "ui-design",
+      number: "05",
       title: "Design and Conceptual Proofing", 
       description: "Interface design and user research. Prototyping in Figma and Photoshop.",
       skills: ["Figma", "Adobe Photoshop", "Prototyping", "Wireframing"],
@@ -297,19 +323,7 @@ const Portfolio = () => {
     }
   ];
 
-  const backgroundColors = [
-    "bg-blue-700",    // Web Development - Deep blue
-    "bg-purple-700",  // Mobile Development - Deep purple  
-    "bg-emerald-700", // Data Analysis - Deep emerald
-    "bg-rose-700"     // UI/UX Design - Deep rose
-  ];
 
-  const textColors = [
-    "text-blue-700",    // Web Development - Deep blue
-    "text-purple-700",  // Mobile Development - Deep purple  
-    "text-emerald-700", // Data Analysis - Deep emerald
-    "text-rose-700"     // UI/UX Design - Deep rose
-  ];
 
   return (
     <section className="w-full">

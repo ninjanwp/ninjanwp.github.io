@@ -13,6 +13,7 @@ const Navigation = () => {
     { name: "Web", href: "#skills", color: "bg-blue-700" },
     { name: "Mobile", href: "#mobile-development", color: "bg-purple-700" },
     { name: "Data", href: "#data-analysis", color: "bg-emerald-700" },
+    { name: "DevOps", href: "#devops", color: "bg-orange-600" },
     { name: "Design", href: "#ui-design", color: "bg-rose-700" },
   ];
 
@@ -46,9 +47,24 @@ const Navigation = () => {
     };
   }, []);
 
-  const scrollToElement = (element: Element) => {
+  const scrollToElement = (element: Element, sectionIndex: number) => {
     const start = window.pageYOffset;
-    const target = element.getBoundingClientRect().top + window.pageYOffset;
+    const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+    const elementHeight = (element as HTMLElement).offsetHeight;
+    
+    // For portfolio sections (index > 0), scroll to 50% of the section
+    // For hero section (index 0), scroll to the beginning
+    let target;
+    if (sectionIndex === 0) {
+      // Hero section - scroll to beginning
+      target = elementTop;
+    } else {
+      // Portfolio sections - scroll to 50% of the section
+      target = elementTop + (elementHeight * 0.6
+  
+      );
+    }
+    
     const startTime = performance.now();
     const duration = 1500;
 
@@ -81,7 +97,7 @@ const Navigation = () => {
 
     const element = document.querySelector(href);
     if (element) {
-      scrollToElement(element);
+      scrollToElement(element, index);
     }
 
     clickTimeoutRef.current = setTimeout(() => {
@@ -119,7 +135,7 @@ const Navigation = () => {
                 <motion.button
                   key={index}
                   onClick={() => handleNavClick(index, section.href)}
-                  className="text-8xl md:text-9xl lg:text-[10rem] font-light text-white hover:text-white/80 transition-colors group relative flex items-center gap-6"
+                  className="text-6xl md:text-7xl lg:text-8xl font-light text-white hover:text-white/80 transition-colors group relative flex items-center gap-6"
                   style={{ lineHeight: 1 }}
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
