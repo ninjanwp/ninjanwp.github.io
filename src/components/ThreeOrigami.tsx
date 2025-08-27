@@ -162,8 +162,8 @@ export const ThreeOrigami = ({ className = "" }: ThreeOrigamiProps) => {
       const heroScrollProgress = Math.min(scrollY / heroHeight, 1);
       
       // Scale from 4 to 8 during hero section, then maintain at 8
-      const baseScale = 8;
-      const maxScale = 4.5;
+      const baseScale = 5;
+      const maxScale = 5;
       const currentScale = baseScale + (heroScrollProgress * (maxScale - baseScale));
       const finalScale = scrollY >= heroHeight ? maxScale : currentScale;
       
