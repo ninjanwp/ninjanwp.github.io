@@ -151,23 +151,9 @@ export const ThreeOrigami = ({ className = "" }: ThreeOrigamiProps) => {
       renderer.setSize(width, height);
     };
 
-    // Handle scroll for model scaling
+    // Handle scroll (no scaling, just placeholder for future scroll effects)
     const handleScroll = () => {
-      if (!cameraRef.current || !modelRef.current) return;
-      
-      const scrollY = window.scrollY;
-      const heroHeight = window.innerHeight; // Assume hero section is one viewport height
-      
-      // Calculate scale based on hero scroll progress
-      const heroScrollProgress = Math.min(scrollY / heroHeight, 1);
-      
-      // Scale from 4 to 8 during hero section, then maintain at 8
-      const baseScale = 5;
-      const maxScale = 5;
-      const currentScale = baseScale + (heroScrollProgress * (maxScale - baseScale));
-      const finalScale = scrollY >= heroHeight ? maxScale : currentScale;
-      
-      modelRef.current.scale.setScalar(finalScale);
+      // Model maintains constant scale - no scroll-based scaling
     };
 
     window.addEventListener('resize', handleResize);
