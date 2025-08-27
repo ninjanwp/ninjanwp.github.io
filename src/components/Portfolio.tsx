@@ -1,277 +1,270 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { 
   DiReact, 
   DiPython,
-  DiAndroid,
+  DiJava,
   DiGit,
+  DiPhotoshop,
 } from "react-icons/di";
-import { 
-  SiFigma
-} from "react-icons/si";
+import { ThreeOrigami } from "./ThreeOrigami";
 
-import { colorScheme, getBackgroundColor } from "../utils/colorScheme";
+
+
 interface SkillSection {
   id: string;
   number: string;
   title: string;
+  subtitle: string;
   description: string;
   skills: string[];
-  link?: string;
-  icon: React.ReactNode; // Single icon instead of array
+  icon: React.ReactNode;
 }
 
 const Portfolio = () => {
-  // Smooth fade transition component between sections
-  const SectionTransition = ({ toIndex, sectionRef }: { 
-    toIndex: number;
-    sectionRef: React.RefObject<HTMLDivElement>;
-  }) => {
-    const { scrollYProgress } = useScroll({
-      target: sectionRef,
-      offset: ["start start", "end start"]
-    });
+  // Animation variants for consistent animations
+  const sectionVariants = {
+    hidden: { opacity: 1 }, // Keep background visible, only animate content
+    visible: { 
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
 
-    // Simple fade transition with next section color
-    const transitionOpacity = useTransform(scrollYProgress, [0.8, 1], [0, 1]);
-    const currentOpacity = useTransform(scrollYProgress, [0.8, 1], [1, 0]);
+  const contentVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
 
-    const nextSectionColors = [
-      "bg-blue-700",    // Web Development
-      "bg-purple-700",  // Mobile Development  
-      "bg-emerald-700", // Data Analysis
-      "bg-orange-600",  // DevOps
-      "bg-rose-700"     // UI/UX Design
-    ];
+  const itemVariants = {
+    hidden: { opacity: 0, y: 5 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    }
+  };
 
-    const nextColor = nextSectionColors[toIndex % 5];
+  const iconVariants = {
+    hidden: { opacity: 0, scale: 0.8, y: 5 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        ease: "easeOut",
+        delay: 0.5
+      }
+    }
+  };
 
+  // Hero section component
+  const HeroSection = () => {
     return (
-      <>
-        {/* Fade out current section */}
-        <motion.div 
-          className="absolute inset-0 z-20 pointer-events-none h-full w-full"
-          style={{ 
-            opacity: currentOpacity,
-            backgroundColor: getBackgroundColor(toIndex - 1) || "bg-black"
-          }}
-        />
-        
-        {/* Fade in next section */}
-        <motion.div 
-          className="absolute inset-0 z-20 pointer-events-none h-full w-full"
-          style={{ 
-            opacity: transitionOpacity,
-            backgroundColor: nextColor
-          }}
-        />
-      </>
+      <motion.section
+        initial="hidden"
+        animate="visible"
+        variants={sectionVariants}
+        id="hero"
+        className="w-full text-black overflow-hidden flex items-center"
+      >
+        {/* Full Screen Grid Container */}
+        <div className="w-full h-screen relative">
+          {/* Grid Background - Responsive grid cells */}
+          <div className="absolute inset-0 grid grid-cols-5 grid-rows-8 md:grid-cols-8 md:grid-rows-10 lg:grid-cols-12 lg:grid-rows-12 pointer-events-none">
+            {/* Mobile: 5x8 = 40 cells, Tablet: 8x10 = 80 cells, Desktop: 12x12 = 144 cells */}
+            {Array.from({ length: 144 }, (_, i) => (
+              <div 
+                key={i} 
+                className="border-l border-r border-black/5 hidden lg:block"
+              />
+            ))}
+            {Array.from({ length: 80 }, (_, i) => (
+              <div 
+                key={`md-${i}`} 
+                className="border-l border-r border-black/5 hidden md:block lg:hidden"
+              />
+            ))}
+            {Array.from({ length: 40 }, (_, i) => (
+              <div 
+                key={`sm-${i}`} 
+                className="border-l border-r border-black/5 block md:hidden"
+              />
+            ))}
+          </div>
+
+          {/* Content Layer */}
+          <motion.div 
+            variants={contentVariants}
+            className="relative z-10 w-full h-screen grid grid-cols-5 grid-rows-8 md:grid-cols-8 md:grid-rows-10 lg:grid-cols-12 lg:grid-rows-12"
+          >
+            {/* Main Name - Center - Behind Moon (z-10) */}
+            <motion.div 
+              variants={itemVariants}
+              className="col-span-5 col-start-1 row-start-3 md:col-span-6 md:col-start-1 md:row-start-4 lg:col-span-8 lg:col-start-1 lg:row-start-5 overflow-visible flex flex-col items-start justify-center text-left z-20 text-black"
+              style={{ 
+                mixBlendMode: 'difference',
+                isolation: 'isolate'
+              }}
+            >
+                          <h1 className="text-8xl md:text-[12rem] lg:text-[16rem] xl:text-[20rem] font-semibold leading-[0.8] tracking-tight mb-2">
+              NICK
+            </h1>
+            <h1 className="text-8xl md:text-[12rem] lg:text-[16rem] xl:text-[20rem] font-semibold leading-[0.8] tracking-tight mb-6">
+              PFEFFER
+            </h1>
+              <h2 className="text-lg md:text-xl lg:text-2xl font-light leading-tight tracking-wide">
+                Digital Portfolio
+              </h2>
+            </motion.div>
+
+            {/* Description - In Front of Moon (z-30) */}
+            <motion.div 
+              variants={itemVariants}
+              className="col-span-2 col-start-4 row-start-6 md:col-span-2 md:col-start-6 md:row-start-7 lg:col-span-2 lg:col-start-10 lg:row-start-7 flex items-start overflow-visible z-20"
+              style={{ mixBlendMode: 'difference', color: 'black' }}
+            >
+              <p className="text-sm md:text-base leading-relaxed font-light uppercase text-left">
+                Full-Stack Developer specializing in modern web applications, mobile development, and data visualization.
+              </p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.section>
     );
   };
 
-  // Individual section component with scroll-based animations
-  const ScrollSection = ({ skill, index }: { skill: SkillSection; index: number }) => {
-    const sectionRef = useRef<HTMLDivElement>(null);
-    
-    // Track scroll progress for this specific section
-    // Use more conservative offset for better cross-environment compatibility
-    const { scrollYProgress } = useScroll({
-      target: sectionRef,
-      offset: ["start center", "end center"]
-    });
-
-    // Subtle and cool icon animations with parallax
-    const iconScale = useTransform(scrollYProgress, [0, 1], [0.9, 1.05]);
-    const iconY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]); // Smooth parallax
-    const iconX = useTransform(scrollYProgress, [0, 1], ["0%", "0%"]); // Smooth parallax
-    const iconRotate = useTransform(scrollYProgress, [0, 1], ["0deg", "10deg"]); // Slow rotation
-    const iconOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.15, 0.4, 0.4, 0.15]);
-
-    
-    // Content parallax effects with blur
-    const numberOpacity = useTransform(scrollYProgress, [0, 0.2, 0.6], [0, 0.1, 1]);
-    const numberScale = useTransform(scrollYProgress, [0, 1], [1.5, 1.5]);
-    const numberY = useTransform(scrollYProgress, [0, 1], [ "-25%", "0%"]); // Number parallax
-    const numberX = useTransform(scrollYProgress, [0, 0.5], ["0%", "0%"]); // Number parallax
-    const numberBlur = useTransform(scrollYProgress, [0.1, 0.3], [0, 0]); // Blur from 5px to 0px
-    
-    const titleOpacity = useTransform(scrollYProgress, [0.2, 0.4], [0, 1]);
-    const titleY = useTransform(scrollYProgress, [0.2, 0.4, 1], [50, 0, -50]); // Extended parallax
-    const titleBlur = useTransform(scrollYProgress, [0.2, 0.4], [5, 0]); // Blur from 5px to 0px
-    
-    const descriptionOpacity = useTransform(scrollYProgress, [0.3, 0.5], [0, 1]);
-    const descriptionY = useTransform(scrollYProgress, [0.3, 0.5, 1], [50, 0, -50]); // Parallax
-    const descriptionBlur = useTransform(scrollYProgress, [0.3, 0.5], [5, 0]); // Blur from 5px to 0px
-    
-    const tagsOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
-    const tagsY = useTransform(scrollYProgress, [0, 1], [0, 0]); // Subtle parallax
-    
-    // Button animation - appears early, no movement
-    const buttonOpacity = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
-
+  // Individual section component with asymmetrical grid layout
+  const SkillSection = ({ skill, index }: { skill: SkillSection; index: number }) => {
     return (
-      <motion.div 
-        ref={sectionRef}
-        key={skill.id}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={sectionVariants}
         id={index === 0 ? "skills" : skill.id}
-        className={`h-[200dvh] relative ${getBackgroundColor(index)}`}
-        // initial={{ opacity: 0 }}
-        // whileInView={{ opacity: 1 }}
-        // transition={{ duration: 0.6, delay: 0.2 }}
-        // viewport={{ once: true }}
+        className="h-screen text-black overflow-hidden flex items-center"
       >
-        <div className="sticky top-0 h-screen overflow-hidden">
-          {/* Section Transition Bars */}
-          <SectionTransition 
-            toIndex={index + 1}
-            sectionRef={sectionRef}
-          />
-          
-          {/* Single Background Icon with subtle parallax and cool effects */}
+        {/* Full Screen Grid Container */}
+        <div className="w-full h-screen relative">
+          {/* Grid Background - Responsive grid cells */}
+          <div className="absolute inset-0 grid grid-cols-5 grid-rows-8 md:grid-cols-8 md:grid-rows-10 lg:grid-cols-12 lg:grid-rows-12 pointer-events-none">
+            {/* Mobile: 5x8 = 40 cells, Tablet: 8x10 = 80 cells, Desktop: 12x12 = 144 cells */}
+            {Array.from({ length: 144 }, (_, i) => (
+              <div 
+                key={i} 
+                className="border-l border-r border-black/5 hidden lg:block"
+              />
+            ))}
+            {Array.from({ length: 80 }, (_, i) => (
+              <div 
+                key={`md-${i}`} 
+                className="border-l border-r border-black/5 hidden md:block lg:hidden"
+              />
+            ))}
+            {Array.from({ length: 40 }, (_, i) => (
+              <div 
+                key={`sm-${i}`} 
+                className="border-l border-r border-black/5 block md:hidden"
+              />
+            ))}
+          </div>
+
+          {/* Content Layer */}
           <motion.div 
-            className="absolute right-[-60%] -bottom-[50%] md:-right-[25%] md:-bottom-[25%] flex h-full items-center origin-center pointer-events-none"
-            style={{ 
-              scale: iconScale,
-              x: iconX,
-              y: iconY,
-              opacity: iconOpacity,
-              rotate: iconRotate
-            }}
+            variants={contentVariants}
+            className="relative z-10 w-full h-screen grid grid-cols-5 grid-rows-8 md:grid-cols-8 md:grid-rows-10 lg:grid-cols-12 lg:grid-rows-12"
           >
+            {/* Section Number - Top Left */}
             <motion.div 
-              className={`text-[30rem] md:text-[40rem] lg:text-[50rem] xl:text-[80rem] ${colorScheme.icons.opacity} transform`}
+              variants={itemVariants}
+              className="col-span-2 row-span-1 col-start-1 row-start-1 md:col-span-3 md:row-span-1 lg:col-span-3 lg:row-span-1 overflow-visible flex flex-row items-center justify-start"
             >
-              {skill.icon}
-            </motion.div>
-          </motion.div>
-
-
-                          {/* Large Number with parallax, improved scaling, and blur */}
-                <motion.div 
-                  className={`text-[12rem] md:text-[22rem] font-bold ${colorScheme.numbers.text} leading-none tracking-tighter absolute left-0 top-0`}
-                  style={{ 
-                    opacity: numberOpacity,
-                    scale: numberScale,
-                    y: numberY,
-                    x: numberX,
-                    filter: useTransform(numberBlur, (blur) => `blur(${blur}px)`)
-                  }}
-                >
-                  {skill.number}
-                </motion.div>
-
-          {/* View Work Button - positioned at same level as number and icon */}
-          {skill.link && (
-            <motion.div
-              className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30"
-              style={{ 
-                opacity: buttonOpacity
-              }}
-            >
-              <a
-                href={skill.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 text-black hover:text-white bg-transparent hover:bg-black border-2 border-black px-6 py-3 rounded-lg font-bold tracking-wide transition-all duration-300 group"
-              >
-                <span>View Work</span>
-                <svg 
-                  className="w-5 h-5" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" 
-                  />
-                </svg>
-              </a>
-            </motion.div>
-          )}
-
-          {/* Content */}
-          <div className="w-full h-full px-4 md:px-8 lg:px-12 flex items-center relative z-10">
-            <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-start w-full">
-              
-              <div className="space-y-6">
-
-
-                {/* Title with extended parallax slide up and blur */}
-                <motion.h2 
-                  className={`text-3xl md:text-5xl lg:text-6xl font-black tracking-tight ${colorScheme.text.primary} leading-[0.9] mb-6`}
-                  style={{ 
-                    opacity: titleOpacity,
-                    y: titleY,
-                    filter: useTransform(titleBlur, (blur) => `blur(${blur}px)`)
-                  }}
-                >
-                  {skill.title}
-                </motion.h2>
-
-                {/* Description with parallax slide up and blur */}
-                <motion.p 
-                  className={`text-lg md:text-xl lg:text-2xl ${colorScheme.text.secondary} font-semibold leading-[1.6] max-w-3xl tracking-wide`}
-                  style={{ 
-                    opacity: descriptionOpacity,
-                    y: descriptionY,
-                    filter: useTransform(descriptionBlur, (blur) => `blur(${blur}px)`)
-                  }}
-                >
-                  {skill.description}
-                </motion.p>
-
-                {/* Skills Tags with staggered succession animations */}
-                <motion.div 
-                  className="flex flex-wrap gap-3"
-                  style={{ 
-                    opacity: tagsOpacity,
-                    y: tagsY 
-                  }}
-                >
-                  {skill.skills.map((tech, techIndex) => {
-                    // Create individual animations for each tech item with shorter delays
-                    const techOpacity = useTransform(
-                      scrollYProgress, 
-                      [0.4 + (techIndex * 0.02), 0.55 + (techIndex * 0.02)], 
-                      [0, 1]
-                    );
-                    const techY = useTransform(
-                      scrollYProgress, 
-                      [0.4 + (techIndex * 0.02), 0.55 + (techIndex * 0.02)], 
-                      [30, 0]
-                    );
-                    const techScale = useTransform(
-                      scrollYProgress, 
-                      [0.4 + (techIndex * 0.02), 0.55 + (techIndex * 0.02)], 
-                      [0.8, 1]
-                    );
-
-                    return (
-                      <motion.span
-                        key={tech}
-                        className={`px-5 py-3 border-2 ${colorScheme.skillTags.border} ${colorScheme.skillTags.bg} ${colorScheme.skillTags.text} font-bold rounded-xl text-base tracking-wide shadow-lg`}
-                        style={{
-                          opacity: techOpacity,
-                          y: techY,
-                          scale: techScale
-                        }}
-                      >
-                        {tech}
-                      </motion.span>
-                    );
-                  })}
-                </motion.div>
+              <img 
+                src={`/assets/qrcode_${index + 1}.svg`}
+                alt={`Code ${index + 1}`}
+                className="h-12 w-12 lg:h-16 lg:w-16 flex-shrink-0"
+              />
+              <div className="text-6xl md:text-8xl font-light leading-none">
+                {skill.number}
               </div>
 
-            </div>
-          </div>
+            </motion.div>
+
+            {/* Background Icon - Top Right */}
+                        <motion.div
+              variants={iconVariants}
+              className="col-span-1 row-span-1 col-start-5 row-start-8 md:col-span-1 md:row-span-1 md:col-start-8 md:row-start-10 lg:col-span-1 lg:row-span-1 lg:col-start-12 lg:row-start-12 flex items-end justify-end pointer-events-none overflow-visible"
+            >
+              <div className="text-8xl md:text-[8rem] lg:text-[12rem] text-black">
+                {skill.icon}
+              </div>
+            </motion.div>
+
+            {/* Main Title - Third Row */}
+            <motion.div 
+              variants={itemVariants}
+              className="col-span-4 col-start-1 row-start-3 md:col-span-3 md:col-start-2 md:row-start-3 lg:col-span-4 lg:col-start-2 lg:row-start-4 overflow-visible flex items-center"
+            >
+              <div>
+                <h2 className="text-6xl lg:text-7xl xl:text-9xl font-semibold leading-[0.9] tracking-tight font-mono">
+                  {skill.title}
+                </h2>
+                <h3 className="text-lg md:text-xl lg:text-xl font-light leading-tight tracking-wide mt-6 pl-1">
+                  {skill.subtitle}
+                </h3>
+              </div>
+            </motion.div>
+
+            {/* Description - Right Side, Middle */}
+            <motion.div 
+              variants={itemVariants}
+              className="col-span-2 col-start-4 row-start-5 md:col-span-2 md:col-start-6 md:row-start-6 lg:col-span-2 lg:col-start-10 lg:row-start-6 flex items-start overflow-visible"
+            >
+              <p className="text-base leading-loose font-light uppercase text-left">
+                {skill.description}
+              </p>
+            </motion.div>
+
+            {/* Skills Grid - Left Side, Bottom */}
+            <motion.div 
+              variants={itemVariants}
+              className="col-span-2 row-span-3 col-start-1 row-start-6 md:col-span-2 md:row-span-2 md:col-start-1 md:row-start-8 lg:col-span-2 lg:row-span-3 lg:col-start-2 lg:row-start-8 flex items-start overflow-visible"
+            >
+              <div className="flex flex-col w-full justify-start md:divide-y-4 divide-black">
+                {skill.skills.map((tech, techIndex) => (
+                  <motion.span
+                    key={tech}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ 
+                      duration: 0.4, 
+                      delay: 0.8 + (techIndex * 0.1),
+                      ease: "easeOut"
+                    }}
+                    viewport={{ once: true }}
+                    className="md:text-2xl text-sm font-light font-mono text-black tracking-widest"
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
-
-
-      </motion.div>
+      </motion.section>
     );
   };
 
@@ -279,62 +272,72 @@ const Portfolio = () => {
     {
       id: "web-development",
       number: "01",
-      title: "Four Years Experience With Web Development",
-      description: "Full-stack applications with Next.js, React, TypeScript, and NoSQL. Integrations with LLMs and Restful APIs.",
+      title: "Web Development",
+      subtitle: "Full-Stack Applications",
+      description: "Four years of experience building full-stack applications with Next.js, React, TypeScript, and Tailwind CSS. Integrations with LLMs and Restful APIs.",
       skills: ["React", "TypeScript", "Node.js", "Next.js", "Tailwind CSS", "Firebase"],
-      icon: <DiReact />,
-      link: "https://github.com/ninjanwp"
+      icon: <DiReact />
     },
     {
       id: "mobile-development",
       number: "02", 
-      title: "Mobile Development with React Native and Java",
-      description: "Native and cross-platform mobile apps. Android and iOS development.",
+      title: "Mobile Development",
+      subtitle: "Cross-Platform Apps",
+      description: "Worked on native and cross-platform mobile apps using React Native and Java. Development with Android and iOS apps.",
       skills: ["React Native", "Java", "JetBrains", "Android Studio"],
-      icon: <DiAndroid />,
-      link: "https://github.com/ninjanwp"
+      icon: <DiJava />
     },
     {
       id: "data-analysis",
       number: "03",
-      title: "Enterprise Data Analysis and Modeling",
+      title: "Data Analysis",
+      subtitle: "Modeling & Representation",
       description: "Statistical analysis and machine learning with Python and R. Data architechture and ERD modeling with SQL.",
       skills: ["Python", "NumPy", "Matplotlib", "SQL", "MSSQL", "SQLite"],
-      icon: <DiPython />,
-      link: "https://github.com/ninjanwp"
+      icon: <DiPython />
     },
     {
       id: "devops",
       number: "04",
-      title: "DevOps and System Administration",
+      title: "DevOps",
+      subtitle: "Infrastructure & Automation",
       description: "Version control, containerization, and Linux system management. CI/CD pipelines and infrastructure automation.",
       skills: ["Git", "Linux", "Docker", "CI/CD", "Bash", "SSH"],
-      icon: <DiGit />,
-      link: "https://github.com/ninjanwp"
+      icon: <DiGit />
     },
     {
       id: "ui-design",
       number: "05",
-      title: "Design and Conceptual Proofing", 
+      title: "Design", 
+      subtitle: "UI/UX & Prototyping",
       description: "Interface design and user research. Prototyping in Figma and Photoshop.",
-      skills: ["Figma", "Adobe Photoshop", "Prototyping", "Wireframing"],
-      icon: <SiFigma />,
-      link: "https://github.com/ninjanwp"
+      skills: ["Figma", "Photoshop", "Prototyping", "Wireframing"],
+      icon: <DiPhotoshop />
     }
   ];
 
-
-
   return (
-    <section className="w-full">
+    <div className="w-full relative m-0 p-0">
+      {/* Sticky Running 3D Model - Fixed to viewport, behind all content */}
+      <div className="fixed inset-0 w-screen h-screen z-0 pointer-events-none" style={{ isolation: 'isolate' }}>
+        <ThreeOrigami />
+      </div>
+      
+      {/* Global backdrop blur overlay for all sections */}
+      <div className="fixed inset-0 w-screen h-screen z-10 pointer-events-none backdrop-blur-lg"></div>
+      
+      {/* Hero Section */}
+      <HeroSection />
+      
+      {/* Portfolio Sections */}
       {skillSections.map((skill, index) => (
-        <ScrollSection 
+        <SkillSection 
           key={skill.id}
           skill={skill}
           index={index}
         />
       ))}
-    </section>
+    </div>
   );
 };
 

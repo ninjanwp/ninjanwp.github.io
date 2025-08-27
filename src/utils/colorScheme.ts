@@ -5,18 +5,18 @@ export const colorScheme = {
   // Background colors for portfolio sections
   backgrounds: {
     hero: "bg-black",
-    webDev: "bg-blue-700",
-    mobileDev: "bg-purple-700", 
-    dataAnalysis: "bg-emerald-700",
-    uiDesign: "bg-rose-700",
-    devOps: "bg-orange-600",
+    webDev: "bg-neutral-900",
+    mobileDev: "bg-neutral-900", 
+    dataAnalysis: "bg-neutral-900",
+    uiDesign: "bg-neutral-900",
+    devOps: "bg-neutral-900",
     footer: "bg-black"
   },
 
   // Text colors
   text: {
-    primary: "text-black",
-    secondary: "text-black",
+    primary: "text-white",
+    secondary: "text-white",
     light: "text-white",
     lightSecondary: "text-white/80",
     accent: "text-white",
@@ -50,7 +50,7 @@ export const colorScheme = {
 
   // Icon colors
   icons: {
-    opacity: "text-black/20"
+    opacity: "text-red-700"
   }
 };
 

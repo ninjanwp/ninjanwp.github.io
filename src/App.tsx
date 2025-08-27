@@ -1,4 +1,3 @@
-import { Hero } from './components/Hero';
 import Portfolio from './components/Portfolio';
 import Footer from './components/Footer';
 import { Navigation } from './components/Navigation';
@@ -15,15 +14,10 @@ function App() {
       touchMultiplier: 2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
     }}>
-      <main className="w-full flex flex-col items-center justify-center bg-black">
+      <main className="w-full flex flex-col items-center justify-start bg-yellow-100 min-h-screen">
       <Navigation />
       
-      {/* Hero section with custom background */}
-      <div className="w-full relative">
-        <Hero />
-      </div>
-      
-      {/* Portfolio section combining skills and projects */}
+      {/* Portfolio section now includes Hero as first section */}
       <div className="w-full">
         <Portfolio />
       </div>

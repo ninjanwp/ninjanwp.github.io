@@ -60,7 +60,7 @@ const Navigation = () => {
       target = elementTop;
     } else {
       // Portfolio sections - scroll to 50% of the section
-      target = elementTop + (elementHeight * 0.4
+      target = elementTop + (elementHeight * 0
   
       );
     }

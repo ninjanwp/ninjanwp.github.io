@@ -18,11 +18,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+html, body {
   margin: 0;
   padding: 0;
-  background-color: #000; /* Using the background color from Tailwind config */
-  color: #FFFFFF;
+  background-color: #FFFFFF; /* Updated to white to match new theme */
+  color: #000000;
 }
 
 /* Mobile viewport handling */
@@ -30,7 +30,7 @@ body {
   body {
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
-    padding-top: env(safe-area-inset-top);
+    padding-top: 0; /* Remove top padding that could cause space */
     padding-bottom: env(safe-area-inset-bottom);
   }
 }
